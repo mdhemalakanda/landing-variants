@@ -35,16 +35,16 @@ NEW course photos (in `images/`, each ~1600×900, bright Finnish home, senior wo
 | `images/img-05.jpg` | standing, feet hip-width, smiling | "Seisonta jalat lantion leveydellä" |
 | `images/img-06.jpg` | relaxed stance, gaze aside | "Rauhallinen lähtöasento harjoitteluun" |
 
-Original site photos (one level up, under `../wp-content/uploads/2026/09/`):
+Original site photos (one level up, under `images/orig-`):
 | path | alt |
 | --- | --- |
-| `../wp-content/uploads/2026/09/hero-balance-single-leg.jpg` | "Tasapainoharjoitus yhdellä jalalla" |
-| `../wp-content/uploads/2026/09/explainer-tandem-walk.jpg` | "Tandemkävely-testin suoritus" |
-| `../wp-content/uploads/2026/09/course-welcome.jpg` | "Tervetuloa kurssille" |
-| `../wp-content/uploads/2026/09/test-1-feet-together.jpg` | "Testi 1: seisonta jalat yhdessä" |
-| `../wp-content/uploads/2026/09/test-2-hip-width.jpg` | "Testi 2: seisonta jalat lantion leveydellä" |
-| `../wp-content/uploads/2026/09/test-3-narrow-step.jpg` | "Testi 3: kapea askel" |
-| `../wp-content/uploads/2026/09/profile-side-stand.jpg` | "Seisonta sivuprofiilissa" |
+| `images/orig-hero-balance-single-leg.jpg` | "Tasapainoharjoitus yhdellä jalalla" |
+| `images/orig-explainer-tandem-walk.jpg` | "Tandemkävely-testin suoritus" |
+| `images/orig-course-welcome.jpg` | "Tervetuloa kurssille" |
+| `images/orig-test-1-feet-together.jpg` | "Testi 1: seisonta jalat yhdessä" |
+| `images/orig-test-2-hip-width.jpg` | "Testi 2: seisonta jalat lantion leveydellä" |
+| `images/orig-test-3-narrow-step.jpg` | "Testi 3: kapea askel" |
+| `images/orig-profile-side-stand.jpg` | "Seisonta sivuprofiilissa" |
 
 MANDATORY gallery: at least one polished image showcase (carousel/auto-sliding gallery, scroller-snap strip, or lightbox grid — pick what fits the design best) that includes ALL 7 new photos (`images/img-00..06.jpg`). Dribbble-quality: smooth autoplay (4–6 s), pause on hover/focus, prev/next arrows + dots or counter, swipe/drag support, keyboard accessible (arrow keys, buttons are real <button>), aria-live announcement of current slide, stops when prefers-reduced-motion. Distribute the remaining images naturally (hero, steps, price, why, expert, etc.). `loading="lazy"` on all except the hero/first slide; every <img> gets Finnish alt text, object-fit: cover, and a background-color placeholder frame so layout never collapses.
 
