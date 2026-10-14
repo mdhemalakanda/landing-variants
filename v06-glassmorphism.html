@@ -21,13 +21,13 @@
   --sky:#7CB8FF;
   --violet:#B49CFF;
   --mint:#7FE3C0;
-  --glass:rgba(255,255,255,.62);
-  --glass-2:rgba(255,255,255,.72);
-  --glass-3:rgba(255,255,255,.55);
-  --gline:rgba(255,255,255,.6);
-  --r-s:12px;
+  --glass:rgba(255,255,255,.6);
+  --glass-2:rgba(255,255,255,.7);
+  --glass-3:rgba(255,255,255,.5);
+  --gline:rgba(255,255,255,.4);
+  --r-s:16px;
   --r-m:20px;
-  --r-l:28px;
+  --r-l:24px;
   --sh-s:0 1px 2px rgba(16,22,43,.05), 0 6px 18px rgba(16,22,43,.07);
   --sh-m:0 2px 6px rgba(16,22,43,.05), 0 18px 44px -18px rgba(16,22,43,.22);
   --sh-l:0 4px 10px rgba(16,22,43,.05), 0 36px 90px -30px rgba(16,22,43,.30);
@@ -66,7 +66,7 @@ a{color:var(--blue);text-decoration:none}
 /* ============ mesh background ============ */
 .mesh{position:fixed;inset:0;z-index:-1;overflow:hidden;
   background:linear-gradient(165deg,#F5F9FF 0%,#EFF4FE 42%,#F0F7F3 100%)}
-.blob{position:absolute;border-radius:50%;will-change:transform;opacity:.6}
+.blob{position:absolute;border-radius:50%;will-change:transform;opacity:.68}
 .blob-a{width:64vmax;height:64vmax;top:-24vmax;left:-16vmax;
   background:radial-gradient(circle at 38% 38%, rgba(124,184,255,.50), rgba(124,184,255,0) 68%);
   animation:drift-a 38s ease-in-out infinite alternate}
@@ -190,25 +190,25 @@ h3{font-weight:600;font-size:clamp(1.08rem,1.6vw,1.28rem);letter-spacing:-0.015e
 
 /* ============ hero ============ */
 .hero{padding-top:clamp(28px,5vw,56px)}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,64px);align-items:center}
+.hero-grid{display:flex;flex-direction:column;align-items:center;text-align:center}
 .badge{display:inline-flex;align-items:center;gap:9px;padding:9px 18px;border-radius:999px;
   background:var(--glass-2);border:1px solid var(--gline);box-shadow:var(--sh-s);
   font-weight:600;font-size:.85rem;color:var(--ink-2);
   -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
 .badge svg{color:var(--blue)}
 .hero h1{margin:22px 0 18px}
-.hero .lead{margin-bottom:30px}
-.hero-ctas{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:34px}
-.hero-chips{display:flex;flex-wrap:wrap;gap:10px}
+.hero .lead{margin-bottom:30px;margin-inline:auto}
+.hero-ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-bottom:34px}
+.hero-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
 .chip{display:inline-flex;align-items:center;gap:8px;padding:9px 15px;border-radius:999px;
   background:rgba(255,255,255,.5);border:1px solid var(--gline);
   font-size:.83rem;font-weight:500;color:var(--ink-2);
   -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
   box-shadow:0 2px 8px rgba(16,22,43,.05)}
 .chip svg{color:var(--blue);flex:0 0 auto}
-.hero-visual{position:relative}
+.hero-visual{position:relative;width:min(660px,100%);margin-top:clamp(36px,5vw,56px)}
 .hero-frame{position:relative;border-radius:var(--r-l);padding:12px;overflow:visible}
-.hero-frame .ph{border-radius:calc(var(--r-l) - 12px);overflow:hidden;aspect-ratio:4/3.4;
+.hero-frame .ph{border-radius:calc(var(--r-l) - 8px);overflow:hidden;aspect-ratio:4/3.4;
   background:linear-gradient(135deg,#DCE8FB,#E8E2FB 55%,#DDF3EA)}
 .hero-frame img{width:100%;height:100%;object-fit:cover;border-radius:inherit}
 .float-card{position:absolute;display:flex;align-items:center;gap:12px;padding:14px 18px;
@@ -224,7 +224,7 @@ h3{font-weight:600;font-size:clamp(1.08rem,1.6vw,1.28rem);letter-spacing:-0.015e
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 
 /* ============ steps ============ */
-.steps-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .step{position:relative;padding:30px 30px 32px;display:flex;flex-direction:column;gap:14px;
   transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease}
 .step:hover{transform:translateY(-5px);box-shadow:inset 0 1px 0 rgba(255,255,255,.8),var(--sh-l)}
@@ -235,13 +235,14 @@ h3{font-weight:600;font-size:clamp(1.08rem,1.6vw,1.28rem);letter-spacing:-0.015e
 .step-num{font-family:var(--font-d);font-weight:700;font-size:.8rem;letter-spacing:.12em;
   color:var(--ink-3);background:rgba(16,22,43,.06);padding:6px 12px;border-radius:999px}
 .step p{color:var(--ink-2);font-size:.95rem}
-.step-media{margin-top:6px;border-radius:calc(var(--r-l) - 8px);overflow:hidden;aspect-ratio:16/7.2;
-  background:linear-gradient(135deg,#DCE8FB,#E4DDFB 55%,#DCF2E8)}
-.step-media img{width:100%;height:100%;object-fit:cover}
+.step-media-tile{padding:12px;grid-column:3;grid-row:1 / span 2;display:flex}
+.step-media-tile .ph{flex:1;border-radius:calc(var(--r-l) - 8px);overflow:hidden;
+  background:linear-gradient(135deg,#DCE8FB,#E8E2FB 55%,#DDF3EA)}
+.step-media-tile img{width:100%;height:100%;object-fit:cover;border-radius:inherit}
 
 /* ============ gallery ============ */
 .g-frame{position:relative;padding:14px;border-radius:var(--r-l)}
-.g-viewport{position:relative;border-radius:calc(var(--r-l) - 10px);overflow:hidden;
+.g-viewport{position:relative;border-radius:calc(var(--r-l) - 8px);overflow:hidden;
   background:linear-gradient(135deg,#DCE8FB,#E8E2FB 55%,#DDF3EA);touch-action:pan-y;cursor:grab}
 .g-viewport.dragging{cursor:grabbing}
 .g-track{display:flex;transition:transform .65s cubic-bezier(.22,1,.36,1)}
@@ -302,7 +303,7 @@ h3{font-weight:600;font-size:clamp(1.08rem,1.6vw,1.28rem);letter-spacing:-0.015e
 .reassure{display:flex;align-items:center;gap:9px;margin-top:18px;font-size:.88rem;color:var(--ink-3)}
 .reassure svg{color:#0E9F6E;flex:0 0 auto}
 .price-media{border-radius:var(--r-l);padding:12px}
-.price-media .ph{border-radius:calc(var(--r-l) - 12px);overflow:hidden;aspect-ratio:4/4.6;
+.price-media .ph{border-radius:calc(var(--r-l) - 8px);overflow:hidden;aspect-ratio:4/4.6;
   background:linear-gradient(160deg,#DCE8FB,#E8E2FB 55%,#DDF3EA)}
 .price-media img{width:100%;height:100%;object-fit:cover;border-radius:inherit}
 .price-media figcaption{display:flex;align-items:center;gap:8px;padding:14px 8px 4px;
@@ -322,7 +323,7 @@ h3{font-weight:600;font-size:clamp(1.08rem,1.6vw,1.28rem);letter-spacing:-0.015e
 /* ============ expert ============ */
 .expert-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,4vw,56px);align-items:start}
 .expert-media{border-radius:var(--r-l);padding:12px;position:relative}
-.expert-media .ph{border-radius:calc(var(--r-l) - 12px);overflow:hidden;aspect-ratio:4/4.4;
+.expert-media .ph{border-radius:calc(var(--r-l) - 8px);overflow:hidden;aspect-ratio:4/4.4;
   background:linear-gradient(160deg,#DDF3EA,#DCE8FB 60%,#E8E2FB)}
 .expert-media img{width:100%;height:100%;object-fit:cover;border-radius:inherit}
 .cred-row{display:flex;flex-wrap:wrap;gap:9px;margin:18px 0 14px}
@@ -341,7 +342,7 @@ h3{font-weight:600;font-size:clamp(1.08rem,1.6vw,1.28rem);letter-spacing:-0.015e
 /* ============ quiz ============ */
 .quiz-wrap{max-width:780px;margin-inline:auto;display:grid;gap:16px}
 .q-item{padding:24px 28px;display:grid;grid-template-columns:auto 1fr auto;gap:8px 22px;align-items:center}
-.q-num{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;grid-row:span 2;
+.q-num{width:42px;height:42px;border-radius:16px;display:grid;place-items:center;grid-row:span 2;
   font-family:var(--font-d);font-weight:700;color:var(--blue);
   background:linear-gradient(145deg,rgba(255,255,255,.9),rgba(255,255,255,.5));
   border:1px solid var(--gline);box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
@@ -370,7 +371,7 @@ h3{font-weight:600;font-size:clamp(1.08rem,1.6vw,1.28rem);letter-spacing:-0.015e
 /* ============ purchase ============ */
 .buy-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:clamp(28px,4vw,52px);align-items:center}
 .buy-media{border-radius:var(--r-l);padding:12px}
-.buy-media .ph{border-radius:calc(var(--r-l) - 12px);overflow:hidden;aspect-ratio:4/3.6;
+.buy-media .ph{border-radius:calc(var(--r-l) - 8px);overflow:hidden;aspect-ratio:4/3.6;
   background:linear-gradient(150deg,#DCE8FB,#DDF3EA 60%,#E8E2FB)}
 .buy-media img{width:100%;height:100%;object-fit:cover;border-radius:inherit}
 .buy-panel{padding:clamp(28px,4vw,44px)}
@@ -436,15 +437,16 @@ h3{font-weight:600;font-size:clamp(1.08rem,1.6vw,1.28rem);letter-spacing:-0.015e
 
 /* ============ responsive ============ */
 @media (max-width:1024px){
-  .hero-grid{grid-template-columns:1fr;gap:44px}
-  .hero-visual{max-width:620px}
+  .hero-visual{width:min(600px,100%)}
+  .steps-grid{grid-template-columns:repeat(2,1fr)}
+  .step-media-tile{grid-column:1 / -1;grid-row:auto}
+  .step-media-tile .ph{aspect-ratio:16/7}
   .price-grid,.expert-grid,.buy-grid{grid-template-columns:1fr}
   .price-media .ph,.expert-media .ph{aspect-ratio:16/9}
   .expert-media{max-width:560px}
 }
 @media (max-width:860px){
   .steps-grid{grid-template-columns:1fr}
-  .step-media{aspect-ratio:16/8}
   .foot-grid{grid-template-columns:1fr 1fr}
 }
 @media (max-width:720px){
@@ -569,7 +571,7 @@ h3{font-weight:600;font-size:clamp(1.08rem,1.6vw,1.28rem);letter-spacing:-0.015e
       <div class="hero-visual reveal" data-d="2">
         <figure class="hero-frame glass">
           <div class="ph">
-            <img src="images/hero-balance-single-leg.jpg" alt="Tasapainoharjoitus yhdellä jalalla" width="1600" height="900" fetchpriority="high">
+            <img src="images/orig-hero-balance-single-leg.jpg" alt="Tasapainoharjoitus yhdellä jalalla" width="1600" height="900" fetchpriority="high">
           </div>
         </figure>
         <div class="float-card fc-1" aria-hidden="true">
@@ -617,6 +619,11 @@ h3{font-weight:600;font-size:clamp(1.08rem,1.6vw,1.28rem);letter-spacing:-0.015e
           <h3>Etene omaan tahtiisi</h3>
           <p>Harjoittele oman aikataulusi mukaan kuukauden ajan. Keskimäärin harjoitukset ottavat aikaa 10 minuuttia päivässä.</p>
         </article>
+        <figure class="step-media-tile glass reveal" data-d="2">
+          <div class="ph">
+            <img src="images/orig-explainer-tandem-walk.jpg" alt="Tandemkävely-testin suoritus" width="1600" height="900" loading="lazy">
+          </div>
+        </figure>
         <article class="step glass reveal" data-d="1">
           <div class="step-top">
             <span class="icon-chip" aria-hidden="true">
@@ -638,11 +645,6 @@ h3{font-weight:600;font-size:clamp(1.08rem,1.6vw,1.28rem);letter-spacing:-0.015e
           <p>Säännöllisellä harjoittelulla tasapainosi kehittyy. Verkkokurssin mittareiden avulla voit arvioida oireiden vähentymistä ja toimintakyvyn lisääntymistä. Voit halutessasi jatkaa kurssia kuukauden jälkeen.</p>
         </article>
       </div>
-      <figure class="step glass step-media-holder reveal" data-d="2" style="margin-top:22px;padding:12px">
-        <div class="step-media" style="margin-top:0">
-          <img src="images/explainer-tandem-walk.jpg" alt="Tandemkävely-testin suoritus" width="1600" height="900" loading="lazy">
-        </div>
-      </figure>
     </div>
   </section>
 
@@ -765,7 +767,7 @@ h3{font-weight:600;font-size:clamp(1.08rem,1.6vw,1.28rem);letter-spacing:-0.015e
       </div>
       <figure class="price-media glass reveal" data-d="1">
         <div class="ph">
-          <img src="images/test-3-narrow-step.jpg" alt="Testi 3: kapea askel" width="1600" height="900" loading="lazy">
+          <img src="images/orig-test-3-narrow-step.jpg" alt="Testi 3: kapea askel" width="1600" height="900" loading="lazy">
         </div>
         <figcaption>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20.5c1.4-3.8 4.6-5.3 7.5-5.3s6.1 1.5 7.5 5.3"/></svg>
@@ -785,7 +787,7 @@ h3{font-weight:600;font-size:clamp(1.08rem,1.6vw,1.28rem);letter-spacing:-0.015e
       <div class="why-grid">
         <article class="why-card glass reveal">
           <div class="why-media">
-            <img src="images/test-1-feet-together.jpg" alt="Testi 1: seisonta jalat yhdessä" width="1600" height="900" loading="lazy">
+            <img src="images/orig-test-1-feet-together.jpg" alt="Testi 1: seisonta jalat yhdessä" width="1600" height="900" loading="lazy">
           </div>
           <div class="why-body">
             <span class="why-num" aria-hidden="true">01</span>
@@ -795,7 +797,7 @@ h3{font-weight:600;font-size:clamp(1.08rem,1.6vw,1.28rem);letter-spacing:-0.015e
         </article>
         <article class="why-card glass reveal" data-d="1">
           <div class="why-media">
-            <img src="images/test-2-hip-width.jpg" alt="Testi 2: seisonta jalat lantion leveydellä" width="1600" height="900" loading="lazy">
+            <img src="images/orig-test-2-hip-width.jpg" alt="Testi 2: seisonta jalat lantion leveydellä" width="1600" height="900" loading="lazy">
           </div>
           <div class="why-body">
             <span class="why-num" aria-hidden="true">02</span>
@@ -812,7 +814,7 @@ h3{font-weight:600;font-size:clamp(1.08rem,1.6vw,1.28rem);letter-spacing:-0.015e
     <div class="container expert-grid">
       <figure class="expert-media glass reveal">
         <div class="ph">
-          <img src="images/profile-side-stand.jpg" alt="Seisonta sivuprofiilissa" width="1600" height="900" loading="lazy">
+          <img src="images/orig-profile-side-stand.jpg" alt="Seisonta sivuprofiilissa" width="1600" height="900" loading="lazy">
         </div>
       </figure>
       <div>
@@ -930,7 +932,7 @@ h3{font-weight:600;font-size:clamp(1.08rem,1.6vw,1.28rem);letter-spacing:-0.015e
     <div class="container buy-grid">
       <figure class="buy-media glass reveal">
         <div class="ph">
-          <img src="images/course-welcome.jpg" alt="Tervetuloa kurssille" width="1600" height="900" loading="lazy">
+          <img src="images/orig-course-welcome.jpg" alt="Tervetuloa kurssille" width="1600" height="900" loading="lazy">
         </div>
       </figure>
       <div class="buy-panel glass reveal" data-d="1">
