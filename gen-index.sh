@@ -96,6 +96,8 @@ entry 32 v32-blueprint.html "Blueprint" "Sinikopiotekniikka: ruutupaperi, mitat,
 entry 33 v33-luxe-spa.html "Luxe Spa" "Kivi, mets&auml;nvihre&auml; ja messinki &ndash; hiljainen spa." "#2E4038" "#B49B6C"
 entry 34 v34-athletic-drive.html "Athletic Drive" "Urheilullinen vauhti: kursivoitu kondenssi, grafiitti + oranssi." "#FF5A1F" "#17191D"
 entry 35 v35-layered-frost.html "Layered Frost" "Kerrostettu huurre: syvyys, pehme&auml; gradientti, parallax." "#DCE7FF" "#EDE4FF"
+entry 36 v36-gsap-motion.html "GSAP Motion" "GSAP + ScrollTrigger -animaatiot, SplitText-otsikot, Instrument Serif -aksentti." "#D946EF" "#22D3EE"
+entry 37 v37-gsap-motion-pro.html "GSAP Motion Pro" "Edistyneempi GSAP-versio: kiinnitetyt osiot, parallax ja per&auml;kk&auml;iset paljastukset." "#A78BFA" "#22D3EE"
 
 cat <<'MID2'
   </div>
