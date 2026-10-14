@@ -27,8 +27,8 @@
   --wrap:1280px; --hh:84px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-html.motion{scroll-behavior:auto}
+html{scroll-behavior:smooth;overflow-x:clip}
+html.motion:not(.motion-calm){scroll-behavior:auto}
 html.is-locked,html.is-locked body{overflow:hidden}
 body{font-family:var(--fb);background:var(--paper);color:var(--ink);font-size:16.5px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:clip}
 img{display:block;max-width:100%}
@@ -147,7 +147,7 @@ html.has-cursor #cursor-dot,html.has-cursor #cursor-ring{opacity:1}
 .scroll-hint__line::after{content:"";position:absolute;left:0;top:-100%;width:100%;height:100%;background:var(--pine);animation:drip 1.8s cubic-bezier(.77,0,.18,1) infinite}
 @keyframes drip{to{top:100%}}
 /* ---------- marquee ---------- */
-.mq{background:var(--lime);border-block:1px solid var(--ink);transform:rotate(-1.2deg) scale(1.02);margin:-14px 0 0;position:relative;z-index:2}
+.mq{background:var(--lime);border-block:1px solid var(--ink);transform:rotate(-1.2deg) scale(1.02);margin:-14px 0 0;position:relative;z-index:2;overflow:hidden}
 .mq-track{display:flex;width:max-content;animation:mq 28s linear infinite}
 .mq:hover .mq-track{animation-play-state:paused}
 .mq-group{display:flex;align-items:center}
@@ -305,6 +305,12 @@ html.has-cursor #cursor-dot,html.has-cursor #cursor-ring{opacity:1}
 .footer-bottom nav{display:flex;gap:22px}
 .footer-bottom nav a{color:var(--paper50);text-decoration:none;transition:color .3s}
 .footer-bottom nav a:hover{color:var(--paper)}
+/* ---------- calm mode / static fallback: steps stacked, no pin ---------- */
+html:not(.motion) .steps-pin,html.motion-calm .steps-pin{min-height:0;padding:clamp(80px,11vh,130px) 0 30px;display:block}
+html:not(.motion) .steps-track,html.motion-calm .steps-track{flex-direction:column;width:auto;margin-top:38px}
+html:not(.motion) .step-card,html.motion-calm .step-card{flex:auto}
+html:not(.motion) .steps-end,html.motion-calm .steps-end{flex:auto}
+html:not(.motion) .steps-progress,html.motion-calm .steps-progress{display:none}
 /* ---------- responsive ---------- */
 @media (max-width:1100px){
   .hero-grid,.price-grid,.expert-grid,.quiz-grid,.buy-grid{grid-template-columns:1fr;gap:56px}
@@ -515,7 +521,7 @@ html.has-cursor #cursor-dot,html.has-cursor #cursor-ring{opacity:1}
   </section>
 
   <!-- ================= GALLERY ================= -->
-  <section class="gallery dark section" aria-labelledby="galleria-h2">
+  <section class="gallery dark section" id="galleria" aria-labelledby="galleria-h2">
     <div class="wrap">
       <div class="c-head">
         <div data-reveal>
@@ -816,7 +822,7 @@ html.has-cursor #cursor-dot,html.has-cursor #cursor-ring{opacity:1}
 'use strict';
 var d=document,w=window,html=d.documentElement;
 var reduced=w.matchMedia('(prefers-reduced-motion: reduce)').matches;
-var hasGsap=(typeof w.gsap==='function')&&(typeof w.ScrollTrigger!=='undefined');
+var hasGsap=(typeof w.gsap!=='undefined')&&(typeof w.ScrollTrigger!=='undefined');
 var motionOK=hasGsap&&!reduced;
 var finePointer=w.matchMedia('(pointer: fine)').matches;
 function $(s,c){return (c||d).querySelector(s);}
@@ -1153,7 +1159,30 @@ function initMotion(){
   if(d.fonts&&d.fonts.ready){d.fonts.ready.then(function(){ScrollTrigger.refresh();});}
 }
 
-if(motionOK){initMotion();}
+function initCalm(){
+  html.classList.add('motion','motion-calm');
+  gsap.registerPlugin(ScrollTrigger);
+  ['#preloader','#shutterB'].forEach(function(sel){
+    var el=$(sel);
+    if(el&&el.parentElement){el.parentElement.removeChild(el);}
+  });
+  $$('[data-reveal]').forEach(function(el){
+    gsap.from(el,{opacity:0,duration:.5,ease:'power1.out',
+      scrollTrigger:{trigger:el,start:'top 92%',once:true}});
+  });
+  $$('[data-lines]').forEach(function(wrap){
+    gsap.from($$('.li',wrap),{opacity:0,duration:.6,stagger:.08,ease:'power1.out',
+      scrollTrigger:{trigger:wrap,start:'top 92%',once:true}});
+  });
+  gsap.from('.footer-giant .li',{opacity:0,duration:.8,stagger:.1,ease:'power1.out',
+    scrollTrigger:{trigger:'.footer-giant',start:'top 95%',once:true}});
+  gsap.set('.hero-badge,.hero-sub,.hero-cta,.hero-chips,.hero-float,.hero-frame',{opacity:0});
+  gsap.to('.hero-badge,.hero-sub,.hero-cta,.hero-chips,.hero-float,.hero-frame',
+    {opacity:1,duration:.6,stagger:.07,ease:'power1.out',delay:.15});
+}
+
+if(hasGsap&&!reduced){initMotion();}
+else if(hasGsap){initCalm();}
 else{
   html.classList.add('no-motion');
   ['#preloader','#shutterB'].forEach(function(sel){
