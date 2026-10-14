@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parempi tasapaino® – verkkokurssi | v31 Zine Collage</title>
+<meta name="description" content="Kustannustehokas ja hoitosuosituksiin perustuva verkkokuntoutus epätasapainon ja huimauksen hoitoon.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Caveat:wght@500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   v31 — ZINE COLLAGE, TAMED
+   scrapbook on a strict grid · polaroids · tape · marker ink
+   ============================================================ */
+:root{
+  --paper:#FDFCFA;
+  --ink:#16161A;
+  --muted:#4E4E56;
+  --line:#E5E0D5;
+  --marker:#FFE14D;
+  --tape:#E8E3D8;
+  --card:#FFFDF6;
+  --hole:#E3DCCD;
+  --red:#D64536;
+  --radius:10px;
+  --shadow-soft:0 14px 30px rgba(22,22,26,.12), 0 2px 8px rgba(22,22,26,.07);
+  --shadow-lift:0 22px 44px rgba(22,22,26,.16), 0 4px 10px rgba(22,22,26,.08);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+  --header-h:74px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:auto}
+@media (prefers-reduced-motion:no-preference){ html{scroll-behavior:smooth} }
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font:400 17px/1.7 "Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+a{color:inherit}
+::selection{background:var(--marker);color:var(--ink)}
+h1,h2,.display{font-family:"Archivo Black","Inter",sans-serif;font-weight:400;letter-spacing:-.015em;line-height:1.06}
+h1{font-size:clamp(40px,6.2vw,72px)}
+h2{font-size:clamp(28px,4.4vw,44px)}
+h3{font-size:20px;line-height:1.35;font-weight:800;letter-spacing:-.01em}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.wrap{width:min(1160px,100% - 48px);margin-inline:auto}
+section{scroll-margin-top:calc(var(--header-h) + 22px)}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:3px}
+
+/* ---------- skip link ---------- */
+.skip{position:fixed;top:-60px;left:18px;z-index:200;background:var(--ink);color:var(--paper);padding:12px 20px;border-radius:0 0 10px 10px;font-weight:700;text-decoration:none;transition:top .25s ease}
+.skip:focus-visible{top:0}
+
+/* ---------- torn paper chip ---------- */
+:root{--torn:polygon(0% 14%,4% 2%,9% 10%,15% 1%,21% 11%,28% 2%,35% 9%,42% 1%,49% 10%,56% 2%,63% 9%,70% 1%,77% 10%,84% 2%,91% 9%,96% 3%,100% 11%,100% 86%,96% 98%,90% 90%,83% 99%,76% 90%,69% 99%,62% 91%,55% 99%,48% 90%,41% 99%,34% 91%,27% 99%,20% 90%,13% 99%,6% 91%,0% 97%)}
+.torn{display:inline-block;font:800 12px/1 "Inter",sans-serif;letter-spacing:.1em;text-transform:uppercase;background:var(--marker);color:var(--ink);padding:11px 18px;clip-path:var(--torn)}
+.torn--paper{background:#fff;box-shadow:inset 0 0 0 1.5px var(--ink)}
+.torn--ink{background:var(--ink);color:var(--paper)}
+
+/* ---------- marker highlight ---------- */
+.marker-hit{display:inline-block;background:var(--marker);padding:.02em .16em .06em;transform:rotate(-1deg) skewX(-2deg);box-decoration-break:clone;-webkit-box-decoration-break:clone}
+
+/* ---------- polaroid ---------- */
+.polaroid{position:relative;background:#fff;padding:12px 12px 14px;border:1px solid var(--line);box-shadow:var(--shadow-soft)}
+.polaroid img{width:100%;object-fit:cover;background:var(--line);-webkit-user-drag:none;user-select:none}
+.polaroid-cap{display:flex;align-items:baseline;gap:10px;padding-top:10px;font:500 13px/1.45 "Inter",sans-serif;color:var(--muted)}
+.polaroid-cap b{font-family:"Archivo Black",sans-serif;font-weight:400;color:var(--ink);font-size:12px;letter-spacing:.06em;flex:none}
+/* washi tape strips at the corners */
+.tape::before,.tape::after{content:"";position:absolute;width:76px;height:22px;background:linear-gradient(rgba(232,227,216,.92),rgba(232,227,216,.78));border:1px solid rgba(22,22,26,.07);box-shadow:0 1px 3px rgba(22,22,26,.14);opacity:.88;pointer-events:none;z-index:3}
+.tape::before{top:-9px;left:-20px;transform:rotate(-45deg)}
+.tape::after{top:-9px;right:-20px;transform:rotate(45deg)}
+.tape--yellow::before,.tape--yellow::after{background:linear-gradient(rgba(255,225,77,.9),rgba(255,225,77,.74))}
+.tape--single::after{display:none}
+
+/* ---------- caveat scribbles (decorative only) ---------- */
+.scribble{font-family:"Caveat",cursive;font-weight:600;font-size:clamp(20px,2.4vw,26px);line-height:1.1;color:var(--ink);transform:rotate(-4deg)}
+.scribble svg{flex:none}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:700 16px/1 "Inter",sans-serif;text-decoration:none;border-radius:12px;padding:17px 26px;border:1.5px solid var(--ink);cursor:pointer;transition:transform .22s var(--spring),box-shadow .22s ease,background-color .22s ease;will-change:transform}
+.btn svg{flex:none}
+.btn--primary{background:var(--ink);color:var(--paper);box-shadow:4px 4px 0 rgba(22,22,26,.28)}
+.btn--primary:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 rgba(22,22,26,.32);background:#000}
+.btn--primary:active{transform:translate(1px,1px);box-shadow:2px 2px 0 rgba(22,22,26,.3)}
+.btn--ghost{background:#fff;color:var(--ink);box-shadow:3px 3px 0 rgba(22,22,26,.14)}
+.btn--ghost:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 rgba(22,22,26,.18);background:var(--card)}
+.btn--ghost:active{transform:translate(1px,1px);box-shadow:1px 1px 0 rgba(22,22,26,.16)}
+.btn.is-dim{opacity:.45;cursor:not-allowed;box-shadow:none;transform:none}
+
+/* ---------- header / nav ---------- */
+.site-header{position:sticky;top:0;z-index:100;background:rgba(253,252,250,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:28px;height:var(--header-h)}
+.brand{display:inline-flex;align-items:center;gap:11px;text-decoration:none;font-family:"Archivo Black",sans-serif;font-size:17px;letter-spacing:-.01em;white-space:nowrap}
+.brand svg{flex:none}
+.nav-menu{display:flex;align-items:center;gap:6px;margin-left:auto;list-style:none}
+.nav-menu a:not(.btn){display:block;padding:10px 13px;font:600 15px/1 "Inter",sans-serif;text-decoration:none;border-radius:9px;transition:background-color .2s ease,box-shadow .2s ease}
+.nav-menu a:not(.btn):hover{background:var(--marker);box-shadow:2px 2px 0 rgba(22,22,26,.2)}
+.nav-cta{margin-left:8px;padding:12px 20px !important;font-size:14.5px !important}
+.nav-burger{display:none;margin-left:auto;width:48px;height:48px;border:1.5px solid var(--ink);border-radius:10px;background:#fff;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;box-shadow:2px 2px 0 rgba(22,22,26,.14)}
+.nav-burger span{display:block;width:20px;height:2px;background:var(--ink);transition:transform .25s ease,opacity .2s ease}
+.nav-burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.nav-burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media (max-width:920px){
+  .nav-burger{display:flex}
+  .nav-menu{display:none;position:absolute;top:var(--header-h);left:0;right:0;background:var(--paper);border-bottom:1.5px solid var(--ink);flex-direction:column;align-items:stretch;gap:4px;padding:18px 24px 24px;box-shadow:0 24px 40px rgba(22,22,26,.14)}
+  .nav-menu a:not(.btn){padding:14px 12px;font-size:17px}
+  .nav-cta{margin:8px 0 0;text-align:center}
+  .site-header.nav-open .nav-menu{display:flex}
+}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:clip;border-bottom:1px solid var(--line)}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(22,22,26,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(22,22,26,.05) 1px,transparent 1px);background-size:24px 24px;-webkit-mask-image:linear-gradient(#000 62%,transparent 98%);mask-image:linear-gradient(#000 62%,transparent 98%);pointer-events:none}
+.hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:56px;align-items:center;padding:clamp(56px,8vw,104px) 0 clamp(64px,9vw,112px)}
+.hero-badge{margin-bottom:26px;transform:rotate(-1.4deg)}
+.hero h1{margin-bottom:22px;max-width:12ch}
+.hero-sub{font-size:clamp(18px,2vw,20px);color:var(--muted);max-width:46ch;margin-bottom:34px}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:34px}
+.hero-chips{display:flex;flex-wrap:wrap;gap:10px;max-width:520px}
+.chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--ink);border-radius:999px;padding:8px 15px;font:600 13.5px/1 "Inter",sans-serif;box-shadow:2px 2px 0 rgba(22,22,26,.12)}
+.chip svg{flex:none;color:var(--ink)}
+.hero-chips .chip:nth-child(odd){transform:rotate(-1.2deg)}
+.hero-chips .chip:nth-child(even){transform:rotate(1.1deg)}
+.hero-collage{position:relative;padding:26px 8px 40px}
+.hero-main{transform:rotate(-2.4deg);z-index:2}
+.hero-main img{aspect-ratio:4/3}
+.hero-mini{position:absolute;right:-4px;bottom:-8px;width:52%;transform:rotate(3.2deg);z-index:1}
+.hero-mini img{aspect-ratio:4/3}
+.hero-note{position:absolute;top:-6px;right:14px;display:flex;align-items:flex-start;gap:6px;z-index:3}
+@media (max-width:920px){
+  .hero-grid{grid-template-columns:1fr;gap:44px;padding-top:48px}
+  .hero-collage{max-width:560px}
+}
+@media (max-width:560px){
+  .hero-mini{width:56%;right:0;bottom:-16px}
+  .hero-note{right:4px}
+}
+
+/* ---------- section scaffolding ---------- */
+.section{padding:clamp(72px,9vw,120px) 0}
+.section-head{max-width:720px;margin-bottom:clamp(40px,5vw,60px)}
+.section-head .torn{margin-bottom:20px;transform:rotate(-1.6deg)}
+.section-head p{color:var(--muted);margin-top:16px;font-size:18px}
+.cut-line{position:relative;height:0;border-top:2px dashed rgba(22,22,26,.22)}
+.cut-line svg{position:absolute;top:-13px;right:clamp(16px,6vw,80px);background:var(--paper);color:var(--ink)}
+
+/* ---------- gallery ---------- */
+.gallery .wrap{overflow:clip}
+.gal-topline{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:8px}
+.gal-topline .scribble{display:inline-flex;align-items:center;gap:10px}
+.gal-stage{position:relative;height:clamp(300px,56vw,490px);margin-top:10px;touch-action:pan-y}
+.gal-slide{position:absolute;inset:0;margin:auto;width:min(600px,88%);height:fit-content;opacity:0;pointer-events:none;transform:translate(var(--sx,0),var(--sy,0)) rotate(var(--sr,0deg)) scale(.9);transition:transform .5s var(--spring),opacity .32s ease;z-index:1}
+.gal-slide img{aspect-ratio:16/10}
+.gal-slide.is-adj{opacity:.55}
+.gal-slide.is-active{opacity:1;transform:none;z-index:2;pointer-events:auto}
+.gal-slide:nth-of-type(1){--sx:-9%;--sy:5%;--sr:-7deg}
+.gal-slide:nth-of-type(2){--sx:7%;--sy:-7%;--sr:5deg}
+.gal-slide:nth-of-type(3){--sx:-6%;--sy:-8%;--sr:-4deg}
+.gal-slide:nth-of-type(4){--sx:9%;--sy:4%;--sr:8deg}
+.gal-slide:nth-of-type(5){--sx:-9%;--sy:-3%;--sr:-6deg}
+.gal-slide:nth-of-type(6){--sx:5%;--sy:8%;--sr:3deg}
+.gal-slide:nth-of-type(7){--sx:8%;--sy:-6%;--sr:6deg}
+.gal-arrow{position:absolute;top:44%;transform:translateY(-50%);z-index:5;width:50px;height:50px;border-radius:50%;border:1.5px solid var(--ink);background:#fff;color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:3px 3px 0 rgba(22,22,26,.18);transition:transform .2s var(--spring),background-color .2s ease}
+.gal-arrow:hover{background:var(--marker);transform:translateY(-50%) scale(1.08)}
+.gal-arrow:active{transform:translateY(-50%) scale(.96)}
+.gal-arrow--prev{left:clamp(4px,2vw,28px)}
+.gal-arrow--next{right:clamp(4px,2vw,28px)}
+.gal-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:18px;margin-top:26px}
+.gal-dots{display:flex;gap:9px}
+.gal-dot{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--ink);background:#fff;cursor:pointer;padding:0;transition:transform .2s var(--spring),background-color .2s ease}
+.gal-dot:hover{transform:scale(1.25)}
+.gal-dot[aria-current="true"]{background:var(--marker);transform:scale(1.3);box-shadow:1.5px 1.5px 0 rgba(22,22,26,.3)}
+.gal-count{font-family:"Archivo Black",sans-serif;font-size:14px;letter-spacing:.08em;min-width:64px;text-align:center}
+@media (max-width:640px){
+  .gal-arrow{width:44px;height:44px;top:auto;bottom:-6px;transform:none}
+  .gal-arrow--prev{left:18%}
+  .gal-arrow--next{right:18%}
+  .gal-arrow:hover{transform:scale(1.08)}
+  .gal-arrow:active{transform:scale(.96)}
+}
+
+/* ---------- steps: index cards ---------- */
+.steps-head{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,5vw,56px);align-items:end;margin-bottom:clamp(40px,5vw,60px)}
+.steps-head .section-head{margin-bottom:0}
+.steps-photos{display:flex;padding:10px 6px 20px}
+.steps-photo-a{width:54%;flex:none;transform:rotate(-2.6deg);z-index:1}
+.steps-photo-b{width:54%;flex:none;transform:rotate(2.4deg);margin:24px 0 0 -11%;z-index:2}
+.steps-photo-a img,.steps-photo-b img{aspect-ratio:4/3}
+@media (max-width:920px){.steps-head{grid-template-columns:1fr;align-items:start}.steps-photos{max-width:520px}}
+.steps-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(28px,4vw,44px);counter-reset:step}
+@media (max-width:820px){.steps-grid{grid-template-columns:1fr}}
+.step{--rot:0deg}
+.step:nth-child(odd) .index-card{transform:rotate(-1.15deg)}
+.step:nth-child(even) .index-card{transform:rotate(1.05deg)}
+.index-card{position:relative;height:100%;background-color:var(--card);border:1px solid var(--line);box-shadow:var(--shadow-soft);padding:34px 30px 30px 66px;transition:transform .35s var(--spring),box-shadow .35s ease;
+  background-image:
+    radial-gradient(circle 6px at 24px 34px,var(--hole) 0 4.6px,rgba(22,22,26,.2) 5.2px,transparent 6.4px),
+    radial-gradient(circle 6px at 24px 50%,var(--hole) 0 4.6px,rgba(22,22,26,.2) 5.2px,transparent 6.4px),
+    radial-gradient(circle 6px at 24px calc(100% - 34px),var(--hole) 0 4.6px,rgba(22,22,26,.2) 5.2px,transparent 6.4px),
+    linear-gradient(90deg,transparent 0 48px,rgba(214,69,54,.36) 48px 50px,transparent 50px),
+    repeating-linear-gradient(to bottom,transparent 0 31px,rgba(22,22,26,.085) 31px 32px);
+}
+.index-card::before{content:"";position:absolute;top:-13px;left:50%;margin-left:-46px;width:92px;height:26px;background:rgba(232,227,216,.85);border-inline:1px dashed rgba(22,22,26,.1);transform:rotate(-2deg);box-shadow:0 1px 3px rgba(22,22,26,.12)}
+.step:hover .index-card{transform:rotate(0deg) translateY(-5px);box-shadow:var(--shadow-lift)}
+.step-num{margin-bottom:16px;transform:rotate(-2deg)}
+.index-card h3{margin-bottom:10px}
+.index-card p{color:var(--muted);font-size:16px}
+
+/* ---------- price ---------- */
+.price-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(40px,6vw,80px);align-items:center}
+@media (max-width:920px){.price-grid{grid-template-columns:1fr;gap:52px}}
+.price-card{position:relative;background:#fff;border:1.5px solid var(--ink);border-radius:var(--radius);box-shadow:8px 8px 0 rgba(22,22,26,.9);padding:clamp(30px,4vw,48px)}
+.price-amount{display:flex;flex-wrap:wrap;align-items:baseline;gap:16px;margin:18px 0 8px}
+.price-now{font-family:"Archivo Black",sans-serif;font-size:clamp(56px,7vw,76px);line-height:1;letter-spacing:-.02em}
+.price-was{font-size:19px;color:var(--muted);text-decoration:line-through;text-decoration-thickness:2px}
+.price-save{transform:rotate(2deg)}
+.price-card h3{margin:26px 0 12px;font-size:16px;text-transform:uppercase;letter-spacing:.08em}
+.includes{list-style:none;display:grid;gap:11px;margin-bottom:30px}
+.includes li{display:flex;gap:11px;align-items:flex-start;font-weight:600;font-size:16px}
+.includes svg{flex:none;margin-top:5px;color:var(--ink)}
+.price-ctas{display:flex;flex-wrap:wrap;gap:14px}
+.price-note{margin-top:18px;font:600 14px/1.5 "Inter",sans-serif;color:var(--muted);display:flex;align-items:center;gap:8px}
+.price-side{position:relative;padding:30px 6px 46px}
+.price-photo{transform:rotate(2.2deg)}
+.price-photo img{aspect-ratio:4/3}
+.price-side .scribble{position:absolute;bottom:-4px;left:26px;display:inline-flex;align-items:center;gap:8px}
+
+/* ---------- why ---------- */
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(28px,4vw,44px)}
+@media (max-width:820px){.why-grid{grid-template-columns:1fr}}
+.why-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-soft);padding:clamp(28px,3.6vw,42px);transition:transform .35s var(--spring),box-shadow .35s ease}
+.why-card:first-child{transform:rotate(-.7deg)}
+.why-card:last-child{transform:rotate(.7deg)}
+.why-card:hover{transform:rotate(0deg) translateY(-5px);box-shadow:var(--shadow-lift)}
+.why-top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}
+.why-num{font-family:"Archivo Black",sans-serif;font-size:15px;letter-spacing:.1em;background:var(--ink);color:var(--paper);padding:8px 13px;border-radius:8px;transform:rotate(-2deg)}
+.why-card h3{font-size:clamp(20px,2.2vw,24px);margin-bottom:14px}
+.why-card p{color:var(--muted);font-size:16px;margin-bottom:26px}
+.why-photo{max-width:400px}
+.why-photo:first-child .why-photo-img{transform:rotate(-1.6deg)}
+.why-photo-img{transform:rotate(1.6deg)}
+.why-photo img{aspect-ratio:16/10}
+
+/* ---------- expert ---------- */
+.expert-card{position:relative;background:#fff;border:1.5px solid var(--ink);border-radius:var(--radius);box-shadow:8px 8px 0 rgba(255,225,77,.9);padding:clamp(30px,4.4vw,54px);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(30px,4.5vw,60px)}
+@media (max-width:880px){.expert-card{grid-template-columns:1fr}}
+.expert-id .torn{margin-bottom:22px;transform:rotate(-1.6deg)}
+.expert-name{font-family:"Archivo Black",sans-serif;font-size:clamp(30px,3.8vw,42px);line-height:1.1;letter-spacing:-.015em;margin-bottom:18px}
+.expert-chips{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:18px}
+.expert-chips span{border:1.5px solid var(--ink);border-radius:999px;padding:7px 14px;font:700 13px/1 "Inter",sans-serif;background:var(--paper)}
+.expert-chips span:nth-child(odd){transform:rotate(-1.4deg)}
+.expert-chips span:nth-child(even){transform:rotate(1.2deg)}
+.expert-line{color:var(--muted);font-size:16px;max-width:34ch}
+.expert-cols{display:grid;gap:30px;align-content:start}
+.expert-col{border-top:2px dashed rgba(22,22,26,.2);padding-top:20px}
+.expert-col h3{font-size:15px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
+.expert-col ul{list-style:none;display:grid;gap:10px}
+.expert-col li{display:flex;gap:11px;align-items:flex-start;font-size:15.5px;color:var(--muted)}
+.expert-col svg{flex:none;margin-top:5px;color:var(--ink)}
+
+/* ---------- quiz ---------- */
+.quiz-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:clamp(36px,5vw,64px);align-items:center}
+@media (max-width:920px){.quiz-grid{grid-template-columns:1fr}}
+.quiz-side{padding:16px 6px 34px}
+.quiz-photo{transform:rotate(2.4deg)}
+.quiz-photo img{aspect-ratio:4/3}
+.quiz-box{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-soft);padding:clamp(28px,4vw,46px)}
+.quiz-intro{color:var(--muted);margin:14px 0 30px;font-size:17px}
+.q-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;padding:18px 0;border-top:2px dashed rgba(22,22,26,.16)}
+.q-row:first-of-type{border-top:0;padding-top:0}
+.q-row h3{font-size:17.5px;font-weight:700;max-width:40ch}
+.q-pills{display:flex;gap:10px;flex:none}
+.pill{font:700 14.5px/1 "Inter",sans-serif;border:1.5px solid var(--ink);background:#fff;color:var(--ink);border-radius:999px;padding:11px 22px;cursor:pointer;transition:background-color .2s ease,transform .2s var(--spring),box-shadow .2s ease}
+.pill:hover{transform:translateY(-2px);box-shadow:2px 2px 0 rgba(22,22,26,.2)}
+.pill[aria-pressed="true"]{background:var(--marker);box-shadow:2px 2px 0 rgba(22,22,26,.35)}
+.quiz-success{margin-top:30px;background:var(--marker);border:1.5px solid var(--ink);border-radius:var(--radius);box-shadow:5px 5px 0 rgba(22,22,26,.85);padding:26px 28px}
+.quiz-success[hidden]{display:none}
+.quiz-success p{font-weight:800;font-size:18px;line-height:1.5;display:flex;gap:12px;align-items:flex-start;margin-bottom:18px}
+.quiz-success p svg{flex:none;margin-top:3px}
+.quiz-success .btn{box-shadow:3px 3px 0 rgba(22,22,26,.85)}
+.btn--paper{background:#fff;color:var(--ink)}
+
+/* ---------- purchase ---------- */
+.buy-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(40px,6vw,80px);align-items:center}
+@media (max-width:920px){.buy-grid{grid-template-columns:1fr;gap:52px}}
+.buy-card{background:#fff;border:1.5px solid var(--ink);border-radius:var(--radius);box-shadow:8px 8px 0 rgba(22,22,26,.9);padding:clamp(28px,4vw,46px)}
+.buy-badge{display:inline-flex;align-items:center;gap:9px;font:800 13px/1 "Inter",sans-serif;letter-spacing:.06em;text-transform:uppercase;background:var(--marker);border:1.5px solid var(--ink);border-radius:999px;padding:9px 16px;margin-bottom:20px;transform:rotate(-1.4deg)}
+.buy-card h2{font-size:clamp(30px,4vw,42px);margin-bottom:12px}
+.buy-line{color:var(--muted);font-size:17px;margin-bottom:26px}
+.terms{display:flex;gap:12px;align-items:flex-start;font-size:15.5px;font-weight:600;margin-bottom:20px;cursor:pointer}
+.terms input{width:20px;height:20px;margin-top:3px;accent-color:var(--ink);cursor:pointer;flex:none}
+.terms a{color:var(--ink);text-decoration-thickness:2px;text-underline-offset:3px}
+.buy-hint{display:flex;gap:9px;align-items:flex-start;font:700 14px/1.5 "Inter",sans-serif;color:var(--red);margin-top:16px}
+.buy-hint[hidden]{display:none}
+.buy-secure{display:flex;gap:10px;align-items:center;margin-top:22px;font:600 14px/1.5 "Inter",sans-serif;color:var(--muted)}
+.buy-secure svg{flex:none;color:var(--ink)}
+.buy-benefits{margin-top:20px;padding-top:20px;border-top:2px dashed rgba(22,22,26,.16);font-size:14.5px;color:var(--muted);line-height:1.65}
+.buy-side{position:relative;padding:26px 4px 44px}
+.buy-photo{transform:rotate(-2.2deg)}
+.buy-photo img{aspect-ratio:4/3}
+.buy-side .scribble{position:absolute;bottom:-2px;right:22px;display:inline-flex;align-items:center;gap:8px}
+
+/* ---------- footer ---------- */
+.site-footer{background:var(--ink);color:var(--paper)}
+.footer-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,3fr) minmax(0,3fr);gap:clamp(32px,5vw,64px);padding:clamp(56px,7vw,84px) 0 48px}
+@media (max-width:820px){.footer-grid{grid-template-columns:1fr;gap:40px}}
+.footer-brand{display:inline-flex;align-items:center;gap:11px;font-family:"Archivo Black",sans-serif;font-size:19px;margin-bottom:18px;text-decoration:none;color:var(--paper)}
+.footer-brand svg{flex:none}
+.footer-cred{color:rgba(253,252,250,.68);font-size:15px;line-height:1.75}
+.footer-cred .site-url{display:inline-block;margin-top:12px;color:var(--marker);font-weight:700;text-decoration:none}
+.footer-cred .site-url:hover{text-decoration:underline}
+.site-footer h3{font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:rgba(253,252,250,.6);margin-bottom:16px}
+.footer-col ul{list-style:none;display:grid;gap:11px}
+.footer-col a{color:var(--paper);text-decoration:none;font-size:15.5px;border-bottom:1.5px solid rgba(255,225,77,.4);transition:border-color .2s ease,color .2s ease}
+.footer-col a:hover{color:var(--marker);border-color:var(--marker)}
+.footer-bottom{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid rgba(253,252,250,.16);padding:26px 0 34px;font-size:14px;color:rgba(253,252,250,.6)}
+.footer-nav{display:flex;flex-wrap:wrap;gap:20px}
+.footer-nav a{color:rgba(253,252,250,.75);text-decoration:none;font-weight:600}
+.footer-nav a:hover{color:var(--marker)}
+
+/* ---------- reveal ---------- */
+[data-reveal]{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s var(--spring)}
+[data-reveal].in-view{opacity:1;transform:none}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  html{scroll-behavior:auto}
+  [data-reveal]{opacity:1 !important;transform:none !important}
+  .gal-slide{transform:none !important}
+  .gal-slide.is-adj{opacity:0}
+  .index-card,.why-card,.hero-main,.hero-mini,.chip,.torn,.expert-chips span,.why-num,.buy-badge{transform:none !important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Siirry sisältöön</a>
+
+<!-- ================= NAV ================= -->
+<header class="site-header" id="top">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Parempi tasapaino® – etusivu">
+      <svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+        <circle cx="17" cy="21" r="8.5" stroke="#16161A" stroke-width="2"/>
+        <line x1="5" y1="29.5" x2="29" y2="29.5" stroke="#16161A" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="17" cy="7" r="3.4" fill="#FFE14D" stroke="#16161A" stroke-width="2"/>
+      </svg>
+      Parempi tasapaino®
+    </a>
+    <button class="nav-burger" aria-expanded="false" aria-controls="nav-menu" aria-label="Avaa valikko">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="#verkkokurssi">Verkkokurssi</a></li>
+      <li><a href="#testaa-soveltuvuutesi">Testaa soveltuvuutesi</a></li>
+      <li><a href="#tervetuloa-kurssile">Tervetuloa kurssile</a></li>
+      <li><a class="btn btn--primary nav-cta" href="/omatestaus/">Kirjaudu</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="hero-badge"><span class="torn">Parempi tasapaino® – kannattaa aina</span></p>
+      <h1 id="hero-title">Parempi <span class="marker-hit">tasapaino</span>® – verkkokurssi.</h1>
+      <p class="hero-sub">Kustannustehokas ja hoitosuosituksiin perustuva verkkokuntoutus epätasapainon ja huimauksen hoitoon.</p>
+      <div class="hero-ctas">
+        <a class="btn btn--primary" href="#testaa-soveltuvuutesi">
+          Testaa soveltuvuutesi
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h13m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a class="btn btn--ghost" href="#tervetuloa-kurssile">Siirry ilmoittautumaan</a>
+      </div>
+      <ul class="hero-chips" aria-label="Kurssin faktat">
+        <li class="chip"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.4" stroke="currentColor" stroke-width="1.8"/><path d="M8 4.8V8l2.2 1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>10 min päivässä</li>
+        <li class="chip"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2.2" y="3.2" width="11.6" height="10.6" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M2.2 6.6h11.6M5.4 1.8v2.8M10.6 1.8v2.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>1 kk ohjelma</li>
+        <li class="chip"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.8 8.4 6.4 12l6.8-8" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>Hoitosuositusten mukainen</li>
+        <li class="chip"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1.8 9.9 5.7l4.3.6-3.1 3 .7 4.3L8 11.6l-3.8 2 .7-4.3-3.1-3 4.3-.6L8 1.8Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>Kehitetty Suomessa</li>
+        <li class="chip"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="5.4" r="2.6" stroke="currentColor" stroke-width="1.8"/><path d="M2.9 13.4c.8-2.4 2.8-3.8 5.1-3.8s4.3 1.4 5.1 3.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Suomalainen asiantuntija</li>
+      </ul>
+    </div>
+    <div class="hero-collage" data-reveal>
+      <figure class="polaroid tape hero-main">
+        <img src="images/orig-hero-balance-single-leg.jpg" alt="Tasapainoharjoitus yhdellä jalalla" width="1600" height="900" decoding="async" fetchpriority="high">
+        <figcaption class="polaroid-cap"><b>01</b>Tasapainoharjoitus yhdellä jalalla</figcaption>
+      </figure>
+      <figure class="polaroid tape tape--yellow hero-mini">
+        <img src="images/img-06.jpg" alt="Rauhallinen lähtöasento harjoitteluun" width="1600" height="900" loading="lazy" decoding="async">
+        <figcaption class="polaroid-cap"><b>02</b>Rauhallinen lähtöasento</figcaption>
+      </figure>
+      <p class="hero-note scribble" aria-hidden="true">
+        <svg width="30" height="26" viewBox="0 0 30 26" fill="none" aria-hidden="true"><path d="M3 22C7 10 15 4 27 4m0 0-5.5-1.5M27 4l-4 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        kotoa, omassa tahdissa
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section class="section gallery" aria-labelledby="gal-title">
+  <div class="wrap">
+    <div class="gal-topline">
+      <div class="section-head" style="margin-bottom:0">
+        <h2 id="gal-title">Kurssin harjoituksia</h2>
+        <p>Seitsemän valokuvaa kurssin tasapainoharjoituksista ja testeistä.</p>
+      </div>
+      <p class="scribble" aria-hidden="true">
+        harjoituksia kotona
+        <svg width="28" height="24" viewBox="0 0 28 24" fill="none" aria-hidden="true"><path d="M25 3c-8 1-15 6-18 17m0 0 1-6m-1 6 6-1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </p>
+    </div>
+
+    <div class="gal-stage" id="gal-stage" role="region" aria-roledescription="kuvakaruselli" aria-label="Kurssin harjoitusvalokuvat">
+      <figure class="polaroid tape tape--single gal-slide is-active">
+        <img src="images/img-00.jpg" alt="Seisonta jalat yhdessä – tasapainoharjoitus kotona" width="1600" height="900" decoding="async" fetchpriority="high">
+        <figcaption class="polaroid-cap"><b>01</b>Seisonta jalat yhdessä – tasapainoharjoitus kotona</figcaption>
+      </figure>
+      <figure class="polaroid tape tape--single gal-slide">
+        <img src="images/img-01.jpg" alt="Sivuprofiili seisonnasta jalat yhdessä" width="1600" height="900" loading="lazy" decoding="async">
+        <figcaption class="polaroid-cap"><b>02</b>Sivuprofiili seisonnasta jalat yhdessä</figcaption>
+      </figure>
+      <figure class="polaroid tape tape--single gal-slide">
+        <img src="images/img-02.jpg" alt="Kapea askel – tasapainotesti kotona" width="1600" height="900" loading="lazy" decoding="async">
+        <figcaption class="polaroid-cap"><b>03</b>Kapea askel – tasapainotesti kotona</figcaption>
+      </figure>
+      <figure class="polaroid tape tape--single gal-slide">
+        <img src="images/img-03.jpg" alt="Tandemkävely sivusta nähtynä" width="1600" height="900" loading="lazy" decoding="async">
+        <figcaption class="polaroid-cap"><b>04</b>Tandemkävely sivusta nähtynä</figcaption>
+      </figure>
+      <figure class="polaroid tape tape--single gal-slide">
+        <img src="images/img-04.jpg" alt="Tandemkävely – askel toisen jalan edessä" width="1600" height="900" loading="lazy" decoding="async">
+        <figcaption class="polaroid-cap"><b>05</b>Tandemkävely – askel toisen jalan edessä</figcaption>
+      </figure>
+      <figure class="polaroid tape tape--single gal-slide">
+        <img src="images/img-05.jpg" alt="Seisonta jalat lantion leveydellä" width="1600" height="900" loading="lazy" decoding="async">
+        <figcaption class="polaroid-cap"><b>06</b>Seisonta jalat lantion leveydellä</figcaption>
+      </figure>
+      <figure class="polaroid tape tape--single gal-slide">
+        <img src="images/img-06.jpg" alt="Rauhallinen lähtöasento harjoitteluun" width="1600" height="900" loading="lazy" decoding="async">
+        <figcaption class="polaroid-cap"><b>07</b>Rauhallinen lähtöasento harjoitteluun</figcaption>
+      </figure>
+
+      <button class="gal-arrow gal-arrow--prev" id="gal-prev" type="button" aria-label="Edellinen kuva">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 4 6.5 10l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="gal-arrow gal-arrow--next" id="gal-next" type="button" aria-label="Seuraava kuva">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m7.5 4 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <div class="gal-foot">
+      <button class="gal-arrow gal-arrow--prev" id="gal-prev-dup" type="button" aria-label="Edellinen kuva" style="position:static;transform:none">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 4 6.5 10l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="gal-dots" id="gal-dots" role="group" aria-label="Valitse kuva"></div>
+      <p class="gal-count" id="gal-count" aria-hidden="true">1 / 7</p>
+      <button class="gal-arrow gal-arrow--next" id="gal-next-dup" type="button" aria-label="Seuraava kuva" style="position:static;transform:none">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m7.5 4 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <p class="sr-only" aria-live="polite" id="gal-status"></p>
+  </div>
+</section>
+
+<!-- ================= STEPS ================= -->
+<section class="section" id="verkkokurssi" aria-labelledby="steps-title" style="padding-top:0">
+  <div class="wrap">
+    <div class="steps-head">
+      <div class="section-head" data-reveal>
+        <p><span class="torn torn--paper">Näin se toimii</span></p>
+        <h2 id="steps-title" style="margin-top:20px">Näin verkkokurssi toimii.</h2>
+      </div>
+      <div class="steps-photos" data-reveal>
+        <figure class="polaroid tape steps-photo-a">
+          <img src="images/orig-test-3-narrow-step.jpg" alt="Testi 3: kapea askel" width="1600" height="900" loading="lazy" decoding="async">
+          <figcaption class="polaroid-cap"><b>Testi</b>Kapea askel</figcaption>
+        </figure>
+        <figure class="polaroid tape tape--yellow steps-photo-b">
+          <img src="images/orig-profile-side-stand.jpg" alt="Seisonta sivuprofiilissa" width="1600" height="900" loading="lazy" decoding="async">
+          <figcaption class="polaroid-cap"><b>Asento</b>Seisonta sivuprofiilissa</figcaption>
+        </figure>
+      </div>
+    </div>
+    <ol class="steps-grid">
+      <li class="step" data-reveal>
+        <article class="index-card">
+          <p class="step-num"><span class="torn torn--ink">Vaihe 01</span></p>
+          <h3>Yksilöllinen ohjelma</h3>
+          <p>Tee kotona helposti toteutettavat testit, joiden pohjalta saat sinulle räätälöidyn harjoitusohjelman kuukaudeksi, jota päivitetään kurssin aikana enintään kolmesti.</p>
+        </article>
+      </li>
+      <li class="step" data-reveal>
+        <article class="index-card">
+          <p class="step-num"><span class="torn torn--ink">Vaihe 02</span></p>
+          <h3>Etene omaan tahtiisi</h3>
+          <p>Harjoittele oman aikataulusi mukaan kuukauden ajan. Keskimäärin harjoitukset ottavat aikaa 10 minuuttia päivässä.</p>
+        </article>
+      </li>
+      <li class="step" data-reveal>
+        <article class="index-card">
+          <p class="step-num"><span class="torn torn--ink">Vaihe 03</span></p>
+          <h3>Kattava tuki</h3>
+          <p>Opit kaiken tarvittavan tasapainoharjoittelusta ja sitä tukevista tekijöistä selkeiden teoriaosuuksien avulla. Voit kysyä henkilökohtaisia neuvoja asiantuntijalta koko kurssin ajan.</p>
+        </article>
+      </li>
+      <li class="step" data-reveal>
+        <article class="index-card">
+          <p class="step-num"><span class="torn torn--ink">Vaihe 04</span></p>
+          <h3>Mitattavia tuloksia</h3>
+          <p>Säännöllisellä harjoittelulla tasapainosi kehittyy. Verkkokurssin mittareiden avulla voit arvioida oireiden vähentymistä ja toimintakyvyn lisääntymistä. Voit halutessasi jatkaa kurssia kuukauden jälkeen.</p>
+        </article>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= PRICE ================= -->
+<section class="section" id="hinta" aria-labelledby="price-title" style="border-top:2px dashed rgba(22,22,26,.16)">
+  <div class="wrap price-grid">
+    <div class="price-card" data-reveal>
+      <h2 id="price-title"><span class="torn">Hinta</span></h2>
+      <p class="price-amount">
+        <span class="price-now">99 €</span>
+        <span class="price-was">norm. 119 €</span>
+        <span class="torn price-save">Säästät 20 €</span>
+      </p>
+      <h3>Sisältyy hintaan:</h3>
+      <ul class="includes">
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.8 8.4 6.4 12l6.8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Yksilöllinen harjoitusohjelma</li>
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.8 8.4 6.4 12l6.8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Asiantuntijatuki koko kurssin ajan</li>
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.8 8.4 6.4 12l6.8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Mitattavat tulokset</li>
+      </ul>
+      <div class="price-ctas">
+        <a class="btn btn--primary" href="#testaa-soveltuvuutesi">Testaa soveltuvuutesi</a>
+        <a class="btn btn--ghost" href="#tervetuloa-kurssile">Osta kurssi</a>
+      </div>
+      <p class="price-note">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2.6" y="6.8" width="10.8" height="7" rx="1.6" stroke="currentColor" stroke-width="1.8"/><path d="M5.2 6.8V5a2.8 2.8 0 0 1 5.6 0v1.8" stroke="currentColor" stroke-width="1.8"/></svg>
+        Kertamaksu – ei jatkuvaa tilausta.
+      </p>
+    </div>
+    <div class="price-side" data-reveal>
+      <figure class="polaroid tape price-photo">
+        <img src="images/img-05.jpg" alt="Seisonta jalat lantion leveydellä" width="1600" height="900" loading="lazy" decoding="async">
+        <figcaption class="polaroid-cap"><b>Kurssilainen</b>Seisonta jalat lantion leveydellä</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHY ================= -->
+<section class="section" aria-labelledby="why-title" style="border-top:2px dashed rgba(22,22,26,.16)">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <h2 id="why-title">Miksi valita Parempi tasapaino® -verkkokurssi?</h2>
+    </div>
+    <div class="why-grid">
+      <article class="why-card" data-reveal>
+        <div class="why-top"><span class="why-num">01</span><span class="scribble" aria-hidden="true">säästä rahaa</span></div>
+        <h3>Kustannustehokkuus</h3>
+        <p>Verkkokuntoutus tuo asiantuntevan ohjauksen suoraan kotiisi murto-osalla yksilöterapian hinnasta. Ei matkustamista eikä jonotusaikoja – harjoittelet silloin, kun sinulle sopii. Kurssi perustuu hoitosuosituksiin ja se on kehitetty neurologiseen kuntoutukseen erikoistuneen kiropraktikon toimesta.</p>
+        <figure class="polaroid tape why-photo">
+          <div class="why-photo-img">
+            <img src="images/orig-test-1-feet-together.jpg" alt="Testi 1: seisonta jalat yhdessä" width="1600" height="900" loading="lazy" decoding="async">
+          </div>
+        </figure>
+      </article>
+      <article class="why-card" data-reveal>
+        <div class="why-top"><span class="why-num">02</span><span class="scribble" aria-hidden="true">juuri sinulle</span></div>
+        <h3>Yksilöllinen harjoitusohjelma</h3>
+        <p>Jokainen kurssilainen tekee ensin helpon kotitestausten sarjan, jonka perusteella laaditaan juuri sinun tasollesi sopiva harjoitusohjelma. Ohjelmaa päivitetään edistymisesi mukaan kurssin aikana, jotta harjoittelu pysyy tehokkaana ja turvallisena alusta loppuun asti.</p>
+        <figure class="polaroid tape why-photo">
+          <div class="why-photo-img">
+            <img src="images/orig-test-2-hip-width.jpg" alt="Testi 2: seisonta jalat lantion leveydellä" width="1600" height="900" loading="lazy" decoding="async">
+          </div>
+        </figure>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXPERT ================= -->
+<section class="section" aria-labelledby="expert-title" style="border-top:2px dashed rgba(22,22,26,.16)">
+  <div class="wrap">
+    <div class="expert-card" data-reveal>
+      <div class="expert-id">
+        <h2 id="expert-title" style="font-size:inherit"><span class="torn">Kurssin asiantuntija</span></h2>
+        <p class="expert-name" style="margin-top:24px">Jani Mikkonen</p>
+        <p class="expert-chips">
+          <span>D.C</span><span>B.Sc. (Hons)</span><span>DACNB</span><span>Ph.D</span>
+        </p>
+        <p class="expert-line">Kiropraktikko, erikoistunut neurologiseen kuntoutukseen, filosofian tohtori</p>
+      </div>
+      <div class="expert-cols">
+        <div class="expert-col">
+          <h3>Koulutus</h3>
+          <ul>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.8 8.4 6.4 12l6.8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Kiropraktikko (D.C.)</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.8 8.4 6.4 12l6.8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>B.Sc. (Hons) – alempi korkeakoulututkinto</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.8 8.4 6.4 12l6.8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>DACNB – American Clinical Neurology Board -diplomaatti</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.8 8.4 6.4 12l6.8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Ph.D. – filosofian tohtori</li>
+          </ul>
+        </div>
+        <div class="expert-col">
+          <h3>Ydinosaaminen</h3>
+          <ul>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.8 8.4 6.4 12l6.8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Neurologiseen kuntoutukseen erikoistuminen</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.8 8.4 6.4 12l6.8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Huimauksen ja epätasapainon arviointi ja kuntoutus</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.8 8.4 6.4 12l6.8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Tasapainotestausten ja harjoitusohjelmien kehittäminen</li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.8 8.4 6.4 12l6.8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Verkkokuntoutuksen edelläkävijä Suomessa</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section class="section" id="testaa-soveltuvuutesi" aria-labelledby="quiz-title" style="border-top:2px dashed rgba(22,22,26,.16)">
+  <div class="wrap quiz-grid">
+    <div class="quiz-box" data-reveal>
+      <p><span class="torn torn--paper">Soveltuvuustesti</span></p>
+      <h2 id="quiz-title" style="margin-top:22px">Testaa soveltuvuutesi</h2>
+      <p class="quiz-intro">Vastaa muutamaan kysymykseen ja selvitä, sopiiko verkkokurssi sinulle.</p>
+
+      <div class="q-row">
+        <h3 id="q1">1. Huomaatko epätasapainon arjen liikkeissä?</h3>
+        <div class="q-pills" role="group" aria-labelledby="q1" data-q>
+          <button type="button" class="pill" aria-pressed="false">Kyllä</button>
+          <button type="button" class="pill" aria-pressed="false">Ei</button>
+        </div>
+      </div>
+      <div class="q-row">
+        <h3 id="q2">2. Onko sinulla huimausta seisoessasi tai kävellessä?</h3>
+        <div class="q-pills" role="group" aria-labelledby="q2" data-q>
+          <button type="button" class="pill" aria-pressed="false">Kyllä</button>
+          <button type="button" class="pill" aria-pressed="false">Ei</button>
+        </div>
+      </div>
+      <div class="q-row">
+        <h3 id="q3">3. Haluaisitko parantaa tasapainoasi kotona harjoittelemalla?</h3>
+        <div class="q-pills" role="group" aria-labelledby="q3" data-q>
+          <button type="button" class="pill" aria-pressed="false">Kyllä</button>
+          <button type="button" class="pill" aria-pressed="false">Ei</button>
+        </div>
+      </div>
+
+      <div class="quiz-success" id="quiz-success" hidden>
+        <p>
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="9.4" stroke="#16161A" stroke-width="2"/><path d="m6.8 11.3 2.9 2.9 5.5-6.2" stroke="#16161A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Hyviä uutisia – verkkokurssi sopii todennäköisesti sinulle!
+        </p>
+        <div class="hero-ctas" style="margin-bottom:0">
+          <a class="btn btn--primary" href="#tervetuloa-kurssile">Siirry ilmoittautumaan</a>
+          <button type="button" class="btn btn--ghost" id="quiz-reset">Aloita alusta</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-side" data-reveal>
+      <figure class="polaroid tape quiz-photo">
+        <img src="images/orig-explainer-tandem-walk.jpg" alt="Tandemkävely-testin suoritus" width="1600" height="900" loading="lazy" decoding="async">
+        <figcaption class="polaroid-cap"><b>Testi</b>Tandemkävely-testin suoritus</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PURCHASE ================= -->
+<section class="section" id="tervetuloa-kurssile" aria-labelledby="buy-title" style="border-top:2px dashed rgba(22,22,26,.16)">
+  <div id="tervetuloa-kurssille" aria-hidden="true"></div>
+  <div class="wrap buy-grid">
+    <div class="buy-card" data-reveal>
+      <p class="buy-badge">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2.8 8.4 6.4 12l6.8-8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        ✓ Soveltuvuustesti läpäisty
+      </p>
+      <h2 id="buy-title">Tervetuloa kurssille!</h2>
+      <p class="buy-line">Verkkokurssi 99 € (norm. 119 €) – kertamaksu, ei sitoutumista.</p>
+
+      <label class="terms" for="terms-check">
+        <input type="checkbox" id="terms-check">
+        <span>Olen lukenut ja hyväksyn <a href="#">Kurssin käyttöehdot</a></span>
+      </label>
+
+      <a class="btn btn--primary is-dim" id="buy-cta" href="#" aria-disabled="true" style="width:100%">
+        Jatka maksuun – 99 €
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 10h13m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <p class="buy-hint" id="buy-hint" role="status" hidden>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.4" stroke="currentColor" stroke-width="1.8"/><path d="M8 4.8v3.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="8" cy="11" r="1" fill="currentColor"/></svg>
+        Hyväksy ensin kurssin käyttöehdot.
+      </p>
+
+      <p class="buy-secure">
+        <svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2.6" y="6.8" width="10.8" height="7" rx="1.6" stroke="currentColor" stroke-width="1.8"/><path d="M5.2 6.8V5a2.8 2.8 0 0 1 5.6 0v1.8" stroke="currentColor" stroke-width="1.8"/><circle cx="8" cy="10.4" r="1.2" fill="currentColor"/></svg>
+        Maksu hoidetaan turvallisesti Paytrail-maksupalvelun kautta.
+      </p>
+      <p class="buy-benefits">Jos haluat maksaa Epassin tai Edenredin liikuntaeduilla, ota yhteyttä etukäteen: parempitasapaino.fi/yhteys</p>
+    </div>
+
+    <div class="buy-side" data-reveal>
+      <figure class="polaroid tape buy-photo">
+        <img src="images/orig-course-welcome.jpg" alt="Tervetuloa kurssille" width="1600" height="900" loading="lazy" decoding="async">
+        <figcaption class="polaroid-cap"><b>Parempi tasapaino®</b>Tervetuloa kurssille</figcaption>
+      </figure>
+      <p class="scribble" aria-hidden="true">
+        nähdään kurssilla!
+        <svg width="28" height="24" viewBox="0 0 28 24" fill="none" aria-hidden="true"><path d="M3 4c8 1 15 6 18 17m0 0-1-6m1 6-6-1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- cut line before footer -->
+<div class="wrap" aria-hidden="true">
+  <div class="cut-line">
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="6.5" cy="7" r="3" stroke="currentColor" stroke-width="1.8"/><circle cx="6.5" cy="19" r="3" stroke="currentColor" stroke-width="1.8"/><path d="M9.2 8.6 23 19M9.2 17.4 23 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+  </div>
+</div>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="footer-brand" href="#top">
+          <svg width="32" height="32" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+            <circle cx="17" cy="21" r="8.5" stroke="#FDFCFA" stroke-width="2"/>
+            <line x1="5" y1="29.5" x2="29" y2="29.5" stroke="#FDFCFA" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="17" cy="7" r="3.4" fill="#FFE14D" stroke="#FDFCFA" stroke-width="2"/>
+          </svg>
+          Parempi tasapaino®
+        </a>
+        <p class="footer-cred">
+          Jani Mikkonen D.C., B.Sc. (Hons), DACNB, Ph.D.<br>
+          Kiropraktikko, erikoistunut neurologiseen kuntoutukseen, filosofian tohtori<br>
+          <a class="site-url" href="https://parempitasapaino.fi" target="_blank" rel="noopener">parempitasapaino.fi</a>
+        </p>
+      </div>
+      <nav class="footer-col" aria-label="Yhteystiedot">
+        <h3>Ota yhteyttä</h3>
+        <ul>
+          <li><a href="mailto:jani@selkakuntoutus.fi">jani@selkakuntoutus.fi</a></li>
+          <li><a href="https://parempitasapaino.fi/yhteys/" target="_blank" rel="noopener">https://parempitasapaino.fi/yhteys/</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-label="Tiedot">
+        <h3>Tiedot</h3>
+        <ul>
+          <li><a href="#">Tietosuojaseloste</a></li>
+          <li><a href="#">Kurssin käyttöehdot</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Parempi tasapaino®</p>
+      <nav class="footer-nav" aria-label="Alavalikko">
+        <a href="#verkkokurssi">Verkkokurssi</a>
+        <a href="#testaa-soveltuvuutesi">Testaa soveltuvuutesi</a>
+        <a href="#tervetuloa-kurssile">Tervetuloa kurssile</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- scroll reveal ---------- */
+  var revealEls = document.querySelectorAll('[data-reveal]');
+  if ('IntersectionObserver' in window && !reduced){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting){ en.target.classList.add('in-view'); io.unobserve(en.target); }
+      });
+    }, {threshold:.14, rootMargin:'0px 0px -8% 0px'});
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('in-view'); });
+  }
+
+  /* ---------- mobile nav ---------- */
+  var header = document.querySelector('.site-header');
+  var burger = document.querySelector('.nav-burger');
+  if (header && burger){
+    burger.addEventListener('click', function(){
+      var open = header.classList.toggle('nav-open');
+      burger.setAttribute('aria-expanded', String(open));
+      burger.setAttribute('aria-label', open ? 'Sulje valikko' : 'Avaa valikko');
+    });
+    document.querySelectorAll('.nav-menu a').forEach(function(a){
+      a.addEventListener('click', function(){
+        header.classList.remove('nav-open');
+        burger.setAttribute('aria-expanded','false');
+        burger.setAttribute('aria-label','Avaa valikko');
+      });
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && header.classList.contains('nav-open')){
+        header.classList.remove('nav-open');
+        burger.setAttribute('aria-expanded','false');
+        burger.setAttribute('aria-label','Avaa valikko');
+        burger.focus();
+      }
+    });
+  }
+
+  /* ---------- gallery: auto-shuffling photo table ---------- */
+  var stage  = document.getElementById('gal-stage');
+  var slides = stage ? Array.prototype.slice.call(stage.querySelectorAll('.gal-slide')) : [];
+  if (stage && slides.length){
+    var dotsWrap = document.getElementById('gal-dots');
+    var countEl  = document.getElementById('gal-count');
+    var statusEl = document.getElementById('gal-status');
+    var idx = 0, timer = null, hoverPause = false, hidden = false;
+    var AUTOPLAY_MS = 5000;
+
+    slides.forEach(function(s, i){
+      var d = document.createElement('button');
+      d.type = 'button';
+      d.className = 'gal-dot';
+      d.setAttribute('aria-label', 'Näytä kuva ' + (i+1) + ': ' + s.querySelector('img').alt);
+      d.setAttribute('aria-pressed','false');
+      d.addEventListener('click', function(){ go(i); });
+      dotsWrap.appendChild(d);
+    });
+    var dots = Array.prototype.slice.call(dotsWrap.children);
+
+    function go(i){
+      idx = (i + slides.length) % slides.length;
+      slides.forEach(function(s, j){
+        var dist = Math.min(Math.abs(j-idx), slides.length - Math.abs(j-idx));
+        s.classList.toggle('is-active', j === idx);
+        s.classList.toggle('is-adj', dist === 1);
+      });
+      dots.forEach(function(d, j){ d.setAttribute('aria-current', j === idx ? 'true' : 'false'); });
+      countEl.textContent = (idx+1) + ' / ' + slides.length;
+      statusEl.textContent = 'Kuva ' + (idx+1) + ' / ' + slides.length + ': ' + slides[idx].querySelector('img').alt;
+      if (timer){ stop(); start(); }
+    }
+    function start(){
+      if (reduced || timer || hoverPause || hidden) return;
+      timer = setInterval(function(){ go(idx+1); }, AUTOPLAY_MS);
+    }
+    function stop(){ if (timer){ clearInterval(timer); timer = null; } }
+
+    document.getElementById('gal-next').addEventListener('click', function(){ go(idx+1); });
+    document.getElementById('gal-prev').addEventListener('click', function(){ go(idx-1); });
+    document.getElementById('gal-next-dup').addEventListener('click', function(){ go(idx+1); });
+    document.getElementById('gal-prev-dup').addEventListener('click', function(){ go(idx-1); });
+
+    stage.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight'){ e.preventDefault(); go(idx+1); }
+      if (e.key === 'ArrowLeft'){ e.preventDefault(); go(idx-1); }
+    });
+
+    /* pause on hover / focus */
+    stage.addEventListener('mouseenter', function(){ hoverPause = true; stop(); });
+    stage.addEventListener('mouseleave', function(){ hoverPause = false; start(); });
+    stage.addEventListener('focusin',  function(){ hoverPause = true; stop(); });
+    stage.addEventListener('focusout', function(e){
+      if (!stage.contains(e.relatedTarget)){ hoverPause = false; start(); }
+    });
+    document.addEventListener('visibilitychange', function(){
+      hidden = document.hidden;
+      if (hidden){ stop(); } else { start(); }
+    });
+
+    /* swipe / drag */
+    var startX = null;
+    stage.addEventListener('pointerdown', function(e){ startX = e.clientX; });
+    stage.addEventListener('pointermove', function(){ /* tracked on up */ });
+    stage.addEventListener('pointerup', function(e){
+      if (startX === null) return;
+      var dx = e.clientX - startX;
+      if (Math.abs(dx) > 40){ dx < 0 ? go(idx+1) : go(idx-1); }
+      startX = null;
+    });
+    stage.addEventListener('pointercancel', function(){ startX = null; });
+
+    go(0);
+    start();
+  }
+
+  /* ---------- quiz ---------- */
+  var groups = Array.prototype.slice.call(document.querySelectorAll('[data-q]'));
+  var success = document.getElementById('quiz-success');
+  if (groups.length && success){
+    var answered = 0;
+    groups.forEach(function(g){
+      var pills = Array.prototype.slice.call(g.querySelectorAll('.pill'));
+      pills.forEach(function(pill){
+        pill.addEventListener('click', function(){
+          if (!g.dataset.done){ g.dataset.done = '1'; answered++; }
+          pills.forEach(function(p){ p.setAttribute('aria-pressed', p === pill ? 'true' : 'false'); });
+          if (answered === groups.length){ success.hidden = false; }
+        });
+      });
+    });
+    document.getElementById('quiz-reset').addEventListener('click', function(){
+      answered = 0;
+      groups.forEach(function(g){ delete g.dataset.done; });
+      document.querySelectorAll('.q-pills .pill').forEach(function(p){ p.setAttribute('aria-pressed','false'); });
+      success.hidden = true;
+      var first = document.getElementById('q1');
+      if (first){ first.setAttribute('tabindex','-1'); first.focus(); }
+    });
+  }
+
+  /* ---------- purchase gate ---------- */
+  var terms = document.getElementById('terms-check');
+  var cta = document.getElementById('buy-cta');
+  var hint = document.getElementById('buy-hint');
+  if (terms && cta && hint){
+    function sync(){
+      var ok = terms.checked;
+      cta.classList.toggle('is-dim', !ok);
+      cta.setAttribute('aria-disabled', String(!ok));
+      if (ok){ hint.hidden = true; }
+    }
+    terms.addEventListener('change', sync);
+    cta.addEventListener('click', function(e){
+      if (!terms.checked){
+        e.preventDefault();
+        hint.hidden = false;
+        terms.focus();
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>
