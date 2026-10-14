@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parempi tasapaino® – verkkokurssi | Quiet Luxury</title>
+<meta name="description" content="Parempi tasapaino® -verkkokurssi: kustannustehokas ja hoitosuositusten mukainen verkkokuntoutus epätasapainon ja huimauksen hoitoon. Testaa soveltuvuutesi ja aloita 10 min päivässä.">
+<meta name="theme-color" content="#FBF9F4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ivory:#FBF9F4;
+  --paper:#FFFEFA;
+  --sand:#F2EDDF;
+  --img-ph:#EDE7D8;
+  --ink:#191817;
+  --ink-soft:#43413C;
+  --ink-mute:#6E6A62;
+  --gold:#A8894F;
+  --gold-ink:#7E6538;
+  --gold-line:rgba(168,137,79,.5);
+  --gold-faint:rgba(168,137,79,.24);
+  --line:rgba(25,24,23,.13);
+  --line-soft:rgba(25,24,23,.09);
+  --ff-d:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --ff-b:"Inter",-apple-system,"Segoe UI",sans-serif;
+  --pad:clamp(88px,10vw,148px);
+  --ease:cubic-bezier(.22,.61,.21,1);
+  --shadow:0 36px 80px -46px rgba(25,24,23,.38);
+  --shadow-soft:0 22px 50px -34px rgba(25,24,23,.28);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ivory);
+  color:var(--ink);
+  font:400 17px/1.75 var(--ff-b);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;background:var(--img-ph)}
+a{color:inherit}
+::selection{background:rgba(168,137,79,.28)}
+:focus-visible{outline:2px solid var(--gold-ink);outline-offset:3px;border-radius:2px}
+[id]{scroll-margin-top:104px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.container{width:min(1160px,100% - 48px);margin-inline:auto}
+
+/* ---------- skip link ---------- */
+.skip{
+  position:fixed;top:16px;left:16px;z-index:120;
+  transform:translateY(-300%);
+  background:var(--ink);color:var(--ivory);
+  font:500 14px/1 var(--ff-b);letter-spacing:.04em;
+  padding:12px 22px;border-radius:999px;text-decoration:none;
+  transition:transform .25s var(--ease);
+}
+.skip:focus{transform:none}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:11px;
+  padding:17px 34px;border-radius:999px;
+  font:500 15px/1 var(--ff-b);letter-spacing:.05em;text-decoration:none;
+  cursor:pointer;border:1px solid transparent;background:none;color:var(--ink);
+  transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease),transform .25s var(--ease),box-shadow .3s var(--ease);
+}
+.btn svg{width:17px;height:17px;flex:none;transition:transform .3s var(--ease)}
+.btn-solid{background:var(--ink);color:var(--ivory);border-color:var(--ink)}
+.btn-solid:hover{background:#2C2A26;border-color:#2C2A26;transform:translateY(-1px);box-shadow:var(--shadow-soft)}
+.btn-solid:hover svg{transform:translateX(4px)}
+.btn-ghost{border-color:var(--ink);color:var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--ivory);transform:translateY(-1px)}
+.btn-sm{padding:12px 24px;font-size:13.5px}
+.btn:active{transform:translateY(1px)}
+.btn.is-disabled{opacity:.38;cursor:not-allowed;box-shadow:none;transform:none}
+.btn.is-disabled:hover{background:var(--ink);border-color:var(--ink);color:var(--ivory)}
+
+/* ---------- type helpers ---------- */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:14px;
+  font:500 12px/1 var(--ff-b);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold-ink);
+}
+.eyebrow::before,.eyebrow.center::after{content:"";width:26px;height:1px;background:var(--gold)}
+.eyebrow.center::before{content:"";width:26px;height:1px;background:var(--gold)}
+.h2{
+  font:500 clamp(38px,4.6vw,60px)/1.08 var(--ff-d);
+  letter-spacing:-.01em;color:var(--ink);
+}
+.sec{padding-block:var(--pad)}
+.sec-head{max-width:780px;margin:0 auto clamp(48px,6vw,80px);text-align:center}
+.sec-head .eyebrow{margin-bottom:22px}
+.lede{color:var(--ink-mute);font-size:17.5px;margin-top:20px}
+
+/* ---------- rule divider ---------- */
+.rule{
+  display:flex;align-items:center;gap:18px;
+  width:min(1160px,100% - 48px);margin:calc(var(--pad) * -.5) auto;
+}
+.rule::before,.rule::after{content:"";flex:1;height:1px;background:var(--line)}
+.rule i{flex:none;width:7px;height:7px;background:var(--gold);transform:rotate(45deg)}
+
+/* ---------- reveal ---------- */
+[data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .95s var(--ease),transform .95s var(--ease);transition-delay:var(--d,0s)}
+[data-reveal].is-in{opacity:1;transform:none}
+
+/* ---------- header ---------- */
+.site-head{
+  position:sticky;top:0;z-index:80;
+  background:rgba(251,249,244,.9);
+  -webkit-backdrop-filter:blur(14px) saturate(1.15);
+  backdrop-filter:blur(14px) saturate(1.15);
+  border-bottom:1px solid var(--line);
+}
+.head-in{display:flex;align-items:center;gap:34px;height:78px}
+.brand{display:inline-flex;align-items:center;gap:13px;text-decoration:none;color:var(--ink)}
+.brand svg{width:31px;height:31px;flex:none}
+.brand b{font:600 21.5px/1 var(--ff-d);letter-spacing:.005em;white-space:nowrap}
+.nav{margin-left:auto;display:flex;align-items:center;gap:32px}
+.nav a:not(.btn){
+  font:500 14px/1 var(--ff-b);letter-spacing:.035em;color:var(--ink-soft);
+  text-decoration:none;padding:9px 0;border-bottom:1px solid transparent;
+  transition:color .25s var(--ease),border-color .25s var(--ease);
+}
+.nav a:not(.btn):hover{color:var(--ink);border-bottom-color:var(--gold)}
+.burger{
+  display:none;margin-left:auto;
+  width:46px;height:46px;border-radius:999px;border:1px solid var(--line);
+  background:none;cursor:pointer;position:relative;
+  transition:border-color .25s var(--ease);
+}
+.burger:hover{border-color:var(--ink)}
+.burger span{
+  position:absolute;left:13px;right:13px;height:1.5px;background:var(--ink);
+  transition:transform .3s var(--ease),top .3s var(--ease);
+}
+.burger span:first-child{top:18px}
+.burger span:last-child{top:26px}
+.burger[aria-expanded="true"] span:first-child{top:22px;transform:rotate(45deg)}
+.burger[aria-expanded="true"] span:last-child{top:22px;transform:rotate(-45deg)}
+.mnav{display:none}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(52px,6.5vw,88px) 0 clamp(72px,8vw,116px);text-align:center}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:12px;
+  border:1px solid var(--gold-line);border-radius:999px;
+  padding:10px 22px;
+  font:500 11.5px/1 var(--ff-b);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold-ink);background:var(--paper);
+}
+.hero-badge i{width:5px;height:5px;background:var(--gold);transform:rotate(45deg);flex:none}
+.hero h1{
+  margin:clamp(28px,3.5vw,44px) auto 0;max-width:1000px;
+  font:500 clamp(52px,7.6vw,96px)/1.05 var(--ff-d);
+  letter-spacing:-.01em;
+}
+.hero h1 em{font-style:italic;font-weight:500}
+.hero-sub{max-width:660px;margin:clamp(22px,2.6vw,32px) auto 0;color:var(--ink-mute);font-size:clamp(17px,1.5vw,19px)}
+.hero-ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:clamp(34px,4vw,48px)}
+.hero-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:clamp(32px,3.6vw,44px)}
+.chip{
+  border:1px solid var(--line);border-radius:999px;background:var(--paper);
+  padding:9px 18px;font:400 13.5px/1.3 var(--ff-b);letter-spacing:.02em;color:var(--ink-soft);
+}
+.keyline{width:76px;height:1px;background:var(--gold);margin:clamp(56px,7vw,88px) auto 30px}
+.arch{
+  display:inline-block;border:1px solid var(--gold-line);
+  border-radius:999px 999px 0 0;padding:12px;background:var(--paper);
+  box-shadow:var(--shadow);
+}
+.arch img{border-radius:999px 999px 0 0;object-fit:cover;width:100%}
+.hero-arch{width:min(392px,80vw)}
+.hero-arch img{aspect-ratio:4/5.4}
+
+/* ---------- steps ---------- */
+.steps{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--line);border:1px solid var(--line);
+}
+.step{background:var(--ivory);padding:clamp(38px,4.6vw,62px) clamp(28px,3.6vw,54px)}
+.step-num{font:500 clamp(42px,4vw,54px)/1 var(--ff-d);color:var(--ink);font-variant-numeric:lining-nums}
+.step-num::after{content:"";display:block;width:36px;height:1px;background:var(--gold);margin-top:18px}
+.step h3{font:600 clamp(24px,2.2vw,30px)/1.18 var(--ff-d);letter-spacing:-.005em;margin-top:24px}
+.step p{margin-top:14px;color:var(--ink-soft);font-size:16.5px}
+.band{margin-top:clamp(52px,6vw,80px)}
+.band img{width:100%;aspect-ratio:21/9;object-fit:cover;border:1px solid var(--line)}
+.band figcaption{text-align:center;margin-top:18px;font:italic 500 18px/1.5 var(--ff-d);color:var(--ink-mute)}
+
+/* ---------- gallery ---------- */
+.gal{max-width:980px;margin:0 auto}
+.gal-frame{border:1px solid var(--gold-line);background:var(--paper);padding:10px;box-shadow:var(--shadow-soft)}
+.gal-vp{overflow:hidden;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+.gal-vp.dragging{cursor:grabbing}
+.gal-track{display:flex;transition:transform .95s var(--ease)}
+.gal-slide{flex:0 0 100%;margin:0}
+.gal-slide img{width:100%;aspect-ratio:16/9;object-fit:cover;-webkit-user-drag:none}
+.gal-slide figcaption{padding:22px 12px 8px;text-align:center}
+.gal-count{
+  display:block;font:500 12px/1 var(--ff-b);letter-spacing:.22em;
+  color:var(--gold-ink);margin-bottom:9px;font-variant-numeric:lining-nums;
+}
+.gal-slide figcaption em{font:italic 500 clamp(19px,2vw,22px)/1.4 var(--ff-d);color:var(--ink-soft);font-style:italic}
+.gal-ctrl{display:flex;align-items:center;justify-content:center;gap:26px;margin-top:26px}
+.gal-btn{
+  width:42px;height:42px;border-radius:999px;border:1px solid var(--line);
+  background:transparent;color:var(--ink);cursor:pointer;
+  display:grid;place-items:center;
+  transition:border-color .25s var(--ease),background .25s var(--ease),transform .2s var(--ease);
+}
+.gal-btn svg{width:16px;height:16px}
+.gal-btn:hover{border-color:var(--ink);background:var(--paper)}
+.gal-btn:active{transform:scale(.94)}
+.gal-dots{display:flex;align-items:center;gap:4px}
+.gal-dot{
+  width:28px;height:28px;border:none;background:none;cursor:pointer;
+  display:grid;place-items:center;border-radius:999px;
+}
+.gal-dot::before{
+  content:"";width:6px;height:6px;border-radius:999px;
+  background:rgba(25,24,23,.26);
+  transition:width .35s var(--ease),background .35s var(--ease);
+}
+.gal-dot:hover::before{background:rgba(25,24,23,.55)}
+.gal-dot[aria-current="true"]::before{width:22px;background:var(--ink)}
+
+/* ---------- price ---------- */
+.price-grid{
+  display:grid;grid-template-columns:minmax(160px,248px) minmax(0,560px) minmax(160px,248px);
+  gap:clamp(32px,4.4vw,68px);align-items:center;justify-content:center;
+}
+.flank{width:100%}
+.flank img{aspect-ratio:4/5.7}
+.price-panel{
+  text-align:center;background:var(--paper);
+  border:1px solid var(--line);border-top:1px solid var(--gold-line);
+  padding:clamp(42px,5vw,64px) clamp(26px,4vw,58px);
+}
+.price-val{
+  margin-top:26px;
+  font:500 clamp(86px,10vw,130px)/.95 var(--ff-d);
+  letter-spacing:-.01em;color:var(--gold);
+  font-variant-numeric:lining-nums;
+}
+.price-was{margin-top:14px;color:var(--ink-mute);font-size:15px;letter-spacing:.05em}
+.price-was s{text-decoration-thickness:1px}
+.chip-gold{
+  display:inline-block;margin-top:18px;
+  border:1px solid var(--gold-line);border-radius:999px;background:transparent;
+  padding:8px 16px;font:500 11.5px/1 var(--ff-b);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold-ink);
+}
+.inc-h{
+  margin-top:44px;
+  font:600 12.5px/1 var(--ff-b);letter-spacing:.16em;text-transform:uppercase;color:var(--ink);
+}
+.inc{list-style:none;margin-top:14px;border-top:1px solid var(--line)}
+.inc li{
+  display:flex;align-items:center;justify-content:center;gap:13px;
+  padding:13px 4px;border-bottom:1px solid var(--line);font-size:16px;color:var(--ink-soft);
+}
+.inc i{flex:none;width:5px;height:5px;background:var(--gold);transform:rotate(45deg)}
+.price-ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:38px}
+.price-note{margin-top:24px;font-size:14px;color:var(--ink-mute);letter-spacing:.02em}
+
+/* ---------- why ---------- */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,3vw,40px)}
+.card{
+  border:1px solid var(--line);background:var(--paper);
+  padding:clamp(38px,4.4vw,58px);
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease);
+}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-soft);border-color:var(--gold-faint)}
+.card-num{font:500 12px/1 var(--ff-b);letter-spacing:.22em;color:var(--gold-ink);font-variant-numeric:lining-nums}
+.card-num::after{content:"";display:block;width:26px;height:1px;background:var(--gold);margin-top:14px}
+.card h3{font:600 clamp(26px,2.4vw,33px)/1.15 var(--ff-d);letter-spacing:-.005em;margin-top:22px}
+.card p{margin-top:16px;color:var(--ink-soft);font-size:16.5px}
+
+/* ---------- expert ---------- */
+.exp-grid{
+  display:grid;grid-template-columns:minmax(240px,368px) 1fr;
+  gap:clamp(44px,6vw,92px);align-items:center;
+}
+.exp-arch{width:100%}
+.exp-arch img{aspect-ratio:4/5.2}
+.exp-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.exp-chips .chip{font-size:12.5px;letter-spacing:.08em}
+.exp-line{margin-top:22px;font:italic 500 clamp(19px,1.9vw,22px)/1.5 var(--ff-d);color:var(--ink-soft)}
+.exp-lists{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,3.4vw,48px);margin-top:44px}
+.exp-lists h3{
+  font:600 12.5px/1 var(--ff-b);letter-spacing:.16em;text-transform:uppercase;color:var(--ink);
+  padding-bottom:14px;border-bottom:1px solid var(--gold-line);
+}
+.exp-lists ul{list-style:none;margin-top:6px}
+.exp-lists li{
+  display:flex;align-items:baseline;gap:12px;
+  padding:11px 0;border-bottom:1px solid var(--line-soft);
+  font-size:15.5px;line-height:1.6;color:var(--ink-soft);
+}
+.exp-lists li i{flex:none;width:4.5px;height:4.5px;background:var(--gold);transform:rotate(45deg);position:relative;top:-2px}
+
+/* ---------- quiz ---------- */
+.quiz-grid{
+  display:grid;grid-template-columns:1fr minmax(220px,336px);
+  gap:clamp(44px,6vw,92px);align-items:start;
+}
+.q{padding:30px 0;border-top:1px solid var(--line)}
+.q:last-of-type{border-bottom:1px solid var(--line)}
+.q h3{font:500 clamp(21px,2vw,25px)/1.35 var(--ff-d);letter-spacing:-.005em}
+.q-opts{display:flex;gap:12px;margin-top:18px}
+.pill{
+  padding:11px 28px;border-radius:999px;border:1px solid var(--line);
+  background:transparent;color:var(--ink);
+  font:500 14px/1 var(--ff-b);letter-spacing:.04em;cursor:pointer;
+  transition:background .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease),transform .2s var(--ease);
+}
+.pill:hover{border-color:var(--ink)}
+.pill:active{transform:scale(.96)}
+.pill[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--ivory)}
+.quiz-img img{aspect-ratio:3/4.4;object-fit:cover;border:1px solid var(--line)}
+.quiz-side{position:sticky;top:116px}
+.quiz-ok{
+  margin-top:36px;text-align:center;
+  border:1px solid var(--gold-line);background:var(--paper);
+  padding:clamp(30px,3.6vw,44px);
+}
+.quiz-ok[hidden]{display:none}
+.ok-badge{
+  width:46px;height:46px;margin:0 auto;border-radius:999px;
+  border:1px solid var(--gold-line);display:grid;place-items:center;color:var(--gold-ink);
+}
+.ok-badge svg{width:20px;height:20px}
+.quiz-ok p{margin-top:18px;font:500 clamp(22px,2.3vw,27px)/1.3 var(--ff-d);letter-spacing:-.005em}
+.quiz-ok .btn{margin-top:26px}
+.quiz-ok .btn-ghost{margin-left:12px}
+.q-note{margin-top:14px;font-size:13.5px;color:var(--ink-mute);letter-spacing:.02em}
+
+/* ---------- purchase ---------- */
+.buy-grid{
+  display:grid;grid-template-columns:minmax(260px,430px) 1fr;
+  gap:clamp(44px,6vw,92px);align-items:center;
+}
+.buy-photo{border:1px solid var(--gold-line);background:var(--paper);padding:10px;box-shadow:var(--shadow-soft)}
+.buy-photo img{aspect-ratio:4/3.3;object-fit:cover;width:100%}
+.buy-badge{
+  display:inline-flex;align-items:center;gap:11px;
+  border:1px solid var(--gold-line);border-radius:999px;background:var(--paper);
+  padding:10px 20px;color:var(--gold-ink);
+  font:500 11.5px/1 var(--ff-b);letter-spacing:.16em;text-transform:uppercase;
+}
+.buy-badge svg{width:14px;height:14px}
+.buy-grid h2{margin-top:26px}
+.buy-line{margin-top:18px;font-size:17px;color:var(--ink-soft)}
+.buy-line strong{font-weight:600;color:var(--ink)}
+.terms-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin-top:34px}
+.terms{display:inline-flex;align-items:flex-start;gap:13px;cursor:pointer;font-size:15.5px;color:var(--ink-soft)}
+.terms input{position:absolute;opacity:0;width:1px;height:1px}
+.cbox{
+  flex:none;width:21px;height:21px;margin-top:4px;
+  border:1px solid var(--ink-mute);border-radius:3px;background:var(--paper);
+  position:relative;transition:background .25s var(--ease),border-color .25s var(--ease);
+}
+.cbox::after{
+  content:"";position:absolute;left:6.5px;top:2.5px;width:5px;height:10px;
+  border:solid var(--ivory);border-width:0 1.8px 1.8px 0;
+  transform:rotate(45deg) scale(0);transition:transform .2s var(--ease);
+}
+.terms input:checked ~ .cbox{background:var(--ink);border-color:var(--ink)}
+.terms input:checked ~ .cbox::after{transform:rotate(45deg) scale(1)}
+.terms:hover .cbox{border-color:var(--ink)}
+.terms input:focus-visible ~ .cbox{outline:2px solid var(--gold-ink);outline-offset:3px}
+.tlink{font-size:15.5px;color:var(--gold-ink);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;transition:color .25s var(--ease)}
+.tlink:hover{color:var(--ink)}
+.buy-cta-wrap{margin-top:30px}
+.buy-hint{margin-top:16px;font:italic 500 15.5px/1.5 var(--ff-d);color:var(--gold-ink)}
+.buy-hint[hidden]{display:none}
+.paytrust{display:flex;align-items:center;gap:11px;margin-top:28px;color:var(--ink-mute);font-size:14px}
+.paytrust svg{width:18px;height:18px;flex:none}
+.buy-note{margin-top:12px;font-size:14px;color:var(--ink-mute);max-width:52ch}
+
+/* ---------- footer ---------- */
+.site-foot{background:var(--ink);color:var(--ivory);padding:clamp(72px,9vw,116px) 0 42px}
+.foot-grid{display:grid;grid-template-columns:1.45fr 1fr 1fr;gap:clamp(36px,5vw,76px)}
+.foot-brand{display:inline-flex;align-items:center;gap:13px;text-decoration:none;color:var(--ivory)}
+.foot-brand svg{width:31px;height:31px}
+.foot-brand b{font:600 22px/1 var(--ff-d)}
+.foot-who{margin-top:22px;font-size:15px;line-height:1.85;color:rgba(251,249,244,.72)}
+.foot-who a{color:rgba(251,249,244,.88);text-decoration:none;border-bottom:1px solid rgba(168,137,79,.55);transition:color .25s var(--ease),border-color .25s var(--ease)}
+.foot-who a:hover{color:#fff;border-bottom-color:var(--gold)}
+.foot-col h3{
+  font:500 12px/1 var(--ff-b);letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(251,249,244,.55);margin-bottom:20px;
+}
+.foot-col ul{list-style:none}
+.foot-col a{
+  display:inline-block;padding:7px 0;font-size:15px;
+  color:rgba(251,249,244,.85);text-decoration:none;
+  border-bottom:1px solid transparent;
+  transition:color .25s var(--ease),border-color .25s var(--ease);
+}
+.foot-col a:hover{color:#fff;border-bottom-color:var(--gold)}
+.foot-bottom{
+  margin-top:clamp(52px,6vw,72px);padding-top:30px;
+  border-top:1px solid rgba(251,249,244,.14);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 28px;
+}
+.foot-bottom p{font-size:13.5px;color:rgba(251,249,244,.6);letter-spacing:.03em}
+.foot-links{display:flex;flex-wrap:wrap;gap:26px}
+.foot-links a{
+  font-size:13.5px;letter-spacing:.03em;color:rgba(251,249,244,.75);text-decoration:none;
+  border-bottom:1px solid transparent;transition:color .25s var(--ease),border-color .25s var(--ease);
+}
+.foot-links a:hover{color:#fff;border-bottom-color:var(--gold)}
+
+/* ---------- responsive ---------- */
+@media (max-width:1060px){
+  .price-grid{grid-template-columns:1fr;max-width:620px;margin-inline:auto}
+  .flanks{display:grid;grid-template-columns:1fr 1fr;gap:20px;order:3}
+  .flank img{aspect-ratio:4/4.6}
+  .quiz-grid{grid-template-columns:1fr}
+  .quiz-side{position:static;max-width:460px}
+  .quiz-img img{aspect-ratio:16/10}
+}
+@media (max-width:940px){
+  .nav{display:none}
+  .burger{display:block}
+  .mnav{
+    display:none;position:absolute;top:100%;left:0;right:0;
+    background:var(--ivory);border-bottom:1px solid var(--line);
+    padding:10px 24px 26px;
+  }
+  .mnav.open{display:block}
+  .mnav a:not(.btn){display:block;padding:16px 2px;font:500 15.5px/1 var(--ff-b);letter-spacing:.03em;color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--line-soft)}
+  .mnav a:not(.btn):hover{color:var(--ink)}
+  .mnav .btn{margin-top:20px;width:100%}
+  .exp-grid{grid-template-columns:1fr}
+  .exp-arch{max-width:360px}
+  .buy-grid{grid-template-columns:1fr}
+  .buy-photo{max-width:470px}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .foot-brand-col{grid-column:1 / -1}
+}
+@media (max-width:640px){
+  .steps{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr}
+  .exp-lists{grid-template-columns:1fr}
+  .band img{aspect-ratio:16/10}
+  .hero-ctas .btn{width:100%;max-width:360px}
+  .gal-slide img{aspect-ratio:4/3}
+  .flanks{gap:12px}
+  .quiz-ok .btn-ghost{margin-left:0;margin-top:12px}
+  .head-in{height:68px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+  [data-reveal]{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#sisalto">Siirry sisältöön</a>
+
+<!-- ================= HEADER ================= -->
+<header class="site-head">
+  <div class="container head-in">
+    <a class="brand" href="#sisalto" aria-label="Parempi tasapaino – etusivulle">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M7 26V15.5C7 10.253 11.253 6 16.5 6S26 10.253 26 15.5V26" stroke="#191817" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M3.5 26h25" stroke="#A8894F" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="16.5" cy="15.5" r="1.6" fill="#A8894F"/>
+      </svg>
+      <b>Parempi tasapaino®</b>
+    </a>
+    <nav class="nav" aria-label="Päänavigaatio">
+      <a href="#verkkokurssi">Verkkokurssi</a>
+      <a href="#testaa-soveltuvuutesi">Testaa soveltuvuutesi</a>
+      <a href="#tervetuloa-kurssile">Tervetuloa kurssille</a>
+      <a class="btn btn-ghost btn-sm" href="/omatestaus/">Kirjaudu</a>
+    </nav>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Valikko">
+      <span></span><span></span>
+    </button>
+    <nav class="mnav" id="mnav" aria-label="Mobiilivalikko">
+      <a href="#verkkokurssi">Verkkokurssi</a>
+      <a href="#testaa-soveltuvuutesi">Testaa soveltuvuutesi</a>
+      <a href="#tervetuloa-kurssile">Tervetuloa kurssille</a>
+      <a class="btn btn-solid" href="/omatestaus/">Kirjaudu</a>
+    </nav>
+  </div>
+</header>
+
+<main id="sisalto">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="container">
+      <p class="hero-badge" data-reveal><i aria-hidden="true"></i>Parempi tasapaino® – kannattaa aina</p>
+      <h1 id="hero-h" data-reveal style="--d:.08s">Parempi tasapaino® –<br><em>verkkokurssi.</em></h1>
+      <p class="hero-sub" data-reveal style="--d:.16s">Kustannustehokas ja hoitosuositusten mukainen verkkokuntoutus epätasapainon ja huimauksen hoitoon.</p>
+      <div class="hero-ctas" data-reveal style="--d:.24s">
+        <a class="btn btn-solid" href="#testaa-soveltuvuutesi">Testaa soveltuvuutesi
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h15m0 0-5.5-5.5M19 12l-5.5 5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="#tervetuloa-kurssile">Siirry ilmoittautumaan</a>
+      </div>
+      <div class="hero-chips" data-reveal style="--d:.32s">
+        <span class="chip">10 min päivässä</span>
+        <span class="chip">1 kk ohjelma</span>
+        <span class="chip">Hoitosuositusten mukainen</span>
+        <span class="chip">Kehitetty Suomessa</span>
+        <span class="chip">Suomalainen asiantuntija</span>
+      </div>
+      <div class="keyline" data-reveal style="--d:.4s" aria-hidden="true"></div>
+      <div class="arch hero-arch" data-reveal style="--d:.46s">
+        <img src="images/hero-balance-single-leg.jpg" alt="Tasapainoharjoitus yhdellä jalalla" width="1600" height="900" fetchpriority="high">
+      </div>
+    </div>
+  </section>
+
+  <div class="rule" aria-hidden="true"><i></i></div>
+
+  <!-- ================= STEPS ================= -->
+  <section class="sec" id="verkkokurssi" aria-labelledby="vk-h">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow center">Verkkokurssi</p>
+        <h2 class="h2" id="vk-h">Näin verkkokurssi toimii.</h2>
+      </div>
+      <div class="steps">
+        <article class="step" data-reveal>
+          <p class="step-num" aria-hidden="true">01</p>
+          <h3>Yksilöllinen ohjelma</h3>
+          <p>Tee kotona helposti toteutettavat testit, joiden pohjalta saat sinulle räätälöidyn harjoitusohjelman kuukaudeksi, jota päivitetään kurssin aikana enintään kolmesti.</p>
+        </article>
+        <article class="step" data-reveal style="--d:.1s">
+          <p class="step-num" aria-hidden="true">02</p>
+          <h3>Etene omaan tahtiisi</h3>
+          <p>Harjoittele oman aikataulusi mukaan kuukauden ajan. Keskimäärin harjoitukset ottavat aikaa 10 minuuttia päivässä.</p>
+        </article>
+        <article class="step" data-reveal style="--d:.05s">
+          <p class="step-num" aria-hidden="true">03</p>
+          <h3>Kattava tuki</h3>
+          <p>Opit kaiken tarvittavan tasapainoharjoittelusta ja sitä tukevista tekijöistä selkeiden teoriaosuuksien avulla. Voit kysyä henkilökohtaisia neuvoja asiantuntijalta koko kurssin ajan.</p>
+        </article>
+        <article class="step" data-reveal style="--d:.15s">
+          <p class="step-num" aria-hidden="true">04</p>
+          <h3>Mitattavia tuloksia</h3>
+          <p>Säännöllisellä harjoittelulla tasapainosi kehittyy. Verkkokurssin mittareiden avulla voit arvioida oireiden vähentymistä ja toimintakyvyn lisääntymistä. Voit halutessasi jatkaa kurssia kuukauden jälkeen.</p>
+        </article>
+      </div>
+      <figure class="band" data-reveal>
+        <img src="images/explainer-tandem-walk.jpg" alt="Tandemkävely-testin suoritus" loading="lazy" decoding="async" width="1600" height="900">
+        <figcaption>Tandemkävely – tasapainon perustesti</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <div class="rule" aria-hidden="true"><i></i></div>
+
+  <!-- ================= GALLERY ================= -->
+  <section class="sec" aria-labelledby="gal-h">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <p class="eyebrow center">Harjoitusgalleria</p>
+        <h2 class="h2" id="gal-h">Harjoituksia kurssilta</h2>
+      </div>
+      <div class="gal" id="galleria" data-reveal>
+        <div class="gal-frame">
+          <div class="gal-vp" role="group" aria-roledescription="kuvakaruselli" aria-label="Kurssin harjoituskuvat" tabindex="0">
+            <div class="gal-track">
+              <figure class="gal-slide" data-cap="Seisonta jalat yhdessä">
+                <img src="images/img-00.jpg" alt="Seisonta jalat yhdessä – tasapainoharjoitus kotona" draggable="false" decoding="async" width="1600" height="900">
+                <figcaption><span class="gal-count" id="gal-count">01 / 07</span><em>Seisonta jalat yhdessä</em></figcaption>
+              </figure>
+              <figure class="gal-slide" data-cap="Sivuprofiili seisonnasta" aria-hidden="true">
+                <img src="images/img-01.jpg" alt="Sivuprofiili seisonnasta jalat yhdessä" loading="lazy" decoding="async" draggable="false" width="1600" height="900">
+                <figcaption><span class="gal-count" aria-hidden="true">02 / 07</span><em>Sivuprofiili seisonnasta</em></figcaption>
+              </figure>
+              <figure class="gal-slide" data-cap="Kapea askel" aria-hidden="true">
+                <img src="images/img-02.jpg" alt="Kapea askel – tasapainotesti kotona" loading="lazy" decoding="async" draggable="false" width="1600" height="900">
+                <figcaption><span class="gal-count" aria-hidden="true">03 / 07</span><em>Kapea askel</em></figcaption>
+              </figure>
+              <figure class="gal-slide" data-cap="Tandemkävely sivusta" aria-hidden="true">
+                <img src="images/img-03.jpg" alt="Tandemkävely sivusta nähtynä" loading="lazy" decoding="async" draggable="false" width="1600" height="900">
+                <figcaption><span class="gal-count" aria-hidden="true">04 / 07</span><em>Tandemkävely sivusta</em></figcaption>
+              </figure>
+              <figure class="gal-slide" data-cap="Tandemkävely – askel toisen jalan edessä" aria-hidden="true">
+                <img src="images/img-04.jpg" alt="Tandemkävely – askel toisen jalan edessä" loading="lazy" decoding="async" draggable="false" width="1600" height="900">
+                <figcaption><span class="gal-count" aria-hidden="true">05 / 07</span><em>Tandemkävely – askel toisen jalan edessä</em></figcaption>
+              </figure>
+              <figure class="gal-slide" data-cap="Seisonta jalat lantion leveydellä" aria-hidden="true">
+                <img src="images/img-05.jpg" alt="Seisonta jalat lantion leveydellä" loading="lazy" decoding="async" draggable="false" width="1600" height="900">
+                <figcaption><span class="gal-count" aria-hidden="true">06 / 07</span><em>Seisonta jalat lantion leveydellä</em></figcaption>
+              </figure>
+              <figure class="gal-slide" data-cap="Rauhallinen lähtöasento harjoitteluun" aria-hidden="true">
+                <img src="images/img-06.jpg" alt="Rauhallinen lähtöasento harjoitteluun" loading="lazy" decoding="async" draggable="false" width="1600" height="900">
+                <figcaption><span class="gal-count" aria-hidden="true">07 / 07</span><em>Rauhallinen lähtöasento harjoitteluun</em></figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+        <div class="gal-ctrl">
+          <button class="gal-btn" id="gal-prev" type="button" aria-label="Edellinen kuva">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m14.5 5.5-6.5 6.5 6.5 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="gal-dots" id="gal-dots"></div>
+          <button class="gal-btn" id="gal-next" type="button" aria-label="Seuraava kuva">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9.5 5.5 6.5 6.5-6.5 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <p class="sr-only" aria-live="polite" id="gal-status"></p>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule" aria-hidden="true"><i></i></div>
+
+  <!-- ================= PRICE ================= -->
+  <section class="sec" id="hinta" aria-labelledby="hinta-h">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <h2 class="h2" id="hinta-h"><span class="eyebrow center">Hinta</span></h2>
+      </div>
+      <div class="price-grid">
+        <div class="arch flank" data-reveal>
+          <img src="images/test-1-feet-together.jpg" alt="Testi 1: seisonta jalat yhdessä" loading="lazy" decoding="async" width="1600" height="900">
+        </div>
+        <div class="price-panel" data-reveal style="--d:.1s">
+          <p class="price-val">99&nbsp;€</p>
+          <p class="price-was"><s>norm. 119&nbsp;€</s></p>
+          <p class="chip-gold">Säästät 20&nbsp;€</p>
+          <h3 class="inc-h">Sisältyy hintaan:</h3>
+          <ul class="inc">
+            <li><i aria-hidden="true"></i>Yksilöllinen harjoitusohjelma</li>
+            <li><i aria-hidden="true"></i>Asiantuntijatuki koko kurssin ajan</li>
+            <li><i aria-hidden="true"></i>Mitattavat tulokset</li>
+          </ul>
+          <div class="price-ctas">
+            <a class="btn btn-ghost" href="#testaa-soveltuvuutesi">Testaa soveltuvuutesi</a>
+            <a class="btn btn-solid" href="#tervetuloa-kurssile">Osta kurssi</a>
+          </div>
+          <p class="price-note">Kertamaksu – ei jatkuvaa tilausta.</p>
+        </div>
+        <div class="flanks" data-reveal style="--d:.2s">
+          <div class="arch flank">
+            <img src="images/test-2-hip-width.jpg" alt="Testi 2: seisonta jalat lantion leveydellä" loading="lazy" decoding="async" width="1600" height="900">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule" aria-hidden="true"><i></i></div>
+
+  <!-- ================= WHY ================= -->
+  <section class="sec" aria-labelledby="miksi-h">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <h2 class="h2" id="miksi-h">Miksi valita Parempi tasapaino® -verkkokurssi?</h2>
+      </div>
+      <div class="why-grid">
+        <article class="card" data-reveal>
+          <p class="card-num">01</p>
+          <h3>Kustannustehokkuus</h3>
+          <p>Verkkokuntoutus tuo asiantuntevan ohjauksen suoraan kotiisi murto-osalla yksilöterapian hinnasta. Ei matkustamista eikä jonotusaikoja – harjoittelet silloin, kun sinulle sopii. Kurssi perustuu hoitosuosituksiin ja se on kehitetty neurologiseen kuntoutukseen erikoistuneen kiropraktikon toimesta.</p>
+        </article>
+        <article class="card" data-reveal style="--d:.12s">
+          <p class="card-num">02</p>
+          <h3>Yksilöllinen harjoitusohjelma</h3>
+          <p>Jokainen kurssilainen tekee ensin helpon kotitestausten sarjan, jonka perusteella laaditaan juuri sinun tasollesi sopiva harjoitusohjelma. Ohjelmaa päivitetään edistymisesi mukaan kurssin aikana, jotta harjoittelu pysyy tehokkaana ja turvallisena alusta loppuun asti.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule" aria-hidden="true"><i></i></div>
+
+  <!-- ================= EXPERT ================= -->
+  <section class="sec" aria-labelledby="exp-h">
+    <div class="container exp-grid">
+      <div class="arch exp-arch" data-reveal>
+        <img src="images/profile-side-stand.jpg" alt="Seisonta sivuprofiilissa" loading="lazy" decoding="async" width="1600" height="900">
+      </div>
+      <div data-reveal style="--d:.12s">
+        <p class="eyebrow">Kurssin asiantuntija</p>
+        <h2 class="h2" id="exp-h" style="margin-top:20px">Jani Mikkonen</h2>
+        <div class="exp-chips">
+          <span class="chip">D.C</span>
+          <span class="chip">B.Sc. (Hons)</span>
+          <span class="chip">DACNB</span>
+          <span class="chip">Ph.D</span>
+        </div>
+        <p class="exp-line">Kiropraktikko, erikoistunut neurologiseen kuntoutukseen, filosofian tohtori</p>
+        <div class="exp-lists">
+          <div>
+            <h3>Koulutus</h3>
+            <ul>
+              <li><i aria-hidden="true"></i>Kiropraktikko (D.C.)</li>
+              <li><i aria-hidden="true"></i>B.Sc. (Hons) – alempi korkeakoulututkinto</li>
+              <li><i aria-hidden="true"></i>DACNB – American Clinical Neurology Board -diplomaatti</li>
+              <li><i aria-hidden="true"></i>Ph.D. – filosofian tohtori</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Ydinosaaminen</h3>
+            <ul>
+              <li><i aria-hidden="true"></i>Neurologiseen kuntoutukseen erikoistuminen</li>
+              <li><i aria-hidden="true"></i>Huimauksen ja epätasapainon arviointi ja kuntoutus</li>
+              <li><i aria-hidden="true"></i>Tasapainotestausten ja harjoitusohjelmien kehittäminen</li>
+              <li><i aria-hidden="true"></i>Verkkokuntoutuksen edelläkävijä Suomessa</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule" aria-hidden="true"><i></i></div>
+
+  <!-- ================= QUIZ ================= -->
+  <section class="sec" id="testaa-soveltuvuutesi" aria-labelledby="quiz-h">
+    <div class="container quiz-grid">
+      <div data-reveal>
+        <p class="eyebrow">Soveltuvuustesti</p>
+        <h2 class="h2" id="quiz-h" style="margin-top:20px">Testaa soveltuvuutesi</h2>
+        <p class="lede">Vastaa muutamaan kysymykseen ja selvitä, sopiiko verkkokurssi sinulle.</p>
+        <div id="quiz-form" style="margin-top:36px">
+          <div class="q" role="group" aria-labelledby="q1-t">
+            <h3 id="q1-t">1. Huomaatko epätasapainon arjen liikkeissä?</h3>
+            <div class="q-opts">
+              <button class="pill" type="button" data-q="0" data-v="kylla" aria-pressed="false">Kyllä</button>
+              <button class="pill" type="button" data-q="0" data-v="ei" aria-pressed="false">Ei</button>
+            </div>
+          </div>
+          <div class="q" role="group" aria-labelledby="q2-t">
+            <h3 id="q2-t">2. Onko sinulla huimausta seisoessasi tai kävellessä?</h3>
+            <div class="q-opts">
+              <button class="pill" type="button" data-q="1" data-v="kylla" aria-pressed="false">Kyllä</button>
+              <button class="pill" type="button" data-q="1" data-v="ei" aria-pressed="false">Ei</button>
+            </div>
+          </div>
+          <div class="q" role="group" aria-labelledby="q3-t">
+            <h3 id="q3-t">3. Haluaisitko parantaa tasapainoasi kotona harjoittelemalla?</h3>
+            <div class="q-opts">
+              <button class="pill" type="button" data-q="2" data-v="kylla" aria-pressed="false">Kyllä</button>
+              <button class="pill" type="button" data-q="2" data-v="ei" aria-pressed="false">Ei</button>
+            </div>
+          </div>
+          <p class="q-note">Vastaa kaikkiin kolmeen kysymykseen.</p>
+        </div>
+        <div class="quiz-ok" id="quiz-ok" role="status" hidden>
+          <span class="ok-badge" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none"><path d="m4 10.5 4 4 8-9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <p>Hyviä uutisia – verkkokurssi sopii todennäköisesti sinulle!</p>
+          <a class="btn btn-solid" href="#tervetuloa-kurssile">Siirry ilmoittautumaan</a>
+          <button class="btn btn-ghost" type="button" id="quiz-reset">Aloita alusta</button>
+        </div>
+      </div>
+      <div class="quiz-side" data-reveal style="--d:.14s">
+        <div class="quiz-img">
+          <img src="images/test-3-narrow-step.jpg" alt="Testi 3: kapea askel" loading="lazy" decoding="async" width="1600" height="900">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule" aria-hidden="true"><i></i></div>
+
+  <!-- ================= PURCHASE ================= -->
+  <section class="sec" id="tervetuloa-kurssile" aria-labelledby="buy-h">
+    <div class="container buy-grid">
+      <div class="buy-photo" data-reveal>
+        <img src="images/course-welcome.jpg" alt="Tervetuloa kurssille" loading="lazy" decoding="async" width="1600" height="900">
+      </div>
+      <div data-reveal style="--d:.12s">
+        <p class="buy-badge">
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4 10.5 4 4 8-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Soveltuvuustesti läpäisty
+        </p>
+        <h2 class="h2" id="buy-h">Tervetuloa kurssille!</h2>
+        <p class="buy-line"><strong>Verkkokurssi 99&nbsp;€</strong> (norm. 119&nbsp;€) – kertamaksu, ei sitoutumista.</p>
+        <div class="terms-row">
+          <label class="terms">
+            <input type="checkbox" id="ehdot">
+            <span class="cbox" aria-hidden="true"></span>
+            <span>Olen lukenut ja hyväksyn</span>
+          </label>
+          <a class="tlink" href="#">Kurssin käyttöehdot</a>
+        </div>
+        <div class="buy-cta-wrap">
+          <a class="btn btn-solid is-disabled" id="buy-cta" href="#" aria-disabled="true">Jatka maksuun – 99&nbsp;€</a>
+        </div>
+        <p class="buy-hint" id="buy-hint" role="alert" hidden>Hyväksy ensin kurssin käyttöehdot.</p>
+        <p class="paytrust">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="9.5" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Maksu hoidetaan turvallisesti Paytrail-maksupalvelun kautta.
+        </p>
+        <p class="buy-note">Jos haluat maksaa Epassin tai Edenredin liikuntaeduilla, ota yhteyttä etukäteen: <a class="tlink" href="https://parempitasapaino.fi/yhteys">parempitasapaino.fi/yhteys</a></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-foot">
+  <h2 class="sr-only">Yhteys ja tiedot</h2>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand-col">
+        <a class="foot-brand" href="#sisalto" aria-label="Parempi tasapaino – ylös">
+          <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <path d="M7 26V15.5C7 10.253 11.253 6 16.5 6S26 10.253 26 15.5V26" stroke="#FBF9F4" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M3.5 26h25" stroke="#A8894F" stroke-width="1.6" stroke-linecap="round"/>
+            <circle cx="16.5" cy="15.5" r="1.6" fill="#A8894F"/>
+          </svg>
+          <b>Parempi tasapaino®</b>
+        </a>
+        <p class="foot-who">
+          Jani Mikkonen D.C., B.Sc. (Hons), DACNB, Ph.D.<br>
+          Kiropraktikko, erikoistunut neurologiseen kuntoutukseen, filosofian tohtori<br>
+          <a href="https://parempitasapaino.fi">parempitasapaino.fi</a>
+        </p>
+      </div>
+      <div class="foot-col">
+        <h3>Ota yhteyttä</h3>
+        <ul>
+          <li><a href="mailto:jani@selkakuntoutus.fi">jani@selkakuntoutus.fi</a></li>
+          <li><a href="https://parempitasapaino.fi/yhteys/" target="_blank" rel="noopener">https://parempitasapaino.fi/yhteys/</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h3>Tiedot</h3>
+        <ul>
+          <li><a href="#">Tietosuojaseloste</a></li>
+          <li><a href="#">Kurssin käyttöehdot</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2026 Parempi tasapaino®</p>
+      <div class="foot-links">
+        <a href="#verkkokurssi">Verkkokurssi</a>
+        <a href="#testaa-soveltuvuutesi">Testaa soveltuvuutesi</a>
+        <a href="#tervetuloa-kurssile">Tervetuloa kurssille</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+var mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+/* ---------- mobile nav ---------- */
+var burger = document.querySelector(".burger");
+var mnav = document.getElementById("mnav");
+if (burger && mnav){
+  burger.addEventListener("click", function(){
+    var open = mnav.classList.toggle("open");
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  mnav.addEventListener("click", function(e){
+    if (e.target.closest("a")){
+      mnav.classList.remove("open");
+      burger.setAttribute("aria-expanded","false");
+    }
+  });
+  document.addEventListener("keydown", function(e){
+    if (e.key === "Escape" && mnav.classList.contains("open")){
+      mnav.classList.remove("open");
+      burger.setAttribute("aria-expanded","false");
+      burger.focus();
+    }
+  });
+}
+
+/* ---------- quiz ---------- */
+var quizForm = document.getElementById("quiz-form");
+if (quizForm){
+  var state = [null, null, null];
+  var okPanel = document.getElementById("quiz-ok");
+  quizForm.addEventListener("click", function(e){
+    var b = e.target.closest("button.pill");
+    if (!b) return;
+    var q = parseInt(b.getAttribute("data-q"), 10);
+    state[q] = (b.getAttribute("data-v") === "kylla");
+    var pills = quizForm.querySelectorAll('button.pill[data-q="' + q + '"]');
+    for (var i = 0; i < pills.length; i++){
+      pills[i].setAttribute("aria-pressed", pills[i] === b ? "true" : "false");
+    }
+    var done = state.every(function(s){ return s !== null; });
+    if (done) okPanel.hidden = false;
+  });
+  document.getElementById("quiz-reset").addEventListener("click", function(){
+    state = [null, null, null];
+    okPanel.hidden = true;
+    var pills = quizForm.querySelectorAll("button.pill");
+    for (var i = 0; i < pills.length; i++){ pills[i].setAttribute("aria-pressed","false"); }
+    quizForm.querySelector("button.pill").focus();
+  });
+}
+
+/* ---------- purchase gate ---------- */
+var terms = document.getElementById("ehdot");
+var buyCta = document.getElementById("buy-cta");
+var buyHint = document.getElementById("buy-hint");
+if (terms && buyCta){
+  function syncGate(){
+    var okc = terms.checked;
+    buyCta.setAttribute("aria-disabled", okc ? "false" : "true");
+    buyCta.classList.toggle("is-disabled", !okc);
+    if (okc) buyHint.hidden = true;
+  }
+  terms.addEventListener("change", syncGate);
+  buyCta.addEventListener("click", function(e){
+    if (!terms.checked){
+      e.preventDefault();
+      buyHint.hidden = false;
+    } else {
+      e.preventDefault();
+    }
+  });
+  syncGate();
+}
+
+/* ---------- gallery ---------- */
+var gal = document.getElementById("galleria");
+if (gal){
+  var vp = gal.querySelector(".gal-vp");
+  var track = gal.querySelector(".gal-track");
+  var slides = track.children;
+  var n = slides.length;
+  var idx = 0;
+  var timer = null;
+  var statusEl = document.getElementById("gal-status");
+  var countEl = document.getElementById("gal-count");
+  var dotsWrap = document.getElementById("gal-dots");
+
+  function pad(x){ return (x < 10 ? "0" : "") + x; }
+
+  for (var i = 0; i < n; i++){
+    (function(k){
+      var d = document.createElement("button");
+      d.type = "button";
+      d.className = "gal-dot";
+      d.setAttribute("aria-label", "Siirry kuvaan " + (k + 1));
+      d.addEventListener("click", function(){ go(k, true); });
+      dotsWrap.appendChild(d);
+    })(i);
+  }
+  var dots = dotsWrap.children;
+
+  function go(k, user){
+    idx = ((k % n) + n) % n;
+    track.style.transform = "translateX(" + (-idx * 100) + "%)";
+    for (var j = 0; j < n; j++){
+      slides[j].setAttribute("aria-hidden", j === idx ? "false" : "true");
+      dots[j].setAttribute("aria-current", j === idx ? "true" : "false");
+    }
+    countEl.textContent = pad(idx + 1) + " / " + pad(n);
+    statusEl.textContent = "Kuva " + (idx + 1) + " / " + n + ": " + slides[idx].getAttribute("data-cap");
+    if (user) restart();
+  }
+
+  document.getElementById("gal-prev").addEventListener("click", function(){ go(idx - 1, true); });
+  document.getElementById("gal-next").addEventListener("click", function(){ go(idx + 1, true); });
+
+  gal.addEventListener("keydown", function(e){
+    if (e.key === "ArrowLeft"){ e.preventDefault(); go(idx - 1, true); }
+    else if (e.key === "ArrowRight"){ e.preventDefault(); go(idx + 1, true); }
+  });
+
+  function stop(){ if (timer){ clearInterval(timer); timer = null; } }
+  function start(){ if (!mq.matches && !timer) timer = setInterval(function(){ go(idx + 1, false); }, 5400); }
+  function restart(){ stop(); start(); }
+
+  gal.addEventListener("mouseenter", stop);
+  gal.addEventListener("mouseleave", function(){ if (!gal.contains(document.activeElement)) start(); });
+  gal.addEventListener("focusin", stop);
+  gal.addEventListener("focusout", function(e){ if (!gal.contains(e.relatedTarget)) start(); });
+  document.addEventListener("visibilitychange", function(){
+    if (document.hidden) stop(); else start();
+  });
+
+  var dragging = false, downX = 0, moved = 0;
+  vp.addEventListener("pointerdown", function(e){
+    dragging = true; downX = e.clientX; moved = 0;
+    vp.classList.add("dragging");
+    stop();
+    if (vp.setPointerCapture) { try { vp.setPointerCapture(e.pointerId); } catch(err){} }
+  });
+  vp.addEventListener("pointermove", function(e){
+    if (!dragging) return;
+    moved = e.clientX - downX;
+  });
+  function endDrag(){
+    if (!dragging) return;
+    dragging = false;
+    vp.classList.remove("dragging");
+    if (Math.abs(moved) > 48) go(idx + (moved < 0 ? 1 : -1), false);
+    start();
+  }
+  vp.addEventListener("pointerup", endDrag);
+  vp.addEventListener("pointercancel", endDrag);
+
+  go(0, false);
+  start();
+}
+
+/* ---------- scroll reveal ---------- */
+var reveals = document.querySelectorAll("[data-reveal]");
+if (mq.matches || !("IntersectionObserver" in window)){
+  for (var r = 0; r < reveals.length; r++) reveals[r].classList.add("is-in");
+} else {
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (en.isIntersecting){
+        en.target.classList.add("is-in");
+        io.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.14, rootMargin: "0px 0px -8% 0px" });
+  for (var r2 = 0; r2 < reveals.length; r2++) io.observe(reveals[r2]);
+}
+})();
+</script>
+</body>
+</html>

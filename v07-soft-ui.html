@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parempi tasapaino® – verkkokurssi | v07 Soft UI</title>
+<meta name="description" content="Parempi tasapaino® – verkkokurssi: kustannustehokas ja hoitosuosituksiin perustuva verkkokuntoutus epätasapainon ja huimauksen hoitoon.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============ Tokens ============ */
+:root{
+  --bg:#E9ECF2;
+  --bg-deep:#DFE4EC;
+  --ink:#2B3445;
+  --ink-soft:#5A6478;
+  --blue:#4A7DFF;          /* accents: icons, fills, decor */
+  --blue-ink:#2E5BE0;      /* AA-safe blue for text */
+  --coral:#FF8E72;         /* accents only */
+  --sh-dark:rgba(163,177,198,.45);
+  --sh-darker:rgba(163,177,198,.55);
+  --sh-light:rgba(255,255,255,.92);
+  --r:24px;
+  --r-lg:32px;
+  --header-h:96px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+/* ============ Reset / base ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-weight:500;color:var(--ink);line-height:1.65;font-size:1.0625rem;
+  background:
+    radial-gradient(1100px 560px at 88% -8%,rgba(74,125,255,.08),transparent 60%),
+    radial-gradient(900px 520px at -12% 28%,rgba(255,142,114,.07),transparent 55%),
+    var(--bg);
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:var(--blue-ink);text-decoration:none}
+ul,ol{list-style:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:3px solid rgba(74,125,255,.55);outline-offset:3px;border-radius:10px}
+::selection{background:rgba(74,125,255,.22)}
+[id]{scroll-margin-top:calc(var(--header-h) + 16px)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip-link{position:absolute;left:16px;top:-64px;z-index:100;padding:12px 20px;border-radius:999px;
+  background:var(--ink);color:#fff;font-weight:700;transition:top .2s var(--ease)}
+.skip-link:focus{top:14px}
+.container{width:min(1200px,100% - 48px);margin-inline:auto}
+section{padding-block:clamp(64px,9vw,112px)}
+
+h1,h2,h3{font-weight:800;line-height:1.12}
+h1{font-size:clamp(2.5rem,5.4vw,4.15rem);letter-spacing:-.03em}
+h2{font-size:clamp(1.9rem,3.4vw,2.7rem);letter-spacing:-.02em}
+h3{font-size:1.25rem;letter-spacing:-.01em}
+.lead{color:var(--ink-soft);font-size:1.125rem;max-width:56ch}
+
+.eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:.8125rem;font-weight:800;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--blue-ink)}
+.eyebrow::before{content:"";width:28px;height:9px;border-radius:999px;background:var(--bg);
+  box-shadow:inset 2px 2px 4px var(--sh-darker),inset -2px -2px 4px #fff}
+
+.section-head{display:grid;gap:16px;margin-bottom:clamp(36px,5vw,56px)}
+.section-head.center{text-align:center;justify-items:center}
+
+/* ============ Neumorphic primitives ============ */
+.neo{
+  background:linear-gradient(145deg,#EEF1F7,#E4E8F0);
+  border-radius:var(--r);
+  box-shadow:-12px -12px 26px var(--sh-light),14px 16px 34px var(--sh-dark);
+}
+.neo-inset{
+  background:var(--bg);
+  border-radius:20px;
+  box-shadow:inset 6px 6px 14px var(--sh-darker),inset -6px -6px 14px #fff;
+}
+.frame{position:relative;padding:12px;border-radius:var(--r-lg);
+  background:linear-gradient(145deg,#F0F3F8,#E2E6EE);
+  box-shadow:-12px -12px 26px var(--sh-light),14px 16px 34px rgba(163,177,198,.5)}
+.frame .ph{position:relative;overflow:hidden;border-radius:22px;background:#DCE1EA}
+.frame .ph::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.9),inset 0 0 0 7px rgba(255,255,255,.32)}
+.frame img{width:100%;height:100%;object-fit:cover}
+
+/* ============ Buttons ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:16px 30px;border-radius:999px;font-weight:800;font-size:1.0625rem;letter-spacing:-.01em;
+  color:var(--ink);background:linear-gradient(145deg,#F0F3F8,#E3E7EF);
+  box-shadow:-6px -6px 14px var(--sh-light),7px 8px 18px var(--sh-dark);
+  transition:transform .16s var(--ease),box-shadow .16s var(--ease),color .16s var(--ease)}
+.btn:hover{transform:translateY(-2px);color:var(--blue-ink);
+  box-shadow:-8px -8px 18px var(--sh-light),10px 12px 24px var(--sh-dark)}
+.btn:active{transform:translateY(1px);
+  box-shadow:inset 5px 5px 12px var(--sh-darker),inset -5px -5px 12px #fff}
+.btn-primary{color:#fff;background:linear-gradient(145deg,var(--blue),#2E5BE0);
+  box-shadow:-5px -5px 12px rgba(255,255,255,.7),8px 10px 22px rgba(74,125,255,.4)}
+.btn-primary:hover{color:#fff;box-shadow:-5px -5px 12px rgba(255,255,255,.7),11px 14px 28px rgba(74,125,255,.5)}
+.btn-primary:active{box-shadow:inset 5px 5px 12px rgba(21,45,120,.5),inset -4px -4px 10px rgba(130,165,255,.4)}
+.btn-lg{font-size:1.1875rem;padding:19px 38px}
+.btn.is-locked{opacity:.45;filter:saturate(.55);cursor:not-allowed;transform:none}
+.btn.is-locked:hover{color:#fff;transform:none}
+
+/* quiz pill — physically pressable */
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-width:104px;padding:13px 24px;border-radius:999px;font-weight:700;color:var(--ink-soft);
+  background:linear-gradient(145deg,#F0F3F8,#E3E7EE);
+  box-shadow:-5px -5px 12px var(--sh-light),6px 7px 14px var(--sh-dark);
+  transition:transform .16s var(--ease),box-shadow .16s var(--ease),color .16s var(--ease)}
+.pill:hover{transform:translateY(-1px);color:var(--blue-ink)}
+.pill:active{transform:translateY(1px);
+  box-shadow:inset 4px 4px 10px var(--sh-darker),inset -4px -4px 10px #fff}
+.pill[aria-pressed="true"]{transform:none;color:var(--blue-ink);background:var(--bg);
+  box-shadow:inset 5px 5px 12px var(--sh-darker),inset -5px -5px 12px #fff}
+
+.chip{display:inline-flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;
+  font-weight:700;font-size:.9rem;color:var(--ink-soft);background:var(--bg);
+  box-shadow:inset 4px 4px 10px var(--sh-darker),inset -4px -4px 10px #fff}
+.chip svg{flex:none;width:18px;height:18px;stroke:var(--blue)}
+.chip.warm svg{stroke:var(--coral)}
+
+.icon{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round}
+
+/* ============ Header ============ */
+.site-header{position:sticky;top:0;z-index:60;padding:14px 0;
+  background:linear-gradient(180deg,rgba(233,236,242,.92),rgba(233,236,242,.72));
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.nav-shell{display:flex;align-items:center;gap:28px;padding:12px 14px 12px 22px;border-radius:999px;
+  background:linear-gradient(145deg,#EEF1F7,#E4E8F0);
+  box-shadow:-8px -8px 18px var(--sh-light),10px 12px 26px var(--sh-dark)}
+.brand{display:inline-flex;align-items:center;gap:12px;font-weight:800;font-size:1.0625rem;
+  letter-spacing:-.01em;color:var(--ink);white-space:nowrap}
+.brand-mark{flex:none;width:42px;height:42px;border-radius:14px;display:grid;place-items:center;
+  background:linear-gradient(145deg,#5B8BFF,#3E6EF0);
+  box-shadow:-3px -3px 8px var(--sh-light),4px 5px 10px rgba(74,125,255,.4)}
+.brand-mark svg{width:24px;height:24px}
+.primary-nav{margin-left:auto}
+.primary-nav ul{display:flex;align-items:center;gap:6px}
+.primary-nav a{display:block;padding:10px 16px;border-radius:999px;font-weight:700;font-size:.95rem;
+  color:var(--ink-soft);transition:color .15s,box-shadow .15s}
+.primary-nav a:hover{color:var(--blue-ink);
+  box-shadow:inset 3px 3px 7px var(--sh-darker),inset -3px -3px 7px #fff}
+.nav-cta{flex:none}
+.nav-toggle{display:none;flex:none;width:48px;height:48px;border-radius:16px;place-items:center;
+  background:linear-gradient(145deg,#F0F3F8,#E3E7EE);
+  box-shadow:-4px -4px 10px var(--sh-light),5px 6px 12px var(--sh-dark)}
+.nav-toggle:active{box-shadow:inset 4px 4px 9px var(--sh-darker),inset -4px -4px 9px #fff}
+.nav-toggle svg{width:22px;height:22px;stroke:var(--ink);stroke-width:2;fill:none;stroke-linecap:round}
+.nav-toggle .ic-close,.nav-open .nav-toggle .ic-bars{display:none}
+.nav-open .nav-toggle .ic-close{display:block}
+@media (max-width:960px){
+  .primary-nav{position:absolute;top:calc(100% + 12px);left:24px;right:24px;margin:0;
+    padding:18px;border-radius:var(--r);display:none;
+    background:linear-gradient(145deg,#EEF1F7,#E4E8F0);
+    box-shadow:-10px -10px 22px var(--sh-light),14px 16px 32px var(--sh-darker)}
+  .nav-open .primary-nav{display:block}
+  .primary-nav ul{flex-direction:column;align-items:stretch;gap:8px}
+  .primary-nav a{padding:14px 18px;border-radius:16px;font-size:1.0625rem}
+  .nav-toggle{display:grid}
+  .nav-cta{margin-left:auto}
+}
+@media (max-width:420px){
+  .brand span{display:none}
+  .nav-cta .btn{padding:12px 20px;font-size:.95rem}
+}
+
+/* ============ Hero ============ */
+.hero{padding-block:clamp(40px,6vw,84px) clamp(64px,9vw,112px)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,64px);align-items:center}
+.hero-copy{display:grid;gap:26px;justify-items:start}
+.badge{display:inline-flex;align-items:center;gap:10px;padding:9px 18px 9px 12px;border-radius:999px;
+  font-weight:700;font-size:.9rem;color:var(--ink-soft);
+  background:linear-gradient(145deg,#F0F3F8,#E3E7EE);
+  box-shadow:-5px -5px 12px var(--sh-light),6px 7px 14px var(--sh-dark)}
+.badge svg{width:20px;height:20px;border-radius:50%;padding:3px;color:#fff;
+  background:linear-gradient(145deg,var(--coral),#F2704F);fill:none;stroke:currentColor;
+  stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.hero-sub{color:var(--ink-soft);font-size:1.2rem;max-width:50ch}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:16px}
+.hero-chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+.hero-media{position:relative}
+.hero-media .ph{aspect-ratio:4/3.4}
+.float-tile{position:absolute;left:-26px;bottom:34px;display:flex;align-items:center;gap:12px;
+  padding:14px 20px;border-radius:20px;
+  background:linear-gradient(145deg,#F0F3F8,#E3E7EE);
+  box-shadow:-8px -8px 18px var(--sh-light),10px 12px 24px var(--sh-dark)}
+.float-tile .ft-ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;
+  background:var(--bg);
+  box-shadow:inset 4px 4px 9px var(--sh-darker),inset -4px -4px 9px #fff}
+.float-tile .ft-ic svg{width:22px;height:22px;stroke:var(--coral);fill:none;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.float-tile strong{display:block;font-size:.95rem;letter-spacing:-.01em}
+.float-tile small{color:var(--ink-soft);font-weight:700;font-size:.78rem}
+@media (max-width:920px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-media{order:-1}
+  .float-tile{left:16px;bottom:-22px}
+}
+
+/* ============ Gallery / carousel ============ */
+.carousel{padding:18px;border-radius:var(--r-lg)}
+.carousel-viewport{overflow:hidden;border-radius:22px;background:#DCE1EA;touch-action:pan-y;cursor:grab}
+.carousel-viewport:active{cursor:grabbing}
+.carousel-track{display:flex;transition:transform .65s var(--ease)}
+.slide{flex:0 0 100%;min-width:0}
+.slide figure{position:relative;margin:0;aspect-ratio:16/9}
+.slide img{width:100%;height:100%;object-fit:cover;user-select:none;-webkit-user-drag:none}
+.slide figure::after{content:"";position:absolute;inset:0;pointer-events:none;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.9),inset 0 0 0 7px rgba(255,255,255,.32)}
+.carousel-ui{display:flex;align-items:center;gap:20px;padding-top:18px}
+.c-btn{flex:none;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;
+  background:linear-gradient(145deg,#F0F3F8,#E3E7EE);color:var(--ink);
+  box-shadow:-4px -4px 10px var(--sh-light),5px 6px 12px var(--sh-dark);
+  transition:transform .16s var(--ease),box-shadow .16s var(--ease),color .16s var(--ease)}
+.c-btn:hover{color:var(--blue-ink);transform:translateY(-2px)}
+.c-btn:active{transform:translateY(1px);
+  box-shadow:inset 4px 4px 10px var(--sh-darker),inset -4px -4px 10px #fff}
+.c-btn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.dots{display:flex;align-items:center;gap:12px;margin-inline:auto}
+.dot{width:13px;height:13px;border-radius:50%;padding:0;background:#DDE2EB;
+  box-shadow:2px 3px 6px var(--sh-dark),-2px -2px 5px #fff;
+  transition:transform .2s var(--ease),background .2s,box-shadow .2s}
+.dot:hover{transform:scale(1.2)}
+.dot[aria-current="true"]{transform:scale(1.25);background:var(--blue);
+  box-shadow:inset 2px 2px 4px rgba(21,45,120,.5),inset -2px -2px 4px rgba(160,190,255,.5)}
+.counter{flex:none;font-weight:800;font-size:.9rem;color:var(--ink-soft);letter-spacing:.06em;
+  padding:8px 16px;border-radius:999px;background:var(--bg);
+  box-shadow:inset 3px 3px 7px var(--sh-darker),inset -3px -3px 7px #fff}
+@media (max-width:560px){
+  .dots{gap:9px}
+  .c-btn{width:46px;height:46px}
+  .slide figure{aspect-ratio:4/3}
+}
+
+/* ============ Steps ============ */
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(18px,2.4vw,28px)}
+.step{display:flex;flex-direction:column;gap:18px;padding:22px}
+.step .frame{padding:9px;border-radius:20px;box-shadow:inset 4px 4px 10px var(--sh-darker),inset -4px -4px 10px #fff}
+.step .frame .ph{border-radius:14px;aspect-ratio:4/3}
+.step .frame .ph::after{box-shadow:inset 0 0 0 1px rgba(255,255,255,.9),inset 0 0 0 5px rgba(255,255,255,.3)}
+.step-body{display:grid;gap:10px;padding:0 6px 8px}
+.step-num{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+  font-weight:800;color:var(--blue-ink);background:var(--bg);
+  box-shadow:inset 4px 4px 9px var(--sh-darker),inset -4px -4px 9px #fff}
+.step:nth-child(even) .step-num{color:#D95B38}
+.step p{color:var(--ink-soft);font-size:.975rem}
+@media (max-width:1020px){.steps-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.steps-grid{grid-template-columns:1fr}}
+
+/* ============ Price ============ */
+.price-wrap{max-width:660px;margin-inline:auto}
+.price-card{padding:clamp(28px,4vw,48px);display:grid;gap:28px;text-align:center;border-radius:var(--r-lg)}
+.price-screen{display:grid;gap:10px;justify-items:center;padding:clamp(28px,4vw,40px) 20px;
+  border-radius:24px;background:var(--bg);
+  box-shadow:inset 8px 8px 18px var(--sh-darker),inset -8px -8px 18px #fff}
+.price-line{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;gap:14px}
+.price-now{font-size:clamp(3.4rem,8vw,4.6rem);font-weight:800;letter-spacing:-.04em;line-height:1;
+  color:var(--blue-ink)}
+.price-old{font-weight:700;font-size:1.2rem;color:var(--ink-soft);text-decoration:line-through;
+  text-decoration-thickness:2px;text-decoration-color:rgba(255,142,114,.9)}
+.save-chip{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border-radius:999px;
+  font-weight:800;font-size:.85rem;color:var(--ink);
+  background:rgba(255,142,114,.18);box-shadow:inset 2px 2px 5px rgba(255,142,114,.35),inset -2px -2px 5px rgba(255,255,255,.7)}
+.save-chip::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--coral)}
+.includes{text-align:left;display:grid;gap:14px;max-width:440px;margin-inline:auto;width:100%}
+.includes h3{font-size:1.0625rem}
+.includes ul{display:grid;gap:12px}
+.includes li{display:flex;align-items:center;gap:12px;font-weight:700;color:var(--ink-soft)}
+.includes li svg{flex:none;width:26px;height:26px;padding:5px;border-radius:50%;stroke:var(--blue-ink);
+  fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;background:var(--bg);
+  box-shadow:inset 2px 2px 5px var(--sh-darker),inset -2px -2px 5px #fff}
+.price-ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:16px}
+.reassure{display:flex;align-items:center;justify-content:center;gap:10px;
+  font-weight:700;font-size:.925rem;color:var(--ink-soft)}
+.reassure svg{width:18px;height:18px;stroke:var(--coral);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ============ Why ============ */
+.why-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,4vw,52px);align-items:start}
+.why-media{position:sticky;top:calc(var(--header-h) + 24px)}
+.why-media .ph{aspect-ratio:4/4.4}
+.why-cards{display:grid;gap:clamp(20px,3vw,32px)}
+.why-card{display:grid;gap:16px;padding:clamp(26px,3.4vw,40px)}
+.why-top{display:flex;align-items:center;gap:16px}
+.why-num{padding:9px 18px;border-radius:999px;font-weight:800;letter-spacing:.08em;font-size:1rem;
+  color:var(--blue-ink);background:var(--bg);
+  box-shadow:inset 4px 4px 9px var(--sh-darker),inset -4px -4px 9px #fff}
+.why-card:nth-child(2) .why-num{color:#D95B38}
+.why-card p{color:var(--ink-soft)}
+@media (max-width:920px){
+  .why-grid{grid-template-columns:1fr}
+  .why-media{position:static;max-width:560px}
+}
+
+/* ============ Expert ============ */
+.expert-card{display:grid;grid-template-columns:.95fr 1.05fr;border-radius:var(--r-lg);overflow:hidden}
+.expert-id{display:grid;gap:20px;justify-items:start;align-content:start;padding:clamp(28px,4vw,48px)}
+.avatar{width:104px;height:104px;border-radius:50%;display:grid;place-items:center;
+  font-weight:800;font-size:2rem;letter-spacing:-.02em;color:#fff;
+  background:linear-gradient(145deg,var(--blue),#2E5BE0);
+  box-shadow:-5px -5px 12px var(--sh-light),7px 9px 18px rgba(74,125,255,.4),inset 0 -6px 12px rgba(21,45,120,.35)}
+.expert-id .name{font-size:clamp(1.7rem,2.6vw,2.2rem)}
+.cred-chips{display:flex;flex-wrap:wrap;gap:10px}
+.cred-chips span{padding:8px 16px;border-radius:999px;font-weight:800;font-size:.85rem;
+  color:var(--ink-soft);background:var(--bg);
+  box-shadow:inset 3px 3px 7px var(--sh-darker),inset -3px -3px 7px #fff}
+.expert-id .role{color:var(--ink-soft);font-weight:700}
+.expert-lists{display:grid;gap:22px;align-content:center;padding:clamp(28px,4vw,48px);
+  background:var(--bg);border-radius:var(--r-lg) 0 0 var(--r-lg);
+  box-shadow:inset 8px 8px 18px var(--sh-darker),inset -8px -8px 18px #fff}
+.xlist{display:grid;gap:14px}
+.xlist h3{font-size:1.0625rem}
+.xlist ul{display:grid;gap:10px}
+.xlist li{display:flex;gap:12px;align-items:baseline;color:var(--ink-soft)}
+.xlist li::before{flex:none;width:9px;height:9px;border-radius:50%;background:var(--blue);
+  box-shadow:0 0 0 3px rgba(74,125,255,.18);transform:translateY(-1px)}
+.xlist:nth-child(2) li::before{background:var(--coral);box-shadow:0 0 0 3px rgba(255,142,114,.22)}
+@media (max-width:920px){
+  .expert-card{grid-template-columns:1fr}
+  .expert-lists{border-radius:0 0 var(--r-lg) var(--r-lg);
+    box-shadow:inset 8px 8px 18px var(--sh-darker),inset -8px -8px 18px #fff}
+}
+
+/* ============ Quiz ============ */
+.quiz-card{max-width:760px;margin-inline:auto;padding:clamp(28px,4vw,48px);border-radius:var(--r-lg);
+  display:grid;gap:8px}
+.quiz-list{display:grid}
+.q{display:grid;grid-template-columns:1fr auto;gap:16px 24px;align-items:center;
+  padding-block:22px}
+.q + .q{position:relative}
+.q + .q::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;border-radius:2px;
+  background:var(--bg);box-shadow:inset 1px 1px 2px var(--sh-dark),inset -1px -1px 2px #fff}
+.q-head{display:flex;gap:14px;align-items:baseline}
+.q-num{flex:none;font-weight:800;color:var(--blue-ink)}
+.q h3{font-size:1.0625rem;line-height:1.4}
+.pill-group{display:flex;gap:14px}
+.quiz-success{display:grid;gap:20px;justify-items:center;text-align:center;margin-top:20px;
+  padding:clamp(24px,3.4vw,36px);border-radius:24px;background:rgba(74,125,255,.1);
+  box-shadow:inset 6px 6px 14px rgba(74,125,255,.14),inset -6px -6px 14px #fff;
+  opacity:0;transform:translateY(10px);transition:opacity .4s var(--ease),transform .4s var(--ease)}
+.quiz-success.show{opacity:1;transform:none}
+.success-ic{width:60px;height:60px;border-radius:50%;display:grid;place-items:center;color:#fff;
+  background:linear-gradient(145deg,var(--blue),#2E5BE0);
+  box-shadow:0 10px 22px rgba(74,125,255,.35),inset 0 -5px 10px rgba(21,45,120,.35)}
+.success-ic svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.quiz-success p{font-weight:800;font-size:1.2rem;letter-spacing:-.01em;max-width:34ch}
+.quiz-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:16px}
+.link-btn{font-weight:800;color:var(--ink-soft);padding:14px 20px;border-radius:999px;transition:color .15s}
+.link-btn:hover{color:var(--blue-ink)}
+@media (max-width:640px){
+  .q{grid-template-columns:1fr}
+  .pill-group{width:100%}
+  .pill{flex:1}
+}
+
+/* ============ Purchase ============ */
+.buy-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,4vw,56px);align-items:center}
+.buy-media .ph{aspect-ratio:4/4.2}
+.buy-card{display:grid;gap:22px;padding:clamp(28px,4vw,48px);border-radius:var(--r-lg)}
+.buy-badge{display:inline-flex;align-items:center;gap:10px;justify-self:start;padding:9px 18px 9px 11px;
+  border-radius:999px;font-weight:800;font-size:.9rem;color:var(--blue-ink);background:rgba(74,125,255,.12);
+  box-shadow:inset 3px 3px 7px rgba(74,125,255,.18),inset -3px -3px 7px #fff}
+.buy-badge svg{width:20px;height:20px;padding:3px;border-radius:50%;color:#fff;
+  background:linear-gradient(145deg,var(--blue),#2E5BE0);fill:none;stroke:currentColor;stroke-width:2.6;
+  stroke-linecap:round;stroke-linejoin:round}
+.buy-price{font-weight:800;font-size:1.15rem;color:var(--ink-soft)}
+.terms{display:flex;align-items:flex-start;gap:14px;padding:20px 22px}
+.terms input{flex:none;width:22px;height:22px;margin-top:2px;accent-color:var(--blue-ink);cursor:pointer}
+.terms label{font-weight:700;color:var(--ink-soft);cursor:pointer}
+.terms a{text-decoration:underline;text-decoration-thickness:2px;text-decoration-color:rgba(74,125,255,.4)}
+.buy-cta{width:100%}
+.hint{display:flex;align-items:center;gap:10px;font-weight:700;color:#B33E1B;
+  padding:14px 18px;border-radius:16px;background:rgba(255,142,114,.16);
+  box-shadow:inset 3px 3px 7px rgba(255,142,114,.28),inset -3px -3px 7px #fff}
+.hint svg{flex:none;width:20px;height:20px;stroke:#B33E1B;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.secure{display:flex;align-items:center;gap:10px;font-weight:700;font-size:.925rem;color:var(--ink-soft)}
+.secure svg{flex:none;width:20px;height:20px;stroke:var(--blue-ink);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.edenred{font-size:.925rem;color:var(--ink-soft)}
+@media (max-width:920px){
+  .buy-grid{grid-template-columns:1fr}
+  .buy-media{max-width:560px}
+}
+
+/* ============ Footer ============ */
+.site-footer{padding:0 0 clamp(24px,4vw,40px)}
+.footer-card{padding:clamp(32px,5vw,56px);border-radius:var(--r-lg);display:grid;gap:clamp(28px,4vw,44px)}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:clamp(28px,4vw,44px)}
+.footer-brand{display:grid;gap:16px;justify-items:start;align-content:start}
+.footer-brand p{color:var(--ink-soft);font-size:.975rem}
+.footer-title{font-weight:800;font-size:1rem;letter-spacing:-.01em;margin-bottom:16px}
+.footer-col ul{display:grid;gap:12px}
+.footer-col a{color:var(--ink-soft);font-weight:700;transition:color .15s}
+.footer-col a:hover{color:var(--blue-ink)}
+.footer-bottom{display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px;padding-top:26px;
+  border-top:2px solid rgba(163,177,198,.28)}
+.footer-bottom p{font-weight:700;color:var(--ink-soft);font-size:.925rem}
+.footer-bottom ul{display:flex;flex-wrap:wrap;gap:6px 20px;margin-left:auto}
+.footer-bottom ul a{font-weight:700;font-size:.925rem;color:var(--ink-soft)}
+.footer-bottom ul a:hover{color:var(--blue-ink)}
+@media (max-width:860px){
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom ul{margin-left:0}
+}
+
+/* ============ Reveal motion ============ */
+.reveal{opacity:0;transform:translateY(26px);
+  transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:var(--d,0s)}
+.reveal.is-visible{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none !important;animation:none !important}
+  .reveal{opacity:1;transform:none}
+  .quiz-success{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#sisalto">Siirry sisältöön</a>
+
+<!-- ============ Header ============ -->
+<header class="site-header" id="top">
+  <div class="container">
+    <div class="nav-shell">
+      <a class="brand" href="#top" aria-label="Parempi tasapaino® – etusivulle">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="8.2"></circle>
+            <path d="M6.5 13.5c1.8-1.2 3.2-1.2 5.5 0s3.7 1.2 5.5 0"></path>
+            <circle cx="12" cy="8.6" r="1.15" fill="#FF8E72" stroke="none"></circle>
+          </svg>
+        </span>
+        <span>Parempi tasapaino®</span>
+      </a>
+      <nav class="primary-nav" id="primary-nav" aria-label="Päävalikko">
+        <ul>
+          <li><a href="#verkkokurssi">Verkkokurssi</a></li>
+          <li><a href="#testaa-soveltuvuutesi">Testaa soveltuvuutesi</a></li>
+          <li><a href="#tervetuloa-kurssile">Tervetuloa kurssille</a></li>
+        </ul>
+      </nav>
+      <span class="nav-cta"><a class="btn" href="/omatestaus/">Kirjaudu</a></span>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+        <span class="sr-only">Avaa valikko</span>
+        <svg class="ic-bars" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="ic-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="sisalto">
+
+  <!-- ============ Hero ============ -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="badge reveal">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
+          Parempi tasapaino® – kannattaa aina
+        </p>
+        <h1 id="hero-title" class="reveal" style="--d:.06s">Parempi tasapaino® – verkkokurssi.</h1>
+        <p class="hero-sub reveal" style="--d:.12s">Kustannustehokas ja hoitosuosituksiin perustuva verkkokuntoutus epätasapainon ja huimauksen hoitoon.</p>
+        <div class="hero-ctas reveal" style="--d:.18s">
+          <a class="btn btn-primary btn-lg" href="#testaa-soveltuvuutesi">Testaa soveltuvuutesi</a>
+          <a class="btn btn-lg" href="#tervetuloa-kurssile">Siirry ilmoittautumaan</a>
+        </div>
+        <ul class="hero-chips reveal" style="--d:.24s">
+          <li class="chip"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>10 min päivässä</li>
+          <li class="chip"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14" rx="3"/><path d="M8 3.5v4M16 3.5v4M4 10h16"/></svg>1 kk ohjelma</li>
+          <li class="chip warm"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l7 3v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9v-5z"/><path d="M9 12l2 2 4-4.5"/></svg>Hoitosuositusten mukainen</li>
+          <li class="chip"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.4-6.5-10.2A6.5 6.5 0 0 1 12 4.2a6.5 6.5 0 0 1 6.5 6.6C18.5 15.6 12 21 12 21z"/><circle cx="12" cy="10.6" r="2.2"/></svg>Kehitetty Suomessa</li>
+          <li class="chip warm"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c1.3-3.4 4-5 7-5s5.7 1.6 7 5"/></svg>Suomalainen asiantuntija</li>
+        </ul>
+      </div>
+      <div class="hero-media reveal" style="--d:.1s">
+        <div class="frame">
+          <div class="ph">
+            <img src="images/hero-balance-single-leg.jpg" width="1600" height="900" alt="Tasapainoharjoitus yhdellä jalalla" fetchpriority="high">
+          </div>
+        </div>
+        <div class="float-tile" aria-hidden="true">
+          <span class="ft-ic">
+            <svg viewBox="0 0 24 24"><path d="M3 12h4l2.5-6 4 12 2.5-6h5"/></svg>
+          </span>
+          <span>
+            <strong>Tasapaino</strong>
+            <small>10 min päivässä</small>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Gallery ============ -->
+  <section aria-labelledby="gallery-title">
+    <div class="container">
+      <div class="section-head center">
+        <p class="eyebrow">Galleria</p>
+        <h2 id="gallery-title">Katso harjoituksia</h2>
+      </div>
+      <div class="carousel neo reveal" id="karuselli" role="region" aria-roledescription="karuselli" aria-label="Kurssin harjoituskuvat">
+        <div class="carousel-viewport" id="carouselViewport">
+          <ul class="carousel-track" id="carouselTrack">
+            <li class="slide"><figure><img src="images/img-00.jpg" width="1600" height="900" alt="Seisonta jalat yhdessä – tasapainoharjoitus kotona" fetchpriority="high"></figure></li>
+            <li class="slide"><figure><img src="images/img-01.jpg" width="1600" height="900" loading="lazy" alt="Sivuprofiili seisonnasta jalat yhdessä"></figure></li>
+            <li class="slide"><figure><img src="images/img-02.jpg" width="1600" height="900" loading="lazy" alt="Kapea askel – tasapainotesti kotona"></figure></li>
+            <li class="slide"><figure><img src="images/img-03.jpg" width="1600" height="900" loading="lazy" alt="Tandemkävely sivusta nähtynä"></figure></li>
+            <li class="slide"><figure><img src="images/img-04.jpg" width="1600" height="900" loading="lazy" alt="Tandemkävely – askel toisen jalan edessä"></figure></li>
+            <li class="slide"><figure><img src="images/img-05.jpg" width="1600" height="900" loading="lazy" alt="Seisonta jalat lantion leveydellä"></figure></li>
+            <li class="slide"><figure><img src="images/img-06.jpg" width="1600" height="900" loading="lazy" alt="Rauhallinen lähtöasento harjoitteluun"></figure></li>
+          </ul>
+        </div>
+        <div class="carousel-ui">
+          <button class="c-btn" type="button" id="cPrev" aria-label="Edellinen kuva">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+          <div class="dots" id="cDots" role="group" aria-label="Valitse kuva"></div>
+          <span class="counter" id="cCounter" aria-hidden="true">1 / 7</span>
+          <button class="c-btn" type="button" id="cNext" aria-label="Seuraava kuva">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+        <p class="sr-only" aria-live="polite" id="cLive">Kuva 1 / 7</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Steps ============ -->
+  <section id="verkkokurssi" aria-labelledby="steps-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Verkkokurssi</p>
+        <h2 id="steps-title">Näin verkkokurssi toimii.</h2>
+      </div>
+      <ol class="steps-grid">
+        <li class="step neo reveal">
+          <div class="frame"><div class="ph"><img src="images/test-1-feet-together.jpg" width="1600" height="900" loading="lazy" alt="Testi 1: seisonta jalat yhdessä"></div></div>
+          <div class="step-body">
+            <span class="step-num" aria-hidden="true">1</span>
+            <h3>Yksilöllinen ohjelma</h3>
+            <p>Tee kotona helposti toteutettavat testit, joiden pohjalta saat sinulle räätälöidyn harjoitusohjelman kuukaudeksi, jota päivitetään kurssin aikana enintään kolmesti.</p>
+          </div>
+        </li>
+        <li class="step neo reveal" style="--d:.08s">
+          <div class="frame"><div class="ph"><img src="images/test-2-hip-width.jpg" width="1600" height="900" loading="lazy" alt="Testi 2: seisonta jalat lantion leveydellä"></div></div>
+          <div class="step-body">
+            <span class="step-num" aria-hidden="true">2</span>
+            <h3>Etene omaan tahtiisi</h3>
+            <p>Harjoittele oman aikataulusi mukaan kuukauden ajan. Keskimäärin harjoitukset ottavat aikaa 10 minuuttia päivässä.</p>
+          </div>
+        </li>
+        <li class="step neo reveal" style="--d:.16s">
+          <div class="frame"><div class="ph"><img src="images/test-3-narrow-step.jpg" width="1600" height="900" loading="lazy" alt="Testi 3: kapea askel"></div></div>
+          <div class="step-body">
+            <span class="step-num" aria-hidden="true">3</span>
+            <h3>Kattava tuki</h3>
+            <p>Opit kaiken tarvittavan tasapainoharjoittelusta ja sitä tukevista tekijöistä selkeiden teoriaosuuksien avulla. Voit kysyä henkilökohtaisia neuvoja asiantuntijalta koko kurssin ajan.</p>
+          </div>
+        </li>
+        <li class="step neo reveal" style="--d:.24s">
+          <div class="frame"><div class="ph"><img src="images/profile-side-stand.jpg" width="1600" height="900" loading="lazy" alt="Seisonta sivuprofiilissa"></div></div>
+          <div class="step-body">
+            <span class="step-num" aria-hidden="true">4</span>
+            <h3>Mitattavia tuloksia</h3>
+            <p>Säännöllisellä harjoittelulla tasapainosi kehittyy. Verkkokurssin mittareiden avulla voit arvioida oireiden vähentymistä ja toimintakyvyn lisääntymistä. Voit halutessasi jatkaa kurssia kuukauden jälkeen.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ Price ============ -->
+  <section id="hinta" aria-labelledby="hinta-title">
+    <div class="container price-wrap">
+      <div class="section-head center">
+        <p class="eyebrow">Hinta</p>
+        <h2 id="hinta-title">99 € – kertamaksu</h2>
+      </div>
+      <div class="price-card neo reveal">
+        <div class="price-screen">
+          <p class="price-line">
+            <span class="price-now">99 €</span>
+            <span class="price-old">norm. 119 €</span>
+          </p>
+          <p class="save-chip">Säästät 20 €</p>
+        </div>
+        <div class="includes">
+          <h3>Sisältyy hintaan:</h3>
+          <ul>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Yksilöllinen harjoitusohjelma</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Asiantuntijatuki koko kurssin ajan</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>Mitattavat tulokset</li>
+          </ul>
+        </div>
+        <div class="price-ctas">
+          <a class="btn btn-primary btn-lg" href="#testaa-soveltuvuutesi">Testaa soveltuvuutesi</a>
+          <a class="btn btn-lg" href="#tervetuloa-kurssile">Osta kurssi</a>
+        </div>
+        <p class="reassure">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l7 3v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9v-5z"/><path d="M9 12l2 2 4-4.5"/></svg>
+          Kertamaksu – ei jatkuvaa tilausta.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Why ============ -->
+  <section aria-labelledby="why-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Miksi me</p>
+        <h2 id="why-title">Miksi valita Parempi tasapaino® -verkkokurssi?</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-media reveal">
+          <div class="frame">
+            <div class="ph">
+              <img src="images/explainer-tandem-walk.jpg" width="1600" height="900" loading="lazy" alt="Tandemkävely-testin suoritus">
+            </div>
+          </div>
+        </div>
+        <div class="why-cards">
+          <article class="why-card neo reveal">
+            <div class="why-top">
+              <span class="why-num">01</span>
+              <h3>Kustannustehokkuus</h3>
+            </div>
+            <p>Verkkokuntoutus tuo asiantuntevan ohjauksen suoraan kotiisi murto-osalla yksilöterapian hinnasta. Ei matkustamista eikä jonotusaikoja – harjoittelet silloin, kun sinulle sopii. Kurssi perustuu hoitosuosituksiin ja se on kehitetty neurologiseen kuntoutukseen erikoistuneen kiropraktikon toimesta.</p>
+          </article>
+          <article class="why-card neo reveal" style="--d:.1s">
+            <div class="why-top">
+              <span class="why-num">02</span>
+              <h3>Yksilöllinen harjoitusohjelma</h3>
+            </div>
+            <p>Jokainen kurssilainen tekee ensin helpon kotitestausten sarjan, jonka perusteella laaditaan juuri sinun tasollesi sopiva harjoitusohjelma. Ohjelmaa päivitetään edistymisesi mukaan kurssin aikana, jotta harjoittelu pysyy tehokkaana ja turvallisena alusta loppuun asti.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Expert ============ -->
+  <section aria-labelledby="expert-title">
+    <div class="container">
+      <div class="section-head center">
+        <p class="eyebrow">Kurssin asiantuntija</p>
+      </div>
+      <div class="expert-card neo reveal">
+        <div class="expert-id">
+          <span class="avatar" aria-hidden="true">JM</span>
+          <h2 id="expert-title" class="name">Jani Mikkonen</h2>
+          <div class="cred-chips">
+            <span>D.C</span>
+            <span>B.Sc. (Hons)</span>
+            <span>DACNB</span>
+            <span>Ph.D.</span>
+          </div>
+          <p class="role">Kiropraktikko, erikoistunut neurologiseen kuntoutukseen, filosofian tohtori</p>
+        </div>
+        <div class="expert-lists">
+          <div class="xlist">
+            <h3>Koulutus</h3>
+            <ul>
+              <li>Kiropraktikko (D.C.)</li>
+              <li>B.Sc. (Hons) – alempi korkeakoulututkinto</li>
+              <li>DACNB – American Clinical Neurology Board -diplomaatti</li>
+              <li>Ph.D. – filosofian tohtori</li>
+            </ul>
+          </div>
+          <div class="xlist">
+            <h3>Ydinosaaminen</h3>
+            <ul>
+              <li>Neurologiseen kuntoutukseen erikoistuminen</li>
+              <li>Huimauksen ja epätasapainon arviointi ja kuntoutus</li>
+              <li>Tasapainotestausten ja harjoitusohjelmien kehittäminen</li>
+              <li>Verkkokuntoutuksen edelläkävijä Suomessa</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Quiz ============ -->
+  <section id="testaa-soveltuvuutesi" aria-labelledby="quiz-title">
+    <div class="container">
+      <div class="section-head center">
+        <p class="eyebrow">Soveltuvuustesti</p>
+        <h2 id="quiz-title">Testaa soveltuvuutesi</h2>
+        <p class="lead">Vastaa muutamaan kysymykseen ja selvitä, sopiiko verkkokurssi sinulle.</p>
+      </div>
+      <div class="quiz-card neo reveal">
+        <ol class="quiz-list">
+          <li class="q">
+            <div class="q-head">
+              <span class="q-num" aria-hidden="true">1.</span>
+              <h3 id="q1">Huomaatko epätasapainon arjen liikkeissä?</h3>
+            </div>
+            <div class="pill-group" role="group" aria-labelledby="q1">
+              <button class="pill" type="button" data-q="0" data-val="kylla" aria-pressed="false">Kyllä</button>
+              <button class="pill" type="button" data-q="0" data-val="ei" aria-pressed="false">Ei</button>
+            </div>
+          </li>
+          <li class="q">
+            <div class="q-head">
+              <span class="q-num" aria-hidden="true">2.</span>
+              <h3 id="q2">Onko sinulla huimausta seisoessasi tai kävellessä?</h3>
+            </div>
+            <div class="pill-group" role="group" aria-labelledby="q2">
+              <button class="pill" type="button" data-q="1" data-val="kylla" aria-pressed="false">Kyllä</button>
+              <button class="pill" type="button" data-q="1" data-val="ei" aria-pressed="false">Ei</button>
+            </div>
+          </li>
+          <li class="q">
+            <div class="q-head">
+              <span class="q-num" aria-hidden="true">3.</span>
+              <h3 id="q3">Haluaisitko parantaa tasapainoasi kotona harjoittelemalla?</h3>
+            </div>
+            <div class="pill-group" role="group" aria-labelledby="q3">
+              <button class="pill" type="button" data-q="2" data-val="kylla" aria-pressed="false">Kyllä</button>
+              <button class="pill" type="button" data-q="2" data-val="ei" aria-pressed="false">Ei</button>
+            </div>
+          </li>
+        </ol>
+        <div class="quiz-success" id="quizSuccess" hidden>
+          <span class="success-ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+          </span>
+          <p>Hyviä uutisia – verkkokurssi sopii todennäköisesti sinulle!</p>
+          <div class="quiz-actions">
+            <a class="btn btn-primary" href="#tervetuloa-kurssile">Siirry ilmoittautumaan</a>
+            <button class="link-btn" type="button" id="quizReset">Aloita alusta</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Purchase ============ -->
+  <section id="tervetuloa-kurssile" aria-labelledby="buy-title">
+    <div class="container buy-grid">
+      <div class="buy-media reveal">
+        <div class="frame">
+          <div class="ph">
+            <img src="images/course-welcome.jpg" width="1600" height="900" loading="lazy" alt="Tervetuloa kurssille">
+          </div>
+        </div>
+      </div>
+      <div class="buy-card neo reveal" style="--d:.1s">
+        <p class="buy-badge">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
+          Soveltuvuustesti läpäisty
+        </p>
+        <h2 id="buy-title">Tervetuloa kurssille!</h2>
+        <p class="buy-price">Verkkokurssi 99 € (norm. 119 €) – kertamaksu, ei sitoutumista.</p>
+        <div class="terms neo-inset">
+          <input type="checkbox" id="termsCheck">
+          <label for="termsCheck">Olen lukenut ja hyväksyn <a href="#">Kurssin käyttöehdot</a></label>
+        </div>
+        <a class="btn btn-primary btn-lg buy-cta is-locked" id="checkoutBtn" href="#" aria-disabled="true">Jatka maksuun – 99 €</a>
+        <p class="hint" id="termsHint" role="alert" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 8v4.5M12 15.8v.2"/></svg>
+          Hyväksy ensin kurssin käyttöehdot.
+        </p>
+        <p class="secure">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5M12 14.2v2"/></svg>
+          Maksu hoidetaan turvallisesti Paytrail-maksupalvelun kautta.
+        </p>
+        <p class="edenred">Jos haluat maksaa Epassin tai Edenredin liikuntaeduilla, ota yhteyttä etukäteen: parempitasapaino.fi/yhteys</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ Footer ============ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-card neo">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="#top" aria-label="Parempi tasapaino® – sivun alkuun">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="8.2"></circle>
+                <path d="M6.5 13.5c1.8-1.2 3.2-1.2 5.5 0s3.7 1.2 5.5 0"></path>
+                <circle cx="12" cy="8.6" r="1.15" fill="#FF8E72" stroke="none"></circle>
+              </svg>
+            </span>
+            <span>Parempi tasapaino®</span>
+          </a>
+          <p>Jani Mikkonen D.C., B.Sc. (Hons), DACNB, Ph.D.<br>
+          Kiropraktikko, erikoistunut neurologiseen kuntoutukseen, filosofian tohtori</p>
+          <p><strong>parempitasapaino.fi</strong></p>
+        </div>
+        <nav class="footer-col" aria-label="Yhteystiedot">
+          <p class="footer-title">Ota yhteyttä</p>
+          <ul>
+            <li><a href="mailto:jani@selkakuntoutus.fi">jani@selkakuntoutus.fi</a></li>
+            <li><a href="https://parempitasapaino.fi/yhteys/">https://parempitasapaino.fi/yhteys/</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-label="Tiedot">
+          <p class="footer-title">Tiedot</p>
+          <ul>
+            <li><a href="#">Tietosuojaseloste</a></li>
+            <li><a href="#">Kurssin käyttöehdot</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Parempi tasapaino®</p>
+        <ul>
+          <li><a href="#verkkokurssi">Verkkokurssi</a></li>
+          <li><a href="#testaa-soveltuvuutesi">Testaa soveltuvuutesi</a></li>
+          <li><a href="#tervetuloa-kurssile">Tervetuloa kurssille</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  /* ---------- Mobile nav ---------- */
+  var navToggle = document.querySelector(".nav-toggle");
+  var primaryNav = document.getElementById("primary-nav");
+  function closeNav(){
+    document.body.classList.remove("nav-open");
+    navToggle.setAttribute("aria-expanded","false");
+  }
+  navToggle.addEventListener("click", function(){
+    var open = document.body.classList.toggle("nav-open");
+    navToggle.setAttribute("aria-expanded", String(open));
+  });
+  primaryNav.addEventListener("click", function(e){
+    if(e.target.closest("a")) closeNav();
+  });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape") closeNav();
+  });
+  window.addEventListener("resize", function(){
+    if(window.innerWidth > 960) closeNav();
+  });
+
+  /* ---------- Scroll reveal ---------- */
+  var revealEls = document.querySelectorAll(".reveal");
+  if("IntersectionObserver" in window && !reduceMotion.matches){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          en.target.classList.add("is-visible");
+          io.unobserve(en.target);
+        }
+      });
+    },{threshold:.12, rootMargin:"0px 0px -40px 0px"});
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add("is-visible"); });
+  }
+
+  /* ---------- Carousel ---------- */
+  var region = document.getElementById("karuselli");
+  var track = document.getElementById("carouselTrack");
+  var viewport = document.getElementById("carouselViewport");
+  var slides = track.children;
+  var N = slides.length;
+  var prevBtn = document.getElementById("cPrev");
+  var nextBtn = document.getElementById("cNext");
+  var dotsWrap = document.getElementById("cDots");
+  var counter = document.getElementById("cCounter");
+  var live = document.getElementById("cLive");
+  var index = 0, timer = null;
+
+  for(var i = 0; i < N; i++){
+    (function(n){
+      var d = document.createElement("button");
+      d.type = "button";
+      d.className = "dot";
+      d.setAttribute("aria-label","Siirry kuvaan " + (n + 1));
+      d.addEventListener("click", function(){ go(n); restart(); });
+      dotsWrap.appendChild(d);
+    })(i);
+  }
+  var dots = Array.prototype.slice.call(dotsWrap.children);
+
+  function go(i){
+    index = ((i % N) + N) % N;
+    track.style.transform = "translateX(-" + (index * 100) + "%)";
+    dots.forEach(function(d, di){
+      if(di === index){ d.setAttribute("aria-current","true"); }
+      else{ d.removeAttribute("aria-current"); }
+    });
+    counter.textContent = (index + 1) + " / " + N;
+    live.textContent = "Kuva " + (index + 1) + " / " + N;
+  }
+  function stopAuto(){ if(timer){ clearInterval(timer); timer = null; } }
+  function startAuto(){ if(!reduceMotion.matches && !timer && !document.hidden){ timer = setInterval(function(){ go(index + 1); }, 5000); } }
+  function restart(){ stopAuto(); startAuto(); }
+
+  prevBtn.addEventListener("click", function(){ go(index - 1); restart(); });
+  nextBtn.addEventListener("click", function(){ go(index + 1); restart(); });
+  region.addEventListener("keydown", function(e){
+    if(e.key === "ArrowLeft"){ e.preventDefault(); go(index - 1); restart(); }
+    else if(e.key === "ArrowRight"){ e.preventDefault(); go(index + 1); restart(); }
+  });
+  region.addEventListener("pointerenter", stopAuto);
+  region.addEventListener("pointerleave", startAuto);
+  region.addEventListener("focusin", stopAuto);
+  region.addEventListener("focusout", startAuto);
+  document.addEventListener("visibilitychange", function(){
+    if(document.hidden){ stopAuto(); } else { startAuto(); }
+  });
+  go(0);
+  startAuto();
+
+  /* swipe / drag */
+  var startX = null, dx = 0;
+  viewport.addEventListener("pointerdown", function(e){
+    startX = e.clientX; dx = 0;
+    stopAuto();
+    track.style.transition = "none";
+    if(viewport.setPointerCapture){ try{ viewport.setPointerCapture(e.pointerId); }catch(err){} }
+  });
+  viewport.addEventListener("pointermove", function(e){
+    if(startX === null) return;
+    dx = e.clientX - startX;
+    track.style.transform = "translateX(calc(-" + (index * 100) + "% + " + dx + "px))";
+  });
+  function endDrag(){
+    if(startX === null) return;
+    track.style.transition = "";
+    if(dx < -48){ go(index + 1); }
+    else if(dx > 48){ go(index - 1); }
+    else{ go(index); }
+    startX = null; dx = 0;
+    startAuto();
+  }
+  viewport.addEventListener("pointerup", endDrag);
+  viewport.addEventListener("pointercancel", endDrag);
+
+  /* ---------- Quiz ---------- */
+  var quizButtons = Array.prototype.slice.call(document.querySelectorAll(".pill[data-q]"));
+  var answers = [null, null, null];
+  var quizSuccess = document.getElementById("quizSuccess");
+  var quizReset = document.getElementById("quizReset");
+
+  quizButtons.forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var q = parseInt(btn.getAttribute("data-q"), 10);
+      answers[q] = btn.getAttribute("data-val");
+      quizButtons.forEach(function(b){
+        if(parseInt(b.getAttribute("data-q"), 10) === q){
+          b.setAttribute("aria-pressed", String(b === btn));
+        }
+      });
+      if(answers.every(function(a){ return a !== null; })){
+        quizSuccess.hidden = false;
+        requestAnimationFrame(function(){
+          requestAnimationFrame(function(){ quizSuccess.classList.add("show"); });
+        });
+      }
+    });
+  });
+  quizReset.addEventListener("click", function(){
+    answers = [null, null, null];
+    quizButtons.forEach(function(b){ b.setAttribute("aria-pressed","false"); });
+    quizSuccess.classList.remove("show");
+    quizSuccess.hidden = true;
+  });
+
+  /* ---------- Purchase gate ---------- */
+  var terms = document.getElementById("termsCheck");
+  var cta = document.getElementById("checkoutBtn");
+  var hint = document.getElementById("termsHint");
+
+  function syncGate(){
+    var ok = terms.checked;
+    cta.classList.toggle("is-locked", !ok);
+    cta.setAttribute("aria-disabled", String(!ok));
+    if(ok){ hint.hidden = true; }
+  }
+  terms.addEventListener("change", syncGate);
+  cta.addEventListener("click", function(e){
+    if(!terms.checked){
+      e.preventDefault();
+      hint.hidden = false;
+      terms.focus();
+    }
+  });
+  syncGate();
+})();
+</script>
+</body>
+</html>
