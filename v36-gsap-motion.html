@@ -178,8 +178,9 @@ html.has-cursor #cursor-dot,html.has-cursor #cursor-ring{opacity:1}
 .gallery{background:var(--deep);color:var(--paper)}
 .c-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:26px;margin-bottom:44px}
 .carousel{position:relative}
-.c-viewport{overflow:hidden;border-radius:var(--r);touch-action:pan-y;background:#0D3529}
-.c-track{display:flex;transition:transform .8s cubic-bezier(.77,0,.18,1);will-change:transform}
+.c-viewport{overflow:hidden;border-radius:var(--r);touch-action:pan-y;background:#0D3529;cursor:grab}
+.c-viewport:active{cursor:grabbing}
+.c-track{display:flex;will-change:transform}
 .c-slide{flex:0 0 100%;min-width:0}
 .c-slide figure{margin:0}
 .c-media{aspect-ratio:16/8.4;overflow:hidden}
@@ -342,6 +343,67 @@ html:not(.motion) .steps-progress,html.motion-calm .steps-progress{display:none}
   .c-dots{order:3;width:100%;justify-content:center;margin-top:6px}
   .hero-bg-word{font-size:34vw}
 }
+/* ---------- spin badge ---------- */
+.spin-badge{position:absolute;top:-38px;right:6%;z-index:3;width:116px;height:116px;pointer-events:none}
+.spin-badge>svg{width:100%;height:100%;animation:spinSlow 16s linear infinite}
+.spin-badge text{font-family:var(--fd);font-weight:600;font-size:10px;letter-spacing:.18em;fill:var(--pine)}
+.spin-core{position:absolute;inset:0;display:grid;place-items:center;color:var(--pine)}
+@keyframes spinSlow{to{transform:rotate(360deg)}}
+/* ---------- tests strip ---------- */
+.tests-head{max-width:820px}
+.tests-scroller{display:flex;gap:clamp(16px,2vw,26px);overflow-x:auto;scroll-snap-type:x mandatory;padding:6px clamp(20px,4vw,48px) 26px;margin:44px calc(clamp(20px,4vw,48px)*-1) 0;scrollbar-width:none;cursor:grab}
+.tests-scroller::-webkit-scrollbar{display:none}
+.tests-scroller:active{cursor:grabbing}
+.test-card{scroll-snap-align:start;flex:0 0 min(320px,74vw);background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.test-card__media{aspect-ratio:16/10;overflow:hidden;background:#DDD6C6}
+.test-card__media img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.22,1,.36,1)}
+.test-card:hover .test-card__media img{transform:scale(1.06)}
+.test-card__body{display:flex;align-items:baseline;gap:14px;padding:18px 20px 20px}
+.test-card__body b{font-family:var(--fd);font-weight:700;font-size:13px;color:var(--pine);letter-spacing:.12em}
+.test-card__body span{font-weight:600;font-size:15.5px}
+.tests-hint{display:flex;align-items:center;gap:10px;color:var(--ink50);font-size:13px;font-weight:600}
+/* ---------- statement ---------- */
+.stmt{background:var(--deep);color:var(--paper)}
+.stmt-text{margin-top:30px;font-family:var(--fd);font-weight:600;font-size:clamp(1.9rem,4.6vw,3.9rem);line-height:1.16;letter-spacing:-.015em;max-width:24ch}
+/* ---------- FAQ ---------- */
+.faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(40px,6vw,90px);align-items:start}
+.faq-head{position:sticky;top:110px}
+.faq-list{border-top:1px solid var(--line)}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-q{width:100%;display:flex;align-items:center;gap:20px;background:none;border:none;text-align:left;padding:23px 2px;font-family:var(--fd);font-weight:600;font-size:clamp(1.05rem,1.8vw,1.35rem);color:var(--ink);letter-spacing:-.01em}
+.faq-ic{margin-left:auto;flex:none;width:34px;height:34px;border:1.5px solid var(--ink30);border-radius:999px;display:grid;place-items:center;transition:transform .45s cubic-bezier(.77,0,.18,1),background .3s,border-color .3s,color .3s;color:var(--pine)}
+.faq-q[aria-expanded="true"] .faq-ic{transform:rotate(45deg);background:var(--pine);border-color:var(--pine);color:var(--lime)}
+.faq-a{height:0;overflow:hidden}
+.faq-a p{padding:0 44px 26px 2px;max-width:70ch;color:var(--ink70);font-size:15.8px}
+.faq-a a{color:var(--pine);font-weight:600}
+/* ---------- pay chips ---------- */
+.pay-chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}
+.pay-chips li{display:inline-flex;align-items:center;gap:8px;padding:8px 15px;border:1px solid var(--line);border-radius:999px;font-weight:600;font-size:12.5px;color:var(--ink70);background:var(--card)}
+/* ---------- finale ---------- */
+.finale{background:var(--pine);color:var(--paper);text-align:center;position:relative;overflow:clip}
+.finale-bg{position:absolute;inset:0;opacity:.16;pointer-events:none}
+.finale-bg img{width:100%;height:120%;object-fit:cover}
+.finale-inner{position:relative;z-index:1}
+.finale .eyebrow{justify-content:center;color:var(--lime)}
+.finale .eyebrow::after{content:"";width:28px;height:1.5px;background:currentColor;flex:none}
+.finale-title{font-family:var(--fd);font-weight:700;font-size:clamp(2.9rem,8.5vw,7.6rem);line-height:.98;letter-spacing:-.03em;margin-top:26px}
+.finale-title em{font-family:var(--fs);font-style:italic;font-weight:400;color:var(--lime)}
+.finale-cta{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:42px}
+.btn--ghost-light{border-color:rgba(244,241,233,.45);color:var(--paper)}
+.btn--ghost-light::before{background:var(--paper)}
+.btn--ghost-light:hover{color:var(--ink)}
+@media (max-width:1100px){
+  .faq-grid{grid-template-columns:1fr}
+  .faq-head{position:static}
+}
+@media (max-width:560px){
+  .spin-badge{width:92px;height:92px;top:-26px;right:2%}
+  .faq-a p{padding-right:8px}
+}
+@media (prefers-reduced-motion: reduce){
+  .spin-badge>svg{animation:none}
+  .test-card__media img{transition:none}
+}
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
@@ -357,7 +419,7 @@ html:not(.motion) .steps-progress,html.motion-calm .steps-progress{display:none}
 
 <div id="preloader" aria-hidden="true">
   <div id="pl-inner">
-    <svg width="52" height="52" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
+    <svg class="logo-draw" width="52" height="52" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
       <path d="M5 11h22"/><path d="M16 11v14"/><path d="M10.5 25h11"/>
       <circle cx="16" cy="11" r="1.7" fill="currentColor" stroke="none"/>
       <path d="M6 11l-2.6 5.5M6 11l2.6 5.5"/><path d="M3.4 16.5a2.6 2.6 0 0 0 5.2 0"/>
@@ -437,6 +499,15 @@ html:not(.motion) .steps-progress,html.motion-calm .steps-progress{display:none}
         </ul>
       </div>
       <div class="hero-visual">
+        <div class="spin-badge" aria-hidden="true">
+          <svg viewBox="0 0 120 120">
+            <defs><path id="circPath" d="M60,60 m-47,0 a47,47 0 1,1 94,0 a47,47 0 1,1 -94,0"/></defs>
+            <text><textPath href="#circPath">PAREMPI TASAPAINO&#174; &#183; VERKKOKURSSI &#183;</textPath></text>
+          </svg>
+          <span class="spin-core">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+          </span>
+        </div>
         <figure class="hero-frame">
           <img src="images/img-05.jpg" alt="Seisonta jalat lantion leveydellä" fetchpriority="high">
         </figure>
@@ -517,6 +588,49 @@ html:not(.motion) .steps-progress,html.motion-calm .steps-progress{display:none}
         </div>
       </div>
       <div class="steps-progress" aria-hidden="true"><span id="steps-bar"></span></div>
+    </div>
+  </section>
+
+  <!-- ================= TESTS ================= -->
+  <section class="tests section" id="tasapainotestit" aria-labelledby="tests-h2">
+    <div class="wrap tests-head">
+      <div data-reveal>
+        <p class="eyebrow">Tasapainotestit</p>
+        <h2 class="sec-title" id="tests-h2">Kurssin <em>tasapainotestit</em></h2>
+      </div>
+      <p class="lede" data-reveal data-delay="0.08">Helpon kotitestausten sarjan pohjalta laaditaan juuri sinun tasollesi sopiva harjoitusohjelma.</p>
+    </div>
+    <div class="tests-scroller" id="tests-scroller" tabindex="0" role="group" aria-label="Kurssin tasapainotestit &ndash; selaa nuolin&auml;pp&auml;imill&auml; tai vet&auml;m&auml;ll&auml;">
+      <article class="test-card">
+        <div class="test-card__media"><img src="images/img-00.jpg" alt="Seisonta jalat yhdess&auml; &ndash; tasapainoharjoitus kotona" loading="lazy"></div>
+        <div class="test-card__body"><b>01</b><span>Seisonta jalat yhdess&auml;</span></div>
+      </article>
+      <article class="test-card">
+        <div class="test-card__media"><img src="images/orig-test-2-hip-width.jpg" alt="Testi 2: seisonta jalat lantion leveydell&auml;" loading="lazy"></div>
+        <div class="test-card__body"><b>02</b><span>Seisonta jalat lantion leveydell&auml;</span></div>
+      </article>
+      <article class="test-card">
+        <div class="test-card__media"><img src="images/orig-test-3-narrow-step.jpg" alt="Testi 3: kapea askel" loading="lazy"></div>
+        <div class="test-card__body"><b>03</b><span>Kapea askel</span></div>
+      </article>
+      <article class="test-card">
+        <div class="test-card__media"><img src="images/img-03.jpg" alt="Tandemk&auml;vely sivusta n&auml;htyn&auml;" loading="lazy"></div>
+        <div class="test-card__body"><b>04</b><span>Tandemk&auml;vely</span></div>
+      </article>
+      <article class="test-card">
+        <div class="test-card__media"><img src="images/orig-hero-balance-single-leg.jpg" alt="Tasapainoharjoitus yhdell&auml; jalalla" loading="lazy"></div>
+        <div class="test-card__body"><b>05</b><span>Tasapaino yhdell&auml; jalalla</span></div>
+      </article>
+      <article class="test-card">
+        <div class="test-card__media"><img src="images/img-06.jpg" alt="Rauhallinen l&auml;ht&ouml;asento harjoitteluun" loading="lazy"></div>
+        <div class="test-card__body"><b>06</b><span>Rauhallinen l&auml;ht&ouml;asento</span></div>
+      </article>
+    </div>
+    <div class="wrap">
+      <p class="tests-hint" data-reveal>
+        <svg width="26" height="14" viewBox="0 0 26 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 7h24M19 1l6 6-6 6"/></svg>
+        Ved&auml; tai selaa vaakasuunnassa
+      </p>
     </div>
   </section>
 
@@ -642,6 +756,14 @@ html:not(.motion) .steps-progress,html.motion-calm .steps-progress{display:none}
     </div>
   </section>
 
+  <!-- ================= STATEMENT ================= -->
+  <section class="stmt section dark" aria-labelledby="stmt-h2">
+    <div class="wrap">
+      <h2 class="eyebrow" id="stmt-h2" data-reveal>Parempi tasapaino&reg;</h2>
+      <p class="stmt-text" id="stmt-text">Kustannustehokas ja hoitosuosituksiin perustuva verkkokuntoutus ep&auml;tasapainon ja huimauksen hoitoon.</p>
+    </div>
+  </section>
+
   <!-- ================= BANNER ================= -->
   <div class="banner" data-plx-wrap>
     <div class="banner-media">
@@ -737,6 +859,43 @@ html:not(.motion) .steps-progress,html.motion-calm .steps-progress{display:none}
     </div>
   </section>
 
+  <!-- ================= FAQ ================= -->
+  <section class="section" id="usein-kysyttya" aria-labelledby="faq-h2">
+    <div class="wrap faq-grid">
+      <div class="faq-head">
+        <p class="eyebrow" data-reveal>Usein kysytty&auml;</p>
+        <h2 class="sec-title" id="faq-h2" data-reveal>Hyv&auml; <em>tiet&auml;&auml;</em></h2>
+        <p class="lede" data-reveal data-delay="0.08">Yleisimm&auml;t kysymykset verkkokurssista lyhyesti.</p>
+      </div>
+      <div class="faq-list" data-reveal data-delay="0.1">
+        <div class="faq-item">
+          <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="fa1" id="fq1">Paljonko verkkokurssi maksaa?<span class="faq-ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></button></h3>
+          <div class="faq-a" id="fa1" role="region" aria-labelledby="fq1"><p>Verkkokurssi maksaa 99 &euro; (norm. 119 &euro;). Se on kertamaksu &ndash; ei jatkuvaa tilausta.</p></div>
+        </div>
+        <div class="faq-item">
+          <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="fa2" id="fq2">Paljonko aikaa harjoittelu vaatii?<span class="faq-ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></button></h3>
+          <div class="faq-a" id="fa2" role="region" aria-labelledby="fq2"><p>Keskim&auml;&auml;rin harjoitukset ottavat aikaa 10 minuuttia p&auml;iv&auml;ss&auml;. Kurssi kest&auml;&auml; kuukauden, ja voit halutessasi jatkaa kurssia kuukauden j&auml;lkeen.</p></div>
+        </div>
+        <div class="faq-item">
+          <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="fa3" id="fq3">Kuka kurssin on kehitt&auml;nyt?<span class="faq-ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></button></h3>
+          <div class="faq-a" id="fa3" role="region" aria-labelledby="fq3"><p>Kurssin on kehitt&auml;nyt neurologiseen kuntoutukseen erikoistunut kiropraktikko Jani Mikkonen, Ph.D. Kurssi perustuu hoitosuosituksiin.</p></div>
+        </div>
+        <div class="faq-item">
+          <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="fa4" id="fq4">Miten tied&auml;n, sopiiko kurssi minulle?<span class="faq-ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></button></h3>
+          <div class="faq-a" id="fa4" role="region" aria-labelledby="fq4"><p>Sivulla oleva soveltuvuustesti kertoo, sopiiko verkkokurssi todenn&auml;k&ouml;isesti sinulle. <a href="#testaa-soveltuvuutesi">Testaa soveltuvuutesi</a>.</p></div>
+        </div>
+        <div class="faq-item">
+          <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="fa5" id="fq5">Voinko maksaa liikuntaeduilla?<span class="faq-ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></button></h3>
+          <div class="faq-a" id="fa5" role="region" aria-labelledby="fq5"><p>Kyll&auml;. Jos haluat maksaa Epassin tai Edenredin liikuntaeduilla, ota yhteytt&auml; etuk&auml;teen: <a href="https://parempitasapaino.fi/yhteys" target="_blank" rel="noopener">parempitasapaino.fi/yhteys</a>.</p></div>
+        </div>
+        <div class="faq-item">
+          <h3><button class="faq-q" type="button" aria-expanded="false" aria-controls="fa6" id="fq6">Miten maksaminen tapahtuu?<span class="faq-ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></button></h3>
+          <div class="faq-a" id="fa6" role="region" aria-labelledby="fq6"><p>Maksu hoidetaan turvallisesti Paytrail-maksupalvelun kautta.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= PURCHASE ================= -->
   <section class="section" id="tervetuloa-kurssile" aria-labelledby="buy-h2">
     <span id="tervetuloa-kurssille" aria-hidden="true"></span>
@@ -761,6 +920,11 @@ html:not(.motion) .steps-progress,html.motion-calm .steps-progress{display:none}
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
           Maksu hoidetaan turvallisesti Paytrail-maksupalvelun kautta.
         </p>
+        <ul class="pay-chips" data-reveal data-delay="0.3">
+          <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Paytrail</li>
+          <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19"/></svg>Epassi</li>
+          <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19"/></svg>Edenred</li>
+        </ul>
         <p class="buy-note" data-reveal data-delay="0.3">Jos haluat maksaa Epassin tai Edenredin liikuntaeduilla, ota yhteyttä etukäteen: <a href="https://parempitasapaino.fi/yhteys" target="_blank" rel="noopener">parempitasapaino.fi/yhteys</a></p>
       </div>
       <figure class="buy-media" data-clip>
@@ -769,6 +933,26 @@ html:not(.motion) .steps-progress,html.motion-calm .steps-progress{display:none}
     </div>
   </section>
 </main>
+
+  <!-- ================= FINALE ================= -->
+  <section class="finale section" aria-labelledby="finale-h2">
+    <div class="finale-bg" data-plx-wrap aria-hidden="true">
+      <img src="images/img-04.jpg" alt="" loading="lazy" data-plx="6">
+    </div>
+    <div class="wrap finale-inner">
+      <p class="eyebrow" data-reveal>Parempi tasapaino&reg; &ndash; kannattaa aina</p>
+      <h2 class="finale-title" id="finale-h2" data-lines>
+        <span class="line" aria-hidden="true"><span class="li">Parempi tasapaino</span></span>
+        <span class="line" aria-hidden="true"><span class="li">alkaa <em>t&auml;st&auml;.</em></span></span>
+      </h2>
+      <div class="finale-cta" data-reveal data-delay="0.15">
+        <a class="btn btn--lime" data-magnet href="#testaa-soveltuvuutesi"><span>Testaa soveltuvuutesi</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn--ghost-light" data-magnet href="#tervetuloa-kurssile"><span>Siirry ilmoittautumaan</span></a>
+      </div>
+    </div>
+  </section>
 
 <!-- ================= FOOTER ================= -->
 <footer class="footer">
@@ -816,6 +1000,10 @@ html:not(.motion) .steps-progress,html.motion-calm .steps-progress{display:none}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/SplitText.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/Draggable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/InertiaPlugin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/DrawSVGPlugin.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
 <script id="app">
 (function(){
@@ -925,16 +1113,58 @@ $$('a[href^="#"]').forEach(function(a){
   });
 })();
 
-/* ---------- gallery carousel ---------- */
+/* ---------- FAQ accordion ---------- */
+(function(){
+  var items=$$('.faq-item');
+  if(!items.length){return;}
+  items.forEach(function(it){
+    var q=$('.faq-q',it),a=$('.faq-a',it);
+    q.addEventListener('click',function(){
+      var open=q.getAttribute('aria-expanded')==='true';
+      items.forEach(function(o){
+        var oq=$('.faq-q',o),oa=$('.faq-a',o);
+        if(oq.getAttribute('aria-expanded')==='true'){
+          oq.setAttribute('aria-expanded','false');
+          if(motionOK){gsap.to(oa,{height:0,duration:.45,ease:'power3.inOut'});}
+          else{oq.setAttribute('aria-expanded','false');oa.style.height='0px';}
+        }
+      });
+      if(!open){
+        q.setAttribute('aria-expanded','true');
+        if(motionOK){gsap.to(a,{height:'auto',duration:.55,ease:'power3.inOut',onComplete:function(){ScrollTrigger.refresh();}});}
+        else{a.style.height='auto';}
+      }
+    });
+  });
+})();
+
+/* ---------- tests strip: keys + desktop drag-scroll ---------- */
+(function(){
+  var sc=$('#tests-scroller');
+  if(!sc){return;}
+  sc.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'){e.preventDefault();sc.scrollBy({left:340,behavior:reduced?'auto':'smooth'});}
+    else if(e.key==='ArrowLeft'){e.preventDefault();sc.scrollBy({left:-340,behavior:reduced?'auto':'smooth'});}
+  });
+  if(!finePointer){return;}
+  var down=false,sx=0,sl=0;
+  sc.addEventListener('pointerdown',function(e){down=true;sx=e.clientX;sl=sc.scrollLeft;});
+  w.addEventListener('pointermove',function(e){if(down){sc.scrollLeft=sl-(e.clientX-sx);}});
+  w.addEventListener('pointerup',function(){down=false;});
+  w.addEventListener('pointercancel',function(){down=false;});
+})();
+
+/* ---------- gallery carousel (Draggable + inertia when available) ---------- */
 (function(){
   var car=$('#g-carousel');
   if(!car){return;}
   var vp=$('.c-viewport',car),track=$('.c-track',car),slides=$$('.c-slide',car),
       prev=$('.c-prev',car),next=$('.c-next',car),dots=$$('.c-dot',car),
       counter=$('.c-counter',car),status=$('#g-status');
-  var n=slides.length,i=0,timer=null,paused=false,auto=!reduced;
+  var n=slides.length,i=0,timer=null,paused=false,auto=!reduced,slideW=0,drag=null;
+  var canDrag=motionOK&&(typeof w.Draggable!=='undefined');
+  function measure(){slideW=vp.clientWidth;}
   function render(announce){
-    track.style.transform='translateX('+(-i*100)+'%)';
     slides.forEach(function(s,j){
       s.classList.toggle('is-current',j===i);
       s.setAttribute('aria-hidden',j===i?'false':'true');
@@ -946,7 +1176,11 @@ $$('a[href^="#"]').forEach(function(a){
       status.textContent='Kuva '+(i+1)+' / '+n+': '+(img?img.alt:'');
     }
   }
-  function go(k){i=((k%n)+n)%n;render(true);}
+  function move(){
+    if(canDrag){gsap.to(track,{x:-i*slideW,duration:.75,ease:'power3.out'});}
+    else{track.style.transform='translateX('+(-i*100)+'%)';}
+  }
+  function go(k){i=((k%n)+n)%n;render(true);move();}
   function stop(){if(timer){clearInterval(timer);timer=null;}}
   function start(){if(auto&&!paused){stop();timer=setInterval(function(){go(i+1);},5200);}}
   next.addEventListener('click',function(){go(i+1);start();});
@@ -961,27 +1195,50 @@ $$('a[href^="#"]').forEach(function(a){
   car.addEventListener('focusin',function(){paused=true;stop();});
   car.addEventListener('focusout',function(){paused=false;start();});
   d.addEventListener('visibilitychange',function(){if(d.hidden){stop();}else{start();}});
-  var dragX=null,dx=0;
-  vp.addEventListener('pointerdown',function(e){
-    if(e.target.closest('button')){return;}
-    dragX=e.clientX;dx=0;
-    try{vp.setPointerCapture(e.pointerId);}catch(err){}
-    track.style.transition='none';
-  });
-  vp.addEventListener('pointermove',function(e){
-    if(dragX===null){return;}
-    dx=e.clientX-dragX;
-    track.style.transform='translateX(calc('+(-i*100)+'% + '+dx+'px))';
-  });
-  function endDrag(){
-    if(dragX===null){return;}
-    track.style.transition='';
-    if(Math.abs(dx)>60){if(dx<0){go(i+1);}else{go(i-1);}}
-    else{render(false);}
-    dragX=null;dx=0;
+  if(canDrag){
+    measure();
+    var useInertia=(typeof w.InertiaPlugin!=='undefined');
+    Draggable.create(track,{type:'x',inertia:useInertia,
+      bounds:{minX:-(n-1)*slideW,maxX:0},edgeResistance:.85,
+      allowNativeTouchScrolling:true,
+      snap:useInertia?{x:function(v){return Math.round(v/slideW)*slideW;}}:undefined,
+      onPress:function(){gsap.killTweensOf(track);stop();},
+      onDragEnd:function(){if(!(drag&&drag.isThrowing)){sync();}},
+      onThrowComplete:function(){sync();}
+    });
+    drag=Draggable.get(track);
+    function sync(){
+      var k=Math.round(-gsap.getProperty(track,'x')/slideW);
+      k=((k%n)+n)%n;
+      if(k!==i){i=k;render(true);}
+      move();start();
+    }
+    w.addEventListener('resize',function(){
+      measure();
+      gsap.set(track,{x:-i*slideW});
+      if(drag){drag.applyBounds({minX:-(n-1)*slideW,maxX:0});}
+    });
+    gsap.set(track,{x:0});
+  }else{
+    var dragX=null,dx=0;
+    vp.addEventListener('pointerdown',function(e){
+      if(e.target.closest('button')){return;}
+      dragX=e.clientX;dx=0;
+      try{vp.setPointerCapture(e.pointerId);}catch(err){}
+    });
+    vp.addEventListener('pointermove',function(e){
+      if(dragX===null){return;}
+      dx=e.clientX-dragX;
+      track.style.transform='translateX(calc('+(-i*100)+'% + '+dx+'px))';
+    });
+    function endDrag(){
+      if(dragX===null){return;}
+      if(Math.abs(dx)>60){if(dx<0){go(i+1);}else{go(i-1);}}else{move();}
+      dragX=null;dx=0;
+    }
+    vp.addEventListener('pointerup',endDrag);
+    vp.addEventListener('pointercancel',endDrag);
   }
-  vp.addEventListener('pointerup',endDrag);
-  vp.addEventListener('pointercancel',endDrag);
   render(false);
   start();
 })();
@@ -989,7 +1246,12 @@ $$('a[href^="#"]').forEach(function(a){
 /* ---------- GSAP motion layer ---------- */
 function initMotion(){
   html.classList.add('motion');
-  gsap.registerPlugin(ScrollTrigger);
+  var plug=[w.ScrollTrigger];
+  if(w.SplitText){plug.push(w.SplitText);}
+  if(w.Draggable){plug.push(w.Draggable);}
+  if(w.InertiaPlugin){plug.push(w.InertiaPlugin);}
+  if(w.DrawSVGPlugin){plug.push(w.DrawSVGPlugin);}
+  gsap.registerPlugin.apply(gsap,plug);
   if(typeof w.Lenis==='function'){
     lenis=new Lenis({lerp:.11,smoothWheel:true});
     lenis.on('scroll',ScrollTrigger.update);
@@ -998,18 +1260,28 @@ function initMotion(){
   }
   html.classList.add('is-locked');
   if(lenis){lenis.stop();}
+  var heroSplit=null,footSplit=null;
+  if(typeof w.SplitText!=='undefined'){
+    try{
+      heroSplit=SplitText.create('.hero-title .li',{type:'chars',mask:'chars'});
+      footSplit=SplitText.create('.footer-giant .li',{type:'chars',mask:'chars'});
+    }catch(e){heroSplit=null;footSplit=null;}
+  }
 
   /* initial states (JS-only, so content stays visible without JS/GSAP) */
   gsap.set('#site-header',{y:-72,opacity:0});
-  gsap.set('.hero-title .li',{yPercent:120});
+  if(!heroSplit){gsap.set('.hero-title .li',{yPercent:120});}
   gsap.set('.hero-badge,.hero-sub,.hero-cta,.hero-chips,.hero-float,.scroll-hint',{y:28,opacity:0});
   gsap.set('[data-reveal]',{y:44,opacity:0});
   gsap.set('[data-lines] .li',{yPercent:120});
-  gsap.set('.footer-giant .li',{yPercent:112});
+  if(!footSplit){gsap.set('.footer-giant .li',{yPercent:112});}
   gsap.set('.hero-frame',{clipPath:'inset(100% 0% 0% 0%)'});
   gsap.set('.hero-frame img',{scale:1.35});
 
   var pre=$('#preloader'),shB=$('#shutterB'),plNum=$('#pl-num'),plInner=$('#pl-inner'),plFill=$('#pl-fill');
+  var heroReveal;
+  if(heroSplit){heroReveal=gsap.from(heroSplit.chars,{yPercent:120,duration:1.05,stagger:.016,ease:'power4.out',paused:true});}
+  else{heroReveal=gsap.to('.hero-title .li',{yPercent:0,duration:1.2,stagger:.09,ease:'power4.out',paused:true});}
   var cnt={v:0};
   var tl=gsap.timeline({defaults:{ease:'power4.out'}});
   tl.to(cnt,{v:100,duration:1.35,ease:'power2.inOut',onUpdate:function(){
@@ -1019,7 +1291,7 @@ function initMotion(){
     .to(plInner,{yPercent:-40,opacity:0,duration:.45,ease:'power2.in'},'+=.08')
     .to(pre,{yPercent:-100,duration:.95,ease:'power4.inOut'},'<.12')
     .to(shB,{yPercent:-100,duration:.95,ease:'power4.inOut'},'<.14')
-    .to('.hero-title .li',{yPercent:0,duration:1.2,stagger:.09},'-=.62')
+    .add(heroReveal.play(),'-=.62')
     .to('#site-header',{y:0,opacity:1,duration:.9,ease:'power3.out'},'<.05')
     .to('.hero-badge',{y:0,opacity:1,duration:.7},'-=.85')
     .to('.hero-sub',{y:0,opacity:1,duration:.8},'-=.62')
@@ -1036,6 +1308,10 @@ function initMotion(){
       if(lenis){lenis.start();}
       ScrollTrigger.refresh();
     });
+  if(w.DrawSVGPlugin){
+    gsap.set('#preloader .logo-draw path',{drawSVG:'0%'});
+    tl.fromTo('#preloader .logo-draw path',{drawSVG:'0%'},{drawSVG:'100%',duration:.9,stagger:.06,ease:'power2.inOut'},0);
+  }
 
   /* hero scrub */
   gsap.to('.hero-copy',{yPercent:-5,opacity:.55,ease:'none',
@@ -1074,6 +1350,21 @@ function initMotion(){
   gsap.fromTo('.banner-word',{xPercent:4},{xPercent:-16,ease:'none',
     scrollTrigger:{trigger:'.banner',start:'top bottom',end:'bottom top',scrub:true}});
 
+  /* statement word scrub */
+  if(typeof w.SplitText!=='undefined'){
+    var stmt=SplitText.create('#stmt-text',{type:'words'});
+    gsap.fromTo(stmt.words,{opacity:.13},{opacity:1,stagger:.06,ease:'none',
+      scrollTrigger:{trigger:'.stmt',start:'top 74%',end:'top 26%',scrub:true}});
+  }else{
+    gsap.from('#stmt-text',{opacity:0,duration:1,ease:'power2.out',
+      scrollTrigger:{trigger:'.stmt',start:'top 78%',once:true}});
+  }
+  /* tests strip entrance */
+  gsap.utils.toArray('.test-card').forEach(function(c,idx){
+    gsap.from(c,{opacity:0,y:54,duration:.9,delay:(idx%3)*.07,ease:'power3.out',
+      scrollTrigger:{trigger:c,start:'top 93%',once:true}});
+  });
+
   /* steps: pinned horizontal scroll on desktop */
   var mm=gsap.matchMedia();
   mm.add('(min-width: 900px)',function(){
@@ -1102,8 +1393,13 @@ function initMotion(){
   });
 
   /* footer giant */
-  gsap.to('.footer-giant .li',{yPercent:0,duration:1.2,ease:'power4.out',stagger:.1,
-    scrollTrigger:{trigger:'.footer-giant',start:'top 92%',once:true}});
+  if(footSplit){
+    gsap.from(footSplit.chars,{yPercent:110,duration:.85,stagger:.018,ease:'power4.out',
+      scrollTrigger:{trigger:'.footer-giant',start:'top 92%',once:true}});
+  }else{
+    gsap.to('.footer-giant .li',{yPercent:0,duration:1.2,ease:'power4.out',stagger:.1,
+      scrollTrigger:{trigger:'.footer-giant',start:'top 92%',once:true}});
+  }
 
   /* custom cursor */
   if(finePointer){

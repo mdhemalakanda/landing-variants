@@ -104,6 +104,7 @@ cat <<'MID2'
 MID2
 
 entry 36 v36-gsap-motion.html "Kinetic Motion" "GSAP + Lenis -liike: esilatauslaskuri, vaakasuora askelpinni, magneettibuttonit, maskitreveaalit ja karuselli." "#D9F651" "#0A2B22"
+entry 37 v37-gsap-motion-pro.html "Kinetic Motion Pro" "Laajennettu liikeversio: SplitText, DrawSVG, Draggable+Inertia, testistrippi, sana kerrallaan syttyv&auml; statement, UKK ja loppukehotus." "#D9F651" "#0E3E31"
 
 cat <<'FOOT'
 
