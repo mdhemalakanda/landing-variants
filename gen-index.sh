@@ -97,7 +97,16 @@ entry 33 v33-luxe-spa.html "Luxe Spa" "Kivi, mets&auml;nvihre&auml; ja messinki 
 entry 34 v34-athletic-drive.html "Athletic Drive" "Urheilullinen vauhti: kursivoitu kondenssi, grafiitti + oranssi." "#FF5A1F" "#17191D"
 entry 35 v35-layered-frost.html "Layered Frost" "Kerrostettu huurre: syvyys, pehme&auml; gradientti, parallax." "#DCE7FF" "#EDE4FF"
 
+cat <<'MID2'
+  </div>
+  <h2 class="grp">Motion-lab (GSAP)</h2>
+  <div class="grid">
+MID2
+
+entry 36 v36-gsap-motion.html "Kinetic Motion" "GSAP + Lenis -liike: esilatauslaskuri, vaakasuora askelpinni, magneettibuttonit, maskitreveaalit ja karuselli." "#D9F651" "#0A2B22"
+
 cat <<'FOOT'
+
   </div>
 </div>
 <footer>Prototyypit &middot; quiz-demot toimivat &middot; &copy; 2026 Parempi tasapaino&reg;</footer>
