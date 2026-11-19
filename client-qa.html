@@ -599,6 +599,86 @@
       </section>
     </article>
 
+    <article class="qa" id="q2-wc-email-texts">
+      <header>
+        <p class="qa-meta">
+          <span class="qa-index">Question 2</span>
+          <span class="chip chip--cat">WooCommerce</span>
+          <time datetime="2026-11-19">19 November 2026</time>
+        </p>
+        <div class="qa-titlerow">
+          <h2 class="qa-title">Changing WooCommerce Order Email Texts</h2>
+          <button class="copy-link" type="button" aria-label="Copy link to this question">Copy link</button>
+        </div>
+      </header>
+
+      <div class="qa-question">
+        <p class="qa-question-label">Client&rsquo;s original question</p>
+        <blockquote>&ldquo;How to change WooCommerce email text to users? Other option if you can send all messages to me, will manually edit and send to improved versions.&rdquo;</blockquote>
+      </div>
+
+      <div class="qa-answer">
+        <h3>Which parts of an email can be edited in the admin?</h3>
+        <p>Every email under <strong>WooCommerce &rarr; Settings &rarr; Emails</strong> has a &ldquo;<span lang="fi">Hallinnoi</span>&rdquo; (Manage) button. That page allows editing:</p>
+        <ul>
+          <li><strong>Subject</strong> (<span lang="fi">Aihe</span>) &mdash; the title line of the email.</li>
+          <li><strong>Heading</strong> (<span lang="fi">Otsikko</span>) &mdash; the large title shown inside the email.</li>
+          <li><strong>Additional content</strong> (<span lang="fi">Lis&auml;sis&auml;lt&ouml;</span>) &mdash; a short free-text paragraph at the end of the email.</li>
+          <li><strong>Enable/disable</strong> and, for admin notifications, the <strong>recipient address</strong>.</li>
+        </ul>
+        <p>These fields are stored in the site&rsquo;s database, so changing them needs no code deployment.</p>
+
+        <h3>Which parts cannot be edited in the admin?</h3>
+        <p>The <strong>body</strong> &mdash; the main message text, for example &ldquo;<span lang="fi">Tilauksesi on vastaanotettu ja sit&auml; k&auml;sitell&auml;&auml;n</span>&rdquo; &mdash; comes from WooCommerce&rsquo;s template files. It is not visible or editable anywhere in the admin. Changing body wording is a code change, which we implement on request.</p>
+
+        <h3>How are the current texts being reviewed?</h3>
+        <p>A complete review document has been prepared. For every email it lists:</p>
+        <ul>
+          <li>the current subject, heading, and additional content exactly as configured on the live site;</li>
+          <li>the body text, rendered in Finnish with an example order (bodies are not visible in the admin);</li>
+          <li>whether the email is currently enabled and who receives it;</li>
+          <li>a dedicated block where improved wording can be written directly.</li>
+        </ul>
+        <p>The plan is exactly the one suggested in the question: we deliver all current messages, they are reviewed and improved by hand, and we then apply the improved versions to the live site.</p>
+
+        <h3>Who receives which email?</h3>
+        <p><strong>To the customer:</strong> order on-hold, order completed, order refunded, payment failed, customer note, password reset, new account, and email-address confirmation.</p>
+        <p><strong>To the store admin:</strong> new order, order cancelled, payment failed, and payment-gateway-enabled notifications.</p>
+        <p>Two customer emails &mdash; the processing-order confirmation and the customer&rsquo;s cancellation notice &mdash; are currently switched off. The order-details and point-of-sale emails have no on/off switch at all; they are sent per event.</p>
+
+        <h3>What did the review surface?</h3>
+        <ul>
+          <li>Several emails still have <strong>English text saved in live fields</strong> &mdash; for example the on-hold heading &ldquo;Thanks for your order!&rdquo; and parts of the customer-note, password-reset, and refunded-order emails. Customers currently receive these in English, so they are the first candidates for improved Finnish wording.</li>
+          <li>The <strong>completed-order body is already customized in Finnish</strong> (the course-material instructions), set up in code earlier.</li>
+          <li>The admin&rsquo;s new-order email also contains PixelYourSite tracking data below the order details.</li>
+        </ul>
+      </div>
+
+      <aside class="qa-callout" role="note">
+        <h3>Important clarification</h3>
+        <p>Subject, heading, and additional content are simple admin fields and take effect immediately once saved. The body belongs to the site&rsquo;s code, so improved body texts are implemented by us &mdash; the client only needs to provide the wording.</p>
+        <p>Note the difference between these WooCommerce order emails and the course emails (welcome, round reminders, etc.): the course emails are edited on the site&rsquo;s own <strong>Messages &rarr; Emails</strong> admin page, not under WooCommerce&rsquo;s email settings.</p>
+      </aside>
+
+      <section class="qa-status">
+        <h3>Implementation status</h3>
+        <ul>
+          <li>
+            <span>Review document with all current email texts</span>
+            <span class="chip chip--done">Prepared</span>
+          </li>
+          <li>
+            <span>Improved texts from the client</span>
+            <span class="chip chip--proposed">Awaiting client input</span>
+          </li>
+          <li>
+            <span>Applying improved texts (admin fields &amp; code)</span>
+            <span class="chip chip--proposed">Proposed &mdash; waiting for the above</span>
+          </li>
+        </ul>
+      </section>
+    </article>
+
     <!-- Next Q&A entry goes here (newest last). -->
 
   </main>
