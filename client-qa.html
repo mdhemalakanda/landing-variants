@@ -4075,6 +4075,77 @@
       </section>
     </article>
 
+    <article class="qa" id="q5-all-tests-done-message">
+      <header>
+        <p class="qa-meta">
+          <span class="qa-index">Question 5</span>
+          <span class="chip chip--cat">Notifications</span>
+          <time datetime="2026-11-19">19 November 2026</time>
+        </p>
+        <div class="qa-titlerow">
+          <h2 class="qa-title">When Is the &ldquo;All Tests Done&rdquo; Message Actually Shown?</h2>
+          <button class="copy-link" type="button" aria-label="Copy link to this question">Copy link</button>
+        </div>
+      </header>
+
+      <div class="qa-question">
+        <p class="qa-question-label">Client&rsquo;s original question</p>
+        <blockquote>&ldquo;When user see this message?&rdquo;</blockquote>
+      </div>
+
+      <div class="qa-answer">
+        <h3>Where is this message?</h3>
+        <p>This message is one of the course notifications under <strong>Messages &rarr; Notifications</strong> in the dashboard. Those notifications are the short texts shown to participants inside their course account &mdash; one for each finished round, plus a few special program messages.</p>
+        <p>The entry called &ldquo;<span lang="fi">All tests done (final message)</span>&rdquo; is the closing message a participant would see on the <span lang="fi">Testit</span> tab after completing every test in the program. Its built-in text is:</p>
+        <p class="wording-sample" lang="fi">Hienoa! Olet tehnyt kaikki tarvittavat testit.</p>
+        <p>(&ldquo;Well done! You have completed all the required tests.&rdquo;)</p>
+
+        <h3>So when do participants actually see it?</h3>
+        <p>With the site working exactly as it does today: <strong>never</strong>.</p>
+        <p>This message belongs to the site&rsquo;s <strong>old, free pilot flow</strong> &mdash; the version of the course that existed before courses were sold online. In that old flow, finishing the last test simply ended the program, and this text was the closing screen.</p>
+
+        <h3>What do participants see instead today?</h3>
+        <p>Today the course is a paid product. When a participant finishes the rounds they have paid for, the account page shows a different message &mdash; the <strong>continuation message</strong>. It explains that the purchased rounds are complete and offers the next block with the &ldquo;<span lang="fi">Jatka kurssia</span>&rdquo; button that leads to checkout (how the payment then works is covered in <a href="#q4-payment-confirmation-methods">Question 4</a>).</p>
+        <p>The continuation message is the entry named &ldquo;Continuation required (round gap)&rdquo; on the same Notifications page.</p>
+
+        <h3>Is something wrong because this message is unused?</h3>
+        <p>No &mdash; nothing is broken. The message is simply a <strong>kept fallback</strong> from the old flow:</p>
+        <ul>
+          <li>While the course-sales mode is switched on &mdash; which it is on the live site &mdash; customers can only ever reach the continuation message.</li>
+          <li>If the sales mode were ever switched off &mdash; for example, if the course temporarily became free &mdash; old-style participants would again get this friendly closing text instead of a dead end.</li>
+        </ul>
+        <p>Leaving it as it is causes no harm and needs no action.</p>
+
+        <h3>Can it still be edited?</h3>
+        <p>Yes. It works like every other entry on that page: open it, edit the text, and press <strong>Save</strong>. Clearing the field restores the built-in copy.</p>
+        <p>Just note: because customers don&rsquo;t receive this message today, editing it has no visible effect on the site. If you want to polish an end-of-course text, the continuation message is the one real customers actually read.</p>
+      </div>
+
+      <aside class="qa-callout" role="note">
+        <h3>Important clarification</h3>
+        <p>&ldquo;<span lang="fi">All tests done (final message)</span>&rdquo; and &ldquo;<span lang="fi">Continuation required (round gap)</span>&rdquo; look similar but belong to different flows. Only the continuation message reaches customers today: it appears when the purchased rounds are finished and offers the next block for purchase. The all-tests-done message stays unused together with the old free-course flow.</p>
+        <p>The small grey description printed under the message inside the dashboard describes that old pilot flow. It is part of the admin page itself &mdash; customers never see it.</p>
+      </aside>
+
+      <section class="qa-status">
+        <h3>Implementation status</h3>
+        <ul>
+          <li>
+            <span>Old &ldquo;all tests done&rdquo; message</span>
+            <span class="chip chip--neutral">Not shown to customers &mdash; kept as a fallback</span>
+          </li>
+          <li>
+            <span>Continuation message (the real end-of-course message)</span>
+            <span class="chip chip--neutral">In use &mdash; editable in Messages &rarr; Notifications</span>
+          </li>
+          <li>
+            <span>Changes to either text</span>
+            <span class="chip chip--proposed">On request</span>
+          </li>
+        </ul>
+      </section>
+    </article>
+
   </main>
 </div>
 
