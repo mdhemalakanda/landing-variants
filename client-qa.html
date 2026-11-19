@@ -360,6 +360,107 @@
   .qa-status li:first-child { border-top: none; }
 
   /* ------------------------------------------------------------------
+     Email review list (Q2): collapsible cards, one per email
+     ------------------------------------------------------------------ */
+  .email-review { margin-top: 30px; }
+  .email-review > h3 {
+    margin: 0 0 4px;
+    font: 600 1.02rem/1.4 var(--sans);
+    color: var(--ink);
+  }
+  .email-review-note {
+    margin: 0 0 14px;
+    font-size: 0.92rem;
+    color: var(--muted);
+  }
+  .email-review-note code {
+    padding: 1px 5px;
+    border-radius: 5px;
+    background: var(--tint);
+    font-size: 0.85em;
+  }
+  .email-card {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .email-card + .email-card { margin-top: 10px; }
+  .email-card summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    padding: 13px 16px;
+    cursor: pointer;
+    list-style: none;
+    border-radius: 12px;
+    transition: background 0.15s ease;
+  }
+  .email-card summary::-webkit-details-marker { display: none; }
+  .email-card summary::after {
+    content: "+";
+    margin-left: auto;
+    font: 600 1.05rem/1 var(--sans);
+    color: var(--brand-soft);
+  }
+  .email-card[open] summary::after { content: "\2013"; }
+  .email-card summary:hover { background: var(--wash); }
+  .email-card[open] summary {
+    border-bottom: 1px solid var(--line);
+    border-radius: 12px 12px 0 0;
+  }
+  .email-card[open] summary:hover { background: none; }
+  .email-card-title {
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 0.98rem;
+  }
+  .email-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .email-card[open] summary .email-card-tags { margin-right: 28px; }
+  .email-card-body { padding: 4px 16px 16px; }
+  .email-field { margin-top: 14px; }
+  .email-field-label {
+    margin: 0 0 4px;
+    font: 600 0.78rem/1.4 var(--sans);
+    color: var(--brand);
+  }
+  .email-field-text {
+    margin: 0;
+    padding: 10px 14px;
+    background: var(--wash);
+    border-left: 3px solid var(--line);
+    border-radius: 0 8px 8px 0;
+    font-size: 0.93rem;
+    line-height: 1.6;
+    white-space: pre-line;
+    overflow-wrap: break-word;
+  }
+  .email-field-text.email-field-na {
+    font-style: italic;
+    color: var(--muted);
+  }
+  .email-improve {
+    margin-top: 14px;
+    padding: 12px 14px;
+    border: 1px dashed var(--brand-soft);
+    border-radius: 10px;
+    background: #FFFDf8;
+  }
+  .email-improve .email-field-label { color: var(--ok); }
+  .email-improve-hint {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  /* ------------------------------------------------------------------
      Footer
      ------------------------------------------------------------------ */
   .site-foot {
@@ -632,14 +733,13 @@
         <p>The <strong>body</strong> &mdash; the main message text, for example &ldquo;<span lang="fi">Tilauksesi on vastaanotettu ja sit&auml; k&auml;sitell&auml;&auml;n</span>&rdquo; &mdash; comes from WooCommerce&rsquo;s template files. It is not visible or editable anywhere in the admin. Changing body wording is a code change, which we implement on request.</p>
 
         <h3>How are the current texts being reviewed?</h3>
-        <p>A complete review document has been prepared. For every email it lists:</p>
+        <p>As suggested in the question, all current messages have been collected &mdash; and they are published directly on this page, in the review list below. For every email it lists:</p>
         <ul>
           <li>the current subject, heading, and additional content exactly as configured on the live site;</li>
           <li>the body text, rendered in Finnish with an example order (bodies are not visible in the admin);</li>
-          <li>whether the email is currently enabled and who receives it;</li>
-          <li>a dedicated block where improved wording can be written directly.</li>
+          <li>whether the email is currently enabled and who receives it.</li>
         </ul>
-        <p>The plan is exactly the one suggested in the question: we deliver all current messages, they are reviewed and improved by hand, and we then apply the improved versions to the live site.</p>
+        <p>To improve an email, open it in the list, write your new wording, and send it back to us in any form &mdash; for example: &ldquo;Completed order &mdash; Subject: &hellip;, Heading: &hellip;, Body: &hellip;&rdquo;. Only the emails you reply about will be changed; everything else stays as it is.</p>
 
         <h3>Who receives which email?</h3>
         <p><strong>To the customer:</strong> order on-hold, order completed, order refunded, payment failed, customer note, password reset, new account, and email-address confirmation.</p>
@@ -654,6 +754,848 @@
         </ul>
       </div>
 
+      <section class="email-review" aria-label="Current email texts for review">
+              <h3>The current email texts &mdash; for your review</h3>
+              <p class="email-review-note">
+                All 17 WooCommerce emails, exactly as they are configured on the live site right now.
+                Click an email to open it. Placeholder tokens such as <code>{order_number}</code> are filled automatically when the email is sent.
+                To improve an email, open it, write your new wording, and send it back to us &mdash; you can improve only the emails you want changed.
+              </p>
+              <details class="email-card" id="email-new_order">
+                <summary>
+                  <span class="email-card-title">1. New order</span>
+                  <span class="email-card-tags"><span class="chip chip--cat">To the admin</span><span class="chip chip--done">On</span></span>
+                </summary>
+                <div class="email-card-body">
+                  <div class="email-field">
+                    <p class="email-field-label">Subject &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">[{site_title}] Uusi kurssitilaus ({order_number}) - {order_date}</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Heading inside the email &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">Uusi kurssitilaus!</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Additional content at the end &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">Onnittelut myynnistä.</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Body &mdash; the main message text (not editable in the admin; example order data shown)</p>
+                    <div class="email-field-text" lang="fi">Parempi tasapaino - kurssit
+      Uusi kurssitilaus!
+      MD. HEMAL AKANDA tilasi kurssin.
+      Tilaus #4982 (13.11.2026)
+      Tuote
+      Määrä
+      Hinta
+      Parempi tasapaino® – jatkokurssi (21 päivää) (#parempi-tasapaino-jatko)
+      1
+      79,00 €
+      Välisumma:
+      79,00 €
+      Maksutapa:
+      Cash on delivery
+      Yhteensä:
+      79,00 €
+      Laskutusosoite
+      MD. HEMAL AKANDA
+      hemal.akanda.39@gmail.com
+      PixelYourSite
+      Your clients don&#039;t see this information! We send it to you in this &quot;New Order&quot; email. If you want to remove this data from the &quot;New Order&quot; email, open PixelYourSite&#039;s WooCommerce page, disable &quot;Send reports data to the New Order email&quot; and save.
+      With PixelYourSite Professional, you can view and download this data from the plugin&#039;s own reports page. Find out how WooCommerce Reports work and how to visualize and download your data: Click here for details.
+      FIRST VISIT
+      Landing Page:
+      http://localhost:10417/
+      Traffic source:
+      direct
+      utm_source:
+      No utm_source detected for this order
+      utm_medium:
+      No utm_medium detected for this order
+      utm_campaign:
+      No utm_campaign detected for this order
+      utm_content:
+      No utm_content detected for this order
+      utm_term:
+      No utm_term detected for this order
+      LAST VISIT
+      Landing Page:
+      http://localhost:10417/
+      Traffic source:
+      direct
+      utm_source:
+      No utm_source detected for this order
+      utm_medium:
+      No utm_medium detected for this order
+      utm_campaign:
+      No utm_campaign detected for this order
+      utm_content:
+      No utm_content detected for this order
+      utm_term:
+      No utm_term detected for this order
+      Client&#039;s browser time
+      Hour:
+      14-15
+      Day:
+      Friday
+      Month:
+      November
+      Käsittele tilauksesi tien päällä. Hanki sovellus.
+      Parempi tasapaino - kurssit</div>
+                  </div>
+                  <div class="email-improve">
+                    <p class="email-field-label">Your improved text</p>
+                    <p class="email-improve-hint">Write your new wording here and send it back to us, e.g. &ldquo;New order &mdash; Subject: &hellip;, Heading: &hellip;, Body: &hellip;&rdquo;. Skip the parts you want kept as they are.</p>
+                  </div>
+                </div>
+              </details>
+              <details class="email-card" id="email-cancelled_order">
+                <summary>
+                  <span class="email-card-title">2. Cancelled order</span>
+                  <span class="email-card-tags"><span class="chip chip--cat">To the admin</span><span class="chip chip--done">On</span></span>
+                </summary>
+                <div class="email-card-body">
+                  <div class="email-field">
+                    <p class="email-field-label">Subject &mdash; WooCommerce default (Finnish translation)</p>
+                    <div class="email-field-text" lang="fi">[Parempi tasapaino - kurssit]: Tilaus # on peruutettu</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Heading inside the email &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">Order #{order_number} Cancelled</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Additional content at the end &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">Kiitos, että luit.</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Body &mdash; the main message text (not editable in the admin; example order data shown)</p>
+                    <div class="email-field-text" lang="fi">Parempi tasapaino - kurssit
+      Order # Cancelled
+      Tilaus 4982 asiakkaalta MD. HEMAL AKANDA on peruutettu. Tilaus oli seuraava:
+      Tilaus #4982 (13.11.2026)
+      Tuote
+      Määrä
+      Hinta
+      Parempi tasapaino® – jatkokurssi (21 päivää) (#parempi-tasapaino-jatko)
+      1
+      79,00 €
+      Välisumma:
+      79,00 €
+      Maksutapa:
+      Cash on delivery
+      Yhteensä:
+      79,00 €
+      Laskutusosoite
+      MD. HEMAL AKANDA
+      hemal.akanda.39@gmail.com
+      PixelYourSite
+      Your clients don&#039;t see this information! We send it to you in this &quot;New Order&quot; email. If you want to remove this data from the &quot;New Order&quot; email, open PixelYourSite&#039;s WooCommerce page, disable &quot;Send reports data to the New Order email&quot; and save.
+      With PixelYourSite Professional, you can view and download this data from the plugin&#039;s own reports page. Find out how WooCommerce Reports work and how to visualize and download your data: Click here for details.
+      FIRST VISIT
+      Landing Page:
+      http://localhost:10417/
+      Traffic source:
+      direct
+      utm_source:
+      No utm_source detected for this order
+      utm_medium:
+      No utm_medium detected for this order
+      utm_campaign:
+      No utm_campaign detected for this order
+      utm_content:
+      No utm_content detected for this order
+      utm_term:
+      No utm_term detected for this order
+      LAST VISIT
+      Landing Page:
+      http://localhost:10417/
+      Traffic source:
+      direct
+      utm_source:
+      No utm_source detected for this order
+      utm_medium:
+      No utm_medium detected for this order
+      utm_campaign:
+      No utm_campaign detected for this order
+      utm_content:
+      No utm_content detected for this order
+      utm_term:
+      No utm_term detected for this order
+      Client&#039;s browser time
+      Hour:
+      14-15
+      Day:
+      Friday
+      Month:
+      November
+      Parempi tasapaino - kurssit</div>
+                  </div>
+                  <div class="email-improve">
+                    <p class="email-field-label">Your improved text</p>
+                    <p class="email-improve-hint">Write your new wording here and send it back to us, e.g. &ldquo;Cancelled order &mdash; Subject: &hellip;, Heading: &hellip;, Body: &hellip;&rdquo;. Skip the parts you want kept as they are.</p>
+                  </div>
+                </div>
+              </details>
+              <details class="email-card" id="email-customer_cancelled_order">
+                <summary>
+                  <span class="email-card-title">3. Cancelled order</span>
+                  <span class="email-card-tags"><span class="chip chip--cat">To the customer</span><span class="chip chip--neutral">Off</span></span>
+                </summary>
+                <div class="email-card-body">
+                  <div class="email-field">
+                    <p class="email-field-label">Subject &mdash; WooCommerce default (Finnish translation)</p>
+                    <div class="email-field-text" lang="fi">[Parempi tasapaino - kurssit]: Your order # has been cancelled</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Heading inside the email &mdash; WooCommerce default (Finnish translation)</p>
+                    <div class="email-field-text" lang="fi">Tilaus peruttu: nro. </div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Additional content at the end &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">We hope to see you again soon.</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Body &mdash; the main message text (not editable in the admin; example order data shown)</p>
+                    <div class="email-field-text" lang="fi">Parempi tasapaino - kurssit
+      Tilaus peruttu: nro.
+      Olemme pahoillamme, mutta tilauksesi #4982 on peruttu.
+      Tilaus #4982 (13.11.2026)
+      Tuote
+      Määrä
+      Hinta
+      Parempi tasapaino® – jatkokurssi (21 päivää)
+      1
+      79,00 €
+      Välisumma:
+      79,00 €
+      Maksutapa:
+      Cash on delivery
+      Yhteensä:
+      79,00 €
+      Laskutusosoite
+      MD. HEMAL AKANDA
+      hemal.akanda.39@gmail.com
+      Parempi tasapaino - kurssit</div>
+                  </div>
+                  <div class="email-improve">
+                    <p class="email-field-label">Your improved text</p>
+                    <p class="email-improve-hint">Write your new wording here and send it back to us, e.g. &ldquo;Cancelled order &mdash; Subject: &hellip;, Heading: &hellip;, Body: &hellip;&rdquo;. Skip the parts you want kept as they are.</p>
+                  </div>
+                </div>
+              </details>
+              <details class="email-card" id="email-failed_order">
+                <summary>
+                  <span class="email-card-title">4. Failed order</span>
+                  <span class="email-card-tags"><span class="chip chip--cat">To the admin</span><span class="chip chip--done">On</span></span>
+                </summary>
+                <div class="email-card-body">
+                  <div class="email-field">
+                    <p class="email-field-label">Subject &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">[{site_title}] Failed order ({order_number})</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Heading inside the email &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">Order #{order_number} failed</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Additional content at the end &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">Hopefully they’ll be back. Read more about &lt;a href=&quot;https://woocommerce.com/document/managing-orders/&quot;&gt;troubleshooting failed payments&lt;/a&gt;.</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Body &mdash; the main message text (not editable in the admin; example order data shown)</p>
+                    <div class="email-field-text" lang="fi">Parempi tasapaino - kurssit
+      Order # failed
+      Tilauksen 4982 maksu asiakkaalta MD. HEMAL AKANDA epäonnistui. Tilaus oli seuraava:
+      Tilaus #4982 (13.11.2026)
+      Tuote
+      Määrä
+      Hinta
+      Parempi tasapaino® – jatkokurssi (21 päivää) (#parempi-tasapaino-jatko)
+      1
+      79,00 €
+      Välisumma:
+      79,00 €
+      Maksutapa:
+      Cash on delivery
+      Yhteensä:
+      79,00 €
+      Laskutusosoite
+      MD. HEMAL AKANDA
+      hemal.akanda.39@gmail.com
+      PixelYourSite
+      Your clients don&#039;t see this information! We send it to you in this &quot;New Order&quot; email. If you want to remove this data from the &quot;New Order&quot; email, open PixelYourSite&#039;s WooCommerce page, disable &quot;Send reports data to the New Order email&quot; and save.
+      With PixelYourSite Professional, you can view and download this data from the plugin&#039;s own reports page. Find out how WooCommerce Reports work and how to visualize and download your data: Click here for details.
+      FIRST VISIT
+      Landing Page:
+      http://localhost:10417/
+      Traffic source:
+      direct
+      utm_source:
+      No utm_source detected for this order
+      utm_medium:
+      No utm_medium detected for this order
+      utm_campaign:
+      No utm_campaign detected for this order
+      utm_content:
+      No utm_content detected for this order
+      utm_term:
+      No utm_term detected for this order
+      LAST VISIT
+      Landing Page:
+      http://localhost:10417/
+      Traffic source:
+      direct
+      utm_source:
+      No utm_source detected for this order
+      utm_medium:
+      No utm_medium detected for this order
+      utm_campaign:
+      No utm_campaign detected for this order
+      utm_content:
+      No utm_content detected for this order
+      utm_term:
+      No utm_term detected for this order
+      Client&#039;s browser time
+      Hour:
+      14-15
+      Day:
+      Friday
+      Month:
+      November
+      Hopefully they’ll be back. Read more about troubleshooting failed payments.
+      Parempi tasapaino - kurssit</div>
+                  </div>
+                  <div class="email-improve">
+                    <p class="email-field-label">Your improved text</p>
+                    <p class="email-improve-hint">Write your new wording here and send it back to us, e.g. &ldquo;Failed order &mdash; Subject: &hellip;, Heading: &hellip;, Body: &hellip;&rdquo;. Skip the parts you want kept as they are.</p>
+                  </div>
+                </div>
+              </details>
+              <details class="email-card" id="email-customer_failed_order">
+                <summary>
+                  <span class="email-card-title">5. Failed order</span>
+                  <span class="email-card-tags"><span class="chip chip--cat">To the customer</span><span class="chip chip--done">On</span></span>
+                </summary>
+                <div class="email-card-body">
+                  <div class="email-field">
+                    <p class="email-field-label">Subject &mdash; WooCommerce default (Finnish translation)</p>
+                    <div class="email-field-text" lang="fi">Tilauksesi sivustolla Parempi tasapaino - kurssit epäonnistui</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Heading inside the email &mdash; WooCommerce default (Finnish translation)</p>
+                    <div class="email-field-text" lang="fi">Tilauksesi epäonnistui</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Additional content at the end</p>
+                    <div class="email-field-text email-field-na">Empty.</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Body &mdash; the main message text (not editable in the admin; example order data shown)</p>
+                    <div class="email-field-text" lang="fi">Parempi tasapaino - kurssit
+      Tilauksesi epäonnistui
+      Hei MD. HEMAL,
+      Valitettavasti emme voineet suorittaa tilaustasi loppuun maksutavan ongelman vuoksi.
+      Jos haluat jatkaa ostosten tekemistä, palaa takaisin sivustolle Parempi tasapaino - kurssit ja kokeile erilaista maksutapaa.
+      Tilauksesi tiedot ovat seuraavat:
+      Tilaus #4982 (13.11.2026)
+      Tuote
+      Määrä
+      Hinta
+      Parempi tasapaino® – jatkokurssi (21 päivää)
+      1
+      79,00 €
+      Välisumma:
+      79,00 €
+      Maksutapa:
+      Cash on delivery
+      Yhteensä:
+      79,00 €
+      Laskutusosoite
+      MD. HEMAL AKANDA
+      hemal.akanda.39@gmail.com
+      Parempi tasapaino - kurssit</div>
+                  </div>
+                  <div class="email-improve">
+                    <p class="email-field-label">Your improved text</p>
+                    <p class="email-improve-hint">Write your new wording here and send it back to us, e.g. &ldquo;Failed order &mdash; Subject: &hellip;, Heading: &hellip;, Body: &hellip;&rdquo;. Skip the parts you want kept as they are.</p>
+                  </div>
+                </div>
+              </details>
+              <details class="email-card" id="email-customer_on_hold_order">
+                <summary>
+                  <span class="email-card-title">6. Order on-hold</span>
+                  <span class="email-card-tags"><span class="chip chip--cat">To the customer</span><span class="chip chip--done">On</span></span>
+                </summary>
+                <div class="email-card-body">
+                  <div class="email-field">
+                    <p class="email-field-label">Subject &mdash; WooCommerce default (Finnish translation)</p>
+                    <div class="email-field-text" lang="fi">Tilauksesi verkkokaupasta Parempi tasapaino - kurssit on vastaanotettu!</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Heading inside the email &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">Thanks for your order!</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Additional content at the end &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">We look forward to fulfilling your order soon.</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Body &mdash; the main message text (not editable in the admin; example order data shown)</p>
+                    <div class="email-field-text" lang="fi">Parempi tasapaino - kurssit
+      Thanks for your order!
+      Tilauksesi on pidossa, kunnes vahvistamme maksun saapuneen. Tilauksesi tiedot näytetään alla viiteenä:
+      Tilaus #4982 (13.11.2026)
+      Tuote
+      Määrä
+      Hinta
+      Parempi tasapaino® – jatkokurssi (21 päivää)
+      1
+      79,00 €
+      Välisumma:
+      79,00 €
+      Maksutapa:
+      Cash on delivery
+      Yhteensä:
+      79,00 €
+      Laskutusosoite
+      MD. HEMAL AKANDA
+      hemal.akanda.39@gmail.com
+      Parempi tasapaino - kurssit</div>
+                  </div>
+                  <div class="email-improve">
+                    <p class="email-field-label">Your improved text</p>
+                    <p class="email-improve-hint">Write your new wording here and send it back to us, e.g. &ldquo;Order on-hold &mdash; Subject: &hellip;, Heading: &hellip;, Body: &hellip;&rdquo;. Skip the parts you want kept as they are.</p>
+                  </div>
+                </div>
+              </details>
+              <details class="email-card" id="email-customer_processing_order">
+                <summary>
+                  <span class="email-card-title">7. Processing order</span>
+                  <span class="email-card-tags"><span class="chip chip--cat">To the customer</span><span class="chip chip--neutral">Off</span></span>
+                </summary>
+                <div class="email-card-body">
+                  <div class="email-field">
+                    <p class="email-field-label">Subject &mdash; WooCommerce default (Finnish translation)</p>
+                    <div class="email-field-text" lang="fi">Tilauksesi verkkokaupasta Parempi tasapaino - kurssit on vastaanotettu!</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Heading inside the email &mdash; WooCommerce default (Finnish translation)</p>
+                    <div class="email-field-text" lang="fi">Kiitos tilauksesta</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Additional content at the end</p>
+                    <div class="email-field-text email-field-na">Empty.</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Body &mdash; the main message text (not editable in the admin; example order data shown)</p>
+                    <div class="email-field-text" lang="fi">Parempi tasapaino - kurssit
+      Kiitos tilauksesta
+      Tilauksesi on vastaanotettu ja sitä käsitellään nyt. Tilauksesi tiedot näkyvät alla:
+      Tilaus #4982 (13.11.2026)
+      Tuote
+      Määrä
+      Hinta
+      Parempi tasapaino® – jatkokurssi (21 päivää)
+      1
+      79,00 €
+      Välisumma:
+      79,00 €
+      Maksutapa:
+      Cash on delivery
+      Yhteensä:
+      79,00 €
+      Laskutusosoite
+      MD. HEMAL AKANDA
+      hemal.akanda.39@gmail.com
+      Parempi tasapaino - kurssit</div>
+                  </div>
+                  <div class="email-improve">
+                    <p class="email-field-label">Your improved text</p>
+                    <p class="email-improve-hint">Write your new wording here and send it back to us, e.g. &ldquo;Processing order &mdash; Subject: &hellip;, Heading: &hellip;, Body: &hellip;&rdquo;. Skip the parts you want kept as they are.</p>
+                  </div>
+                </div>
+              </details>
+              <details class="email-card" id="email-customer_completed_order">
+                <summary>
+                  <span class="email-card-title">8. Completed order</span>
+                  <span class="email-card-tags"><span class="chip chip--cat">To the customer</span><span class="chip chip--done">On</span></span>
+                </summary>
+                <div class="email-card-body">
+                  <div class="email-field">
+                    <p class="email-field-label">Subject &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">Parempi tasapaino® – verkkokurssi</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Heading inside the email &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">Kiitos tilauksestasi!</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Additional content at the end &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">Asiakastuki: hei@betterbalance.online
+      https://betterbalance.online</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Body &mdash; the main message text (not editable in the admin; example order data shown)</p>
+                    <div class="email-field-text" lang="fi">Parempi tasapaino - kurssit
+      Kiitos tilauksestasi!
+      Hei MD. HEMAL, olemme vastaanottaneet tilauksesi.
+      Parempi Tasapaino -kurssien materiaalin käyttö:
+      Avaa ja tallenna tiedostot koneellesi, josta löydät ne tulevaisuudessa.
+      Aloita tutustumalla ensimmäiseen tiedostoon, joka on kurssikirja.
+      Tulosta halutessasi harjoitustaulut muistin tueksi.
+      Täytä alkukysely ja arvioi edistymistäsi kurssin lopulla loppukyselyllä. Voit tallentaa täytetyn kyselyn koneellesi tai tulostamalla täyttää käsin.
+      Tilaus #4982 (13.11.2026)
+      Tuote
+      Määrä
+      Hinta
+      Parempi tasapaino® – jatkokurssi (21 päivää)
+      1
+      79,00 €
+      Välisumma:
+      79,00 €
+      Maksutapa:
+      Cash on delivery
+      Yhteensä:
+      79,00 €
+      Laskutusosoite
+      MD. HEMAL AKANDA
+      hemal.akanda.39@gmail.com
+      Parempi tasapaino - kurssit</div>
+                  </div>
+                  <div class="email-improve">
+                    <p class="email-field-label">Your improved text</p>
+                    <p class="email-improve-hint">Write your new wording here and send it back to us, e.g. &ldquo;Completed order &mdash; Subject: &hellip;, Heading: &hellip;, Body: &hellip;&rdquo;. Skip the parts you want kept as they are.</p>
+                  </div>
+                </div>
+              </details>
+              <details class="email-card" id="email-customer_refunded_order">
+                <summary>
+                  <span class="email-card-title">9. Refunded order</span>
+                  <span class="email-card-tags"><span class="chip chip--cat">To the customer</span><span class="chip chip--done">On</span></span>
+                </summary>
+                <div class="email-card-body">
+                  <div class="email-field">
+                    <p class="email-field-label">Subject &mdash; WooCommerce default (Finnish translation)</p>
+                    <div class="email-field-text" lang="fi">Tilaus Parempi tasapaino - kurssit verkkokaupassa, nro.  on hyvitetty</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Heading inside the email &mdash; WooCommerce default (Finnish translation)</p>
+                    <div class="email-field-text" lang="fi">Order # refunded</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Additional content at the end &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">We hope to see you again soon.</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Body &mdash; the main message text (not editable in the admin; example order data shown)</p>
+                    <div class="email-field-text" lang="fi">Parempi tasapaino - kurssit
+      Order # refunded
+      Hei. Tilauksesi sivustolla Parempi tasapaino - kurssit on hyvitetty.
+      Tilaus #4982 (13.11.2026)
+      Tuote
+      Määrä
+      Hinta
+      Parempi tasapaino® – jatkokurssi (21 päivää)
+      1
+      79,00 €
+      Välisumma:
+      79,00 €
+      Maksutapa:
+      Cash on delivery
+      Yhteensä:
+      79,00 €
+      Laskutusosoite
+      MD. HEMAL AKANDA
+      hemal.akanda.39@gmail.com
+      Parempi tasapaino - kurssit</div>
+                  </div>
+                  <div class="email-improve">
+                    <p class="email-field-label">Your improved text</p>
+                    <p class="email-improve-hint">Write your new wording here and send it back to us, e.g. &ldquo;Refunded order &mdash; Subject: &hellip;, Heading: &hellip;, Body: &hellip;&rdquo;. Skip the parts you want kept as they are.</p>
+                  </div>
+                </div>
+              </details>
+              <details class="email-card" id="email-customer_invoice">
+                <summary>
+                  <span class="email-card-title">10. Order details</span>
+                  <span class="email-card-tags"><span class="chip chip--cat">To the customer</span><span class="chip chip--neutral">No on/off setting</span></span>
+                </summary>
+                <div class="email-card-body">
+                  <div class="email-field">
+                    <p class="email-field-label">Subject &mdash; WooCommerce default (Finnish translation)</p>
+                    <div class="email-field-text" lang="fi">Tiedot tilaukselle # verkkokaupassa Parempi tasapaino - kurssit</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Heading inside the email &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">Invoice for order #{order_number}</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Additional content at the end &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">Thanks for using {site_url}!</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Body &mdash; the main message text (not editable in the admin; example order data shown)</p>
+                    <div class="email-field-text" lang="fi">Parempi tasapaino - kurssit
+      Thanks for your order!
+      Tilaus #4982 (13.11.2026)
+      Tuote
+      Määrä
+      Hinta
+      Parempi tasapaino® – jatkokurssi (21 päivää)
+      1
+      79,00 €
+      Välisumma:
+      79,00 €
+      Maksutapa:
+      Cash on delivery
+      Yhteensä:
+      79,00 €
+      Laskutusosoite
+      MD. HEMAL AKANDA
+      hemal.akanda.39@gmail.com
+      Parempi tasapaino - kurssit</div>
+                  </div>
+                  <div class="email-improve">
+                    <p class="email-field-label">Your improved text</p>
+                    <p class="email-improve-hint">Write your new wording here and send it back to us, e.g. &ldquo;Order details &mdash; Subject: &hellip;, Heading: &hellip;, Body: &hellip;&rdquo;. Skip the parts you want kept as they are.</p>
+                  </div>
+                </div>
+              </details>
+              <details class="email-card" id="email-customer_note">
+                <summary>
+                  <span class="email-card-title">11. Customer note</span>
+                  <span class="email-card-tags"><span class="chip chip--cat">To the customer</span><span class="chip chip--done">On</span></span>
+                </summary>
+                <div class="email-card-body">
+                  <div class="email-field">
+                    <p class="email-field-label">Subject &mdash; WooCommerce default (Finnish translation)</p>
+                    <div class="email-field-text" lang="fi">Viesti koskien tilaustasi verkkokaupassa Parempi tasapaino - kurssit päivämäärällä </div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Heading inside the email &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">A note was added to order #{order_number}</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Additional content at the end &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">Thanks for reading.</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Body &mdash; the main message text (not editable in the admin; example order data shown)</p>
+                    <div class="email-field-text" lang="fi">Parempi tasapaino - kurssit
+      A note was added to order #
+      Hei, tilaukseesi on juuri lisätty kommentti:
+      Tiedoksi. Tilauksesi tiedot näet alla.
+      Tilaus #4982 (13.11.2026)
+      Tuote
+      Määrä
+      Hinta
+      Parempi tasapaino® – jatkokurssi (21 päivää)
+      1
+      79,00 €
+      Välisumma:
+      79,00 €
+      Maksutapa:
+      Cash on delivery
+      Yhteensä:
+      79,00 €
+      Laskutusosoite
+      MD. HEMAL AKANDA
+      hemal.akanda.39@gmail.com
+      Parempi tasapaino - kurssit</div>
+                  </div>
+                  <div class="email-improve">
+                    <p class="email-field-label">Your improved text</p>
+                    <p class="email-improve-hint">Write your new wording here and send it back to us, e.g. &ldquo;Customer note &mdash; Subject: &hellip;, Heading: &hellip;, Body: &hellip;&rdquo;. Skip the parts you want kept as they are.</p>
+                  </div>
+                </div>
+              </details>
+              <details class="email-card" id="email-customer_reset_password">
+                <summary>
+                  <span class="email-card-title">12. Reset password</span>
+                  <span class="email-card-tags"><span class="chip chip--cat">To the customer</span><span class="chip chip--done">On</span></span>
+                </summary>
+                <div class="email-card-body">
+                  <div class="email-field">
+                    <p class="email-field-label">Subject &mdash; WooCommerce default (Finnish translation)</p>
+                    <div class="email-field-text" lang="fi">Salasanan palautuspyyntö sivustolle Parempi tasapaino - kurssit</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Heading inside the email &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">Password reset instructions</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Additional content at the end &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">Thanks for reading.</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Body &mdash; the main message text (not editable in the admin; example order data shown)</p>
+                    <div class="email-field-text" lang="fi">Parempi tasapaino - kurssit
+      Password reset instructions
+      Joku pyysi salasanan palauttamista seuraavalle tilille:
+      Käyttäjätunnus: {asiakkaan_käyttäjätunnus}
+      Jos tämä oli virhe, voit vain ohittaa tämän sähköpostin eikä mitään tapahdu.
+      Salasanan palauttamiseksi, käy seuraavassa osoitteessa:
+      Napsauta tässä asettaaksesi uuden salasanan.
+      Parempi tasapaino - kurssit</div>
+                  </div>
+                  <div class="email-improve">
+                    <p class="email-field-label">Your improved text</p>
+                    <p class="email-improve-hint">Write your new wording here and send it back to us, e.g. &ldquo;Reset password &mdash; Subject: &hellip;, Heading: &hellip;, Body: &hellip;&rdquo;. Skip the parts you want kept as they are.</p>
+                  </div>
+                </div>
+              </details>
+              <details class="email-card" id="email-customer_new_account">
+                <summary>
+                  <span class="email-card-title">13. New account</span>
+                  <span class="email-card-tags"><span class="chip chip--cat">To the customer</span><span class="chip chip--done">On</span></span>
+                </summary>
+                <div class="email-card-body">
+                  <div class="email-field">
+                    <p class="email-field-label">Subject &mdash; WooCommerce default (Finnish translation)</p>
+                    <div class="email-field-text" lang="fi">Sinulle on luotu tili Parempi tasapaino - kurssit -sivustolla!</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Heading inside the email &mdash; WooCommerce default (Finnish translation)</p>
+                    <div class="email-field-text" lang="fi">Tervetuloa  Parempi tasapaino - kurssit verkkokauppaan</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Additional content at the end &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">We look forward to seeing you soon.</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Body &mdash; the main message text (not editable in the admin; example order data shown)</p>
+                    <div class="email-field-text" lang="fi">Parempi tasapaino - kurssit
+      Tervetuloa  Parempi tasapaino - kurssit verkkokauppaan
+      Kiitos tilin luomisesta sivustolle Parempi tasapaino - kurssit. Käyttäjätunnuksesi on {customer_username}
+      Voit kirjautua omalle tilillesi, josta näet tilauksesi ja voit myös vaihtaa salasanasi. Kirjaudu sisään sivustolle tästä: http://localhost:10417/my-account/.
+      Parempi tasapaino - kurssit</div>
+                  </div>
+                  <div class="email-improve">
+                    <p class="email-field-label">Your improved text</p>
+                    <p class="email-improve-hint">Write your new wording here and send it back to us, e.g. &ldquo;New account &mdash; Subject: &hellip;, Heading: &hellip;, Body: &hellip;&rdquo;. Skip the parts you want kept as they are.</p>
+                  </div>
+                </div>
+              </details>
+              <details class="email-card" id="email-admin_payment_gateway_enabled">
+                <summary>
+                  <span class="email-card-title">14. Payment gateway enabled</span>
+                  <span class="email-card-tags"><span class="chip chip--cat">To the admin</span><span class="chip chip--done">On</span></span>
+                </summary>
+                <div class="email-card-body">
+                  <div class="email-field">
+                    <p class="email-field-label">Subject &mdash; WooCommerce default (Finnish translation)</p>
+                    <div class="email-field-text" lang="fi">[] Payment gateway &quot;&quot; enabled</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Heading inside the email &mdash; WooCommerce default (Finnish translation)</p>
+                    <div class="email-field-text" lang="fi">Payment gateway &quot;&quot; enabled</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Additional content at the end &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">If this was intentional, you can safely ignore and delete this email.</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Body &mdash; the main message text (not editable in the admin; example order data shown)</p>
+                    <div class="email-field-text" lang="fi">Parempi tasapaino - kurssit
+      Payment gateway &quot;&quot; enabled
+      Howdy ,
+      The payment gateway &quot;&quot; was just enabled on this site: http://localhost:10417
+      If you did not enable this payment gateway, please log in to your site and consider disabling it here:
+      This email has been sent to
+      Parempi tasapaino - kurssit</div>
+                  </div>
+                  <div class="email-improve">
+                    <p class="email-field-label">Your improved text</p>
+                    <p class="email-improve-hint">Write your new wording here and send it back to us, e.g. &ldquo;Payment gateway enabled &mdash; Subject: &hellip;, Heading: &hellip;, Body: &hellip;&rdquo;. Skip the parts you want kept as they are.</p>
+                  </div>
+                </div>
+              </details>
+              <details class="email-card" id="email-customer_pos_completed_order">
+                <summary>
+                  <span class="email-card-title">15. POS completed order</span>
+                  <span class="email-card-tags"><span class="chip chip--cat">To the customer</span><span class="chip chip--neutral">No on/off setting</span></span>
+                </summary>
+                <div class="email-card-body">
+                  <div class="email-field">
+                    <p class="email-field-label">Subject &mdash; WooCommerce default (Finnish translation)</p>
+                    <div class="email-field-text" lang="fi">Your in-store purchase # at Parempi tasapaino - kurssit</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Heading inside the email &mdash; WooCommerce default (Finnish translation)</p>
+                    <div class="email-field-text" lang="fi">Thank you for your in-store purchase</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Additional content at the end</p>
+                    <div class="email-field-text email-field-na">Empty.</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Body &mdash; the main message text (not editable in the admin; example order data shown)</p>
+                    <div class="email-field-text email-field-na">Rendered from the template file: wp-content/plugins/woocommerce/templates/emails/emails/customer-pos-completed-order.php</div>
+                  </div>
+                  <div class="email-improve">
+                    <p class="email-field-label">Your improved text</p>
+                    <p class="email-improve-hint">Write your new wording here and send it back to us, e.g. &ldquo;POS completed order &mdash; Subject: &hellip;, Heading: &hellip;, Body: &hellip;&rdquo;. Skip the parts you want kept as they are.</p>
+                  </div>
+                </div>
+              </details>
+              <details class="email-card" id="email-customer_pos_refunded_order">
+                <summary>
+                  <span class="email-card-title">16. POS refunded order</span>
+                  <span class="email-card-tags"><span class="chip chip--cat">To the customer</span><span class="chip chip--neutral">No on/off setting</span></span>
+                </summary>
+                <div class="email-card-body">
+                  <div class="email-field">
+                    <p class="email-field-label">Subject &mdash; WooCommerce default (Finnish translation)</p>
+                    <div class="email-field-text" lang="fi">Tilauksesi # kaupasta Parempi tasapaino - kurssit on hyvitetty</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Heading inside the email &mdash; WooCommerce default (Finnish translation)</p>
+                    <div class="email-field-text" lang="fi">Tilaus hyvitetty: </div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Additional content at the end</p>
+                    <div class="email-field-text email-field-na">Empty.</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Body &mdash; the main message text (not editable in the admin; example order data shown)</p>
+                    <div class="email-field-text email-field-na">Rendered from the template file: wp-content/plugins/woocommerce/templates/emails/emails/customer-pos-refunded-order.php</div>
+                  </div>
+                  <div class="email-improve">
+                    <p class="email-field-label">Your improved text</p>
+                    <p class="email-improve-hint">Write your new wording here and send it back to us, e.g. &ldquo;POS refunded order &mdash; Subject: &hellip;, Heading: &hellip;, Body: &hellip;&rdquo;. Skip the parts you want kept as they are.</p>
+                  </div>
+                </div>
+              </details>
+              <details class="email-card" id="email-customer_verify_email">
+                <summary>
+                  <span class="email-card-title">17. Confirm email address</span>
+                  <span class="email-card-tags"><span class="chip chip--cat">To the customer</span><span class="chip chip--done">On</span></span>
+                </summary>
+                <div class="email-card-body">
+                  <div class="email-field">
+                    <p class="email-field-label">Subject</p>
+                    <div class="email-field-text email-field-na">Not available here &mdash; add-on email, its default text comes from the add-on&rsquo;s translation.</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Heading inside the email</p>
+                    <div class="email-field-text email-field-na">Not available here &mdash; add-on email.</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Additional content at the end &mdash; customized in the admin</p>
+                    <div class="email-field-text" lang="fi">Thanks for reading.</div>
+                  </div>
+                  <div class="email-field">
+                    <p class="email-field-label">Body &mdash; the main message text (not editable in the admin; example order data shown)</p>
+                    <div class="email-field-text email-field-na">Add-on email &mdash; its body text comes from the add-on&rsquo;s own translation.</div>
+                  </div>
+                  <div class="email-improve">
+                    <p class="email-field-label">Your improved text</p>
+                    <p class="email-improve-hint">Write your new wording here and send it back to us, e.g. &ldquo;Confirm email address &mdash; Subject: &hellip;, Heading: &hellip;, Body: &hellip;&rdquo;. Skip the parts you want kept as they are.</p>
+                  </div>
+                </div>
+              </details>
+            </section>
+
       <aside class="qa-callout" role="note">
         <h3>Important clarification</h3>
         <p>Subject, heading, and additional content are simple admin fields and take effect immediately once saved. The body belongs to the site&rsquo;s code, so improved body texts are implemented by us &mdash; the client only needs to provide the wording.</p>
@@ -664,8 +1606,8 @@
         <h3>Implementation status</h3>
         <ul>
           <li>
-            <span>Review document with all current email texts</span>
-            <span class="chip chip--done">Prepared</span>
+            <span>All current email texts published on this page</span>
+            <span class="chip chip--done">Done</span>
           </li>
           <li>
             <span>Improved texts from the client</span>
