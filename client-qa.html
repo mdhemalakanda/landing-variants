@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Client Questions &amp; Answers — Parempi tasapaino Website</title>
+<meta name="description" content="Client documentation: questions, explanations, and clarifications about the website.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234A3012'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='36' font-weight='bold' text-anchor='middle' fill='%23F5EDDF'%3E%3F%3C/text%3E%3C/svg%3E">
+<style>
+  /* ------------------------------------------------------------------
+     Design tokens — chestnut browns from the Parempi tasapaino brand
+     ------------------------------------------------------------------ */
+  :root {
+    --ink: #262019;
+    --body: #3A3126;
+    --muted: #6E6252;
+    --line: #E8E1D4;
+    --wash: #F7F3EB;
+    --tint: #F2EADD;
+    --brand: #825521;
+    --brand-deep: #4A3012;
+    --brand-soft: #AE8655;
+    --ok: #3A6B47;
+    --ok-tint: #EDF3EE;
+    --ok-line: #CBE0CF;
+    --serif: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Times New Roman", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+
+  body {
+    margin: 0;
+    background: #fff;
+    color: var(--body);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection { background: #E9DCC4; }
+
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* ------------------------------------------------------------------
+     Header band
+     ------------------------------------------------------------------ */
+  .site-head {
+    background: var(--brand-deep);
+    color: #F5EDDF;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-head .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 58px 24px 52px;
+    position: relative;
+  }
+  .head-kicker {
+    margin: 0 0 14px;
+    font: 600 0.85rem/1.4 var(--sans);
+    color: #D8C29B;
+  }
+  .site-head h1 {
+    margin: 0 0 16px;
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(2rem, 4.5vw, 2.8rem);
+    line-height: 1.12;
+    color: #FBF5E9;
+  }
+  .head-intro {
+    max-width: 62ch;
+    margin: 0 0 18px;
+    font-size: 1.02rem;
+    line-height: 1.65;
+    color: #E7DAC2;
+  }
+  .head-updated {
+    margin: 0;
+    font-size: 0.84rem;
+    color: #CBB48D;
+  }
+  .head-glyph {
+    position: absolute;
+    right: -1%;
+    top: 50%;
+    transform: translateY(-54%);
+    font-family: var(--serif);
+    font-size: min(340px, 44vw);
+    line-height: 1;
+    color: rgba(246, 238, 224, 0.09);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* ------------------------------------------------------------------
+     Layout: sticky question index + reading column
+     ------------------------------------------------------------------ */
+  .layout {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 230px minmax(0, 1fr);
+    gap: 64px;
+  }
+  .qa-col {
+    max-width: 720px;
+    padding: 46px 0 8px;
+  }
+
+  /* ------------------------------------------------------------------
+     Question index (table of contents)
+     ------------------------------------------------------------------ */
+  .toc {
+    position: sticky;
+    top: 28px;
+    align-self: start;
+    padding: 50px 0 0;
+    font-size: 0.86rem;
+  }
+  .toc-label {
+    margin: 0 0 8px;
+    font: 700 0.78rem/1.4 var(--sans);
+    color: var(--ink);
+  }
+  .toc ol {
+    list-style: none;
+    margin: 0 0 14px;
+    padding: 0;
+    border-left: 1px solid var(--line);
+  }
+  .toc a {
+    display: block;
+    padding: 7px 12px;
+    margin-left: -1px;
+    border-left: 2px solid transparent;
+    color: var(--muted);
+    text-decoration: none;
+    line-height: 1.4;
+    transition: color 0.15s ease;
+  }
+  .toc a:hover { color: var(--ink); }
+  .toc a.is-active {
+    color: var(--brand);
+    border-left-color: var(--brand);
+  }
+  .toc-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .toc-actions button {
+    padding: 2px 0;
+    border: none;
+    background: none;
+    font: 500 0.8rem/1.5 var(--sans);
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .toc-actions button:hover { color: var(--brand); }
+  .toc-actions button.is-copied { color: var(--ok); }
+
+  /* ------------------------------------------------------------------
+     Q&A entries
+     ------------------------------------------------------------------ */
+  .qa { scroll-margin-top: 28px; }
+  .qa + .qa {
+    margin-top: 56px;
+    padding-top: 48px;
+    border-top: 1px solid var(--line);
+  }
+
+  .qa-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 14px;
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+  .qa-index { font-weight: 600; color: var(--ink); }
+  .qa-meta time { margin-left: auto; }
+
+  .chip {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font: 600 0.78rem/1.2 var(--sans);
+    white-space: nowrap;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .chip--cat {
+    color: var(--brand);
+    background: var(--tint);
+    border: 1px solid #E3D3BC;
+  }
+  .chip--done {
+    color: var(--ok);
+    background: var(--ok-tint);
+    border: 1px solid var(--ok-line);
+  }
+  .chip--proposed {
+    color: #7A5323;
+    background: #fff;
+    border: 1px dashed var(--brand-soft);
+  }
+  .chip--neutral {
+    color: var(--muted);
+    background: #F4F1EA;
+    border: 1px solid var(--line);
+  }
+
+  .qa-titlerow {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 10px;
+  }
+  .qa-title {
+    margin: 0;
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(1.35rem, 2.2vw, 1.65rem);
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  .copy-link {
+    flex: none;
+    margin-top: 4px;
+    padding: 5px 11px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+    font: 500 0.78rem/1.4 var(--sans);
+    color: var(--muted);
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+  .copy-link:hover {
+    color: var(--brand);
+    border-color: var(--brand-soft);
+  }
+  .copy-link.is-copied {
+    color: var(--ok);
+    border-color: var(--ok-line);
+    background: var(--ok-tint);
+  }
+
+  .qa-question {
+    margin: 22px 0 8px;
+    padding: 14px 18px 15px;
+    background: var(--wash);
+    border-left: 3px solid var(--brand-soft);
+    border-radius: 0 10px 10px 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .qa-question-label {
+    margin: 0 0 6px;
+    font: 600 0.78rem/1.4 var(--sans);
+    color: var(--brand);
+  }
+  .qa-question blockquote {
+    margin: 0;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.06rem;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+
+  .qa-answer { margin-top: 18px; font-size: 0.98rem; }
+  .qa-answer h3 {
+    margin: 26px 0 8px;
+    font: 600 1.02rem/1.4 var(--sans);
+    color: var(--ink);
+  }
+  .qa-answer p { margin: 0.55em 0; }
+  .qa-answer ul {
+    margin: 0.6em 0;
+    padding-left: 1.25em;
+  }
+  .qa-answer li { margin: 0.3em 0; }
+  .qa-answer li::marker { color: var(--brand-soft); }
+
+  .wording-sample {
+    display: inline-block;
+    margin: 0.6em 0;
+    padding: 7px 14px;
+    background: var(--tint);
+    border: 1px solid #E3D3BC;
+    border-radius: 8px;
+    font: 500 0.95rem/1.5 var(--sans);
+    color: var(--ink);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .qa-callout {
+    margin-top: 28px;
+    padding: 16px 20px;
+    background: var(--tint);
+    border: 1px solid #E3D3BC;
+    border-radius: 12px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .qa-callout h3 {
+    margin: 0 0 6px;
+    font: 700 0.82rem/1.4 var(--sans);
+    color: var(--brand);
+  }
+  .qa-callout p {
+    margin: 0.5em 0;
+    font-size: 0.95rem;
+  }
+
+  .qa-status {
+    margin-top: 26px;
+    padding: 6px 20px 10px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+  .qa-status h3 {
+    margin: 12px 0 4px;
+    font: 600 1.02rem/1.4 var(--sans);
+    color: var(--ink);
+  }
+  .qa-status ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.92rem;
+  }
+  .qa-status li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 9px 0;
+    border-top: 1px solid var(--line);
+  }
+  .qa-status li:first-child { border-top: none; }
+
+  /* ------------------------------------------------------------------
+     Footer
+     ------------------------------------------------------------------ */
+  .site-foot {
+    margin-top: 72px;
+    padding: 28px 24px 42px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  .site-foot .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+  .site-foot p { margin: 0 0 4px; }
+
+  /* ------------------------------------------------------------------
+     Responsive: single column, index becomes a boxed "on this page"
+     ------------------------------------------------------------------ */
+  @media (max-width: 940px) {
+    .layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
+    }
+    .toc {
+      position: static;
+      margin: 22px 0 0;
+      padding: 16px 20px;
+      background: var(--wash);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+    .toc ol { border-left: none; margin-bottom: 6px; }
+    .toc a {
+      margin-left: 0;
+      border-left: none;
+      padding: 6px 0;
+    }
+    .toc a.is-active { border-left: none; }
+    .toc-actions {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding-top: 8px;
+      border-top: 1px solid var(--line);
+    }
+    .qa-col { padding-top: 36px; }
+  }
+
+  @media (max-width: 640px) {
+    .site-head .wrap { padding: 40px 20px 38px; }
+    .head-glyph { display: none; }
+    .layout { padding: 0 20px; }
+    .qa-titlerow { flex-direction: column; gap: 8px; }
+    .copy-link { align-self: flex-start; }
+    .qa-meta time { margin-left: 0; flex-basis: 100%; }
+    .qa-status li {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .site-foot { padding: 24px 20px 36px; }
+  }
+
+  /* ------------------------------------------------------------------
+     Print
+     ------------------------------------------------------------------ */
+  @media print {
+    @page { margin: 14mm 12mm; }
+    body { background: #fff; color: #000; font-size: 11pt; }
+    .site-head {
+      background: #fff;
+      color: #000;
+      border-bottom: 2px solid #000;
+      padding: 0;
+    }
+    .site-head .wrap { padding: 16px 0 12px; }
+    .site-head h1,
+    .head-kicker,
+    .head-intro,
+    .head-updated { color: #000; }
+    .head-intro { max-width: none; }
+    .head-glyph { display: none; }
+    .layout { display: block; max-width: none; padding: 0; }
+    .toc {
+      position: static;
+      padding: 12px 0;
+      border-bottom: 1px solid #bbb;
+      margin-bottom: 20px;
+    }
+    .toc ol { border-left: none; }
+    .toc a { border-left: none; padding: 4px 0; color: #000; }
+    .toc a.is-active { color: #000; }
+    .toc-actions { display: none; }
+    .qa-col { max-width: none; padding: 0; }
+    .qa { break-inside: auto; }
+    .qa + .qa { margin-top: 32px; padding-top: 24px; }
+    h3, .qa-question, .qa-callout, .qa-status li, .qa-titlerow { break-inside: avoid; }
+    .copy-link { display: none; }
+    a { color: #000; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <span class="head-glyph" aria-hidden="true">?</span>
+    <p class="head-kicker">Parempi tasapaino website documentation</p>
+    <h1>Client Questions &amp; Answers</h1>
+    <p class="head-intro">
+      This page documents questions, explanations, and clarifications about the website.
+      Each entry records the client&rsquo;s original question together with a clear explanation of how
+      the feature works, what to expect, and any decisions or suggested improvements.
+      New questions are added here as they come up, so this page always reflects the latest agreed answers.
+    </p>
+    <p class="head-updated">Last updated <time datetime="2026-11-19">19 November 2026</time>. <span id="qa-count">1 question documented</span>.</p>
+  </div>
+</header>
+
+<div class="layout">
+
+  <nav class="toc" aria-label="Questions">
+    <p class="toc-label" id="toc-label">Questions</p>
+    <ol id="qa-toc-list">
+      <!-- Built automatically from the Q&A entries below. -->
+    </ol>
+    <div class="toc-actions">
+      <button type="button" id="copy-page-link">Copy page link</button>
+      <button type="button" id="print-page">Print this page</button>
+    </div>
+  </nav>
+
+  <main class="qa-col" id="main">
+
+    <!-- ==================================================================
+         Q&A ENTRIES — how to add a new question
+         ------------------------------------------------------------------
+         1. Copy the whole <article class="qa"> block of an existing entry.
+         2. Paste it directly BELOW the last entry (newest goes last).
+         3. Update these parts:
+              - id:            unique anchor, e.g. id="q2-your-topic"
+              - .qa-index:     "Question 2" (increase the number)
+              - .chip--cat:    the topic category (WooCommerce, Testing…)
+              - <time>:        the date (datetime="YYYY-MM-DD")
+              - .qa-title:     the topic as a short heading
+              - blockquote:    the client's original question, word-for-word
+              - .qa-answer:    the explanation, one <h3> per sub-question
+         4. Optional blocks, include only when relevant:
+              - <aside class="qa-callout">: an important clarification
+              - <section class="qa-status">: current/expected behavior and
+                implementation status chips
+                  chip--done    = updated / implemented
+                  chip--proposed= proposed, not implemented (dashed border)
+                  chip--neutral = unchanged
+              - .wording-sample: a proposed on-screen text
+         The question index, numbering, and copy-link buttons are built
+         automatically from the entries. Nothing else needs editing.
+         ================================================================== -->
+
+    <article class="qa" id="q1-coupon-validation">
+      <header>
+        <p class="qa-meta">
+          <span class="qa-index">Question 1</span>
+          <span class="chip chip--cat">WooCommerce</span>
+          <time datetime="2026-11-19">19 November 2026</time>
+        </p>
+        <div class="qa-titlerow">
+          <h2 class="qa-title">WooCommerce Coupon Validation Message</h2>
+          <button class="copy-link" type="button" aria-label="Copy link to this question">Copy link</button>
+        </div>
+      </header>
+
+      <div class="qa-question">
+        <p class="qa-question-label">Client&rsquo;s original question</p>
+        <blockquote>&ldquo;<span lang="fi">Kirjoita kupongin koodi, ole hyv&auml;</span>&rdquo; appear, when haven&rsquo;t done anything with code. When this suppose to show up?</blockquote>
+      </div>
+
+      <div class="qa-answer">
+        <h3>What does this message mean?</h3>
+        <p>&ldquo;<span lang="fi">Kirjoita kupongin koodi, ole hyv&auml;</span>&rdquo; is the Finnish translation of WooCommerce&rsquo;s standard validation message: &ldquo;Please enter a coupon code.&rdquo;</p>
+        <p>This message comes from WooCommerce itself, not from our custom plugin.</p>
+
+        <h3>When should this message appear?</h3>
+        <p>Under WooCommerce&rsquo;s standard behavior, this message should appear only when someone submits the coupon form without entering a coupon code.</p>
+        <p>For example:</p>
+        <ul>
+          <li>The customer opens the coupon section.</li>
+          <li>They leave the coupon field empty.</li>
+          <li>They click the &ldquo;<span lang="fi">K&auml;yt&auml;</span>&rdquo; button or press Enter while the field is empty.</li>
+        </ul>
+        <p>WooCommerce then displays this validation message to explain that a coupon code must be entered first.</p>
+
+        <h3>Should it appear automatically?</h3>
+        <p>No. A normal page load should not trigger this validation message on its own.</p>
+        <p>The coupon validation is triggered when the coupon form is submitted. If the message appears without anyone submitting the form, that behavior should be investigated separately.</p>
+
+        <h3>How does our current coupon section work?</h3>
+        <p>We have also updated the coupon section&rsquo;s visibility:</p>
+        <ul>
+          <li>Initially, only &ldquo;<span lang="fi">Onko sinulla etukoodi?</span>&rdquo; is visible.</li>
+          <li>Clicking that text reveals the coupon input field and the &ldquo;<span lang="fi">K&auml;yt&auml;</span>&rdquo; button.</li>
+          <li>Clicking it again hides the coupon form.</li>
+          <li>The existing coupon success and error notifications remain functional.</li>
+        </ul>
+        <p>This visibility change does not modify WooCommerce&rsquo;s built-in validation message.</p>
+
+        <h3>Can we change the wording?</h3>
+        <p>Yes. If needed, we can customize the validation message to use a more natural Finnish sentence:</p>
+        <p class="wording-sample" lang="fi">Kirjoita ensin etukoodi kentt&auml;&auml;n.</p>
+        <p>Meaning: &ldquo;Please enter the coupon code in the field first.&rdquo;</p>
+        <p>This is an optional wording improvement, not an implemented change. The existing WooCommerce message remains unchanged unless we decide to customize it.</p>
+      </div>
+
+      <aside class="qa-callout" role="note">
+        <h3>Important clarification</h3>
+        <p>The coupon box visibility change and WooCommerce&rsquo;s coupon validation are two separate things.</p>
+        <p>Our plugin controls the coupon section&rsquo;s custom display behavior and wording elements. WooCommerce handles the built-in empty-coupon validation.</p>
+      </aside>
+
+      <section class="qa-status">
+        <h3>Implementation status</h3>
+        <ul>
+          <li>
+            <span>Coupon section visibility behavior</span>
+            <span class="chip chip--done">Updated</span>
+          </li>
+          <li>
+            <span>Custom Finnish validation wording</span>
+            <span class="chip chip--proposed">Proposed &mdash; not yet implemented</span>
+          </li>
+          <li>
+            <span>WooCommerce validation message</span>
+            <span class="chip chip--neutral">Unchanged</span>
+          </li>
+        </ul>
+      </section>
+    </article>
+
+    <!-- Next Q&A entry goes here (newest last). -->
+
+  </main>
+</div>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>Client Questions &amp; Answers. Documentation for the Parempi tasapaino website.</p>
+    <p>Updated as new questions arrive. Last updated <time datetime="2026-11-19">19 November 2026</time>.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  var entries = Array.prototype.slice.call(document.querySelectorAll('.qa'));
+
+  /* Build the question index from the entries on the page. */
+  var list = document.getElementById('qa-toc-list');
+  if (list) {
+    entries.forEach(function (entry, i) {
+      var title = entry.querySelector('.qa-title');
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = '#' + entry.id;
+      a.textContent = (i + 1) + '. ' + (title ? title.textContent.trim() : 'Question ' + (i + 1));
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+  }
+
+  /* Keep the documented-question count in the header accurate. */
+  var countEl = document.getElementById('qa-count');
+  if (countEl && entries.length) {
+    countEl.textContent = entries.length + (entries.length === 1 ? ' question' : ' questions') + ' documented';
+  }
+
+  /* Scroll spy: highlight the entry currently in view. */
+  var links = list ? Array.prototype.slice.call(list.querySelectorAll('a')) : [];
+  function setActive(id) {
+    links.forEach(function (a) {
+      var on = a.getAttribute('href') === '#' + id;
+      a.classList.toggle('is-active', on);
+      if (on) { a.setAttribute('aria-current', 'true'); } else { a.removeAttribute('aria-current'); }
+    });
+  }
+  if ('IntersectionObserver' in window) {
+    var spy = new IntersectionObserver(function (observed) {
+      observed.forEach(function (o) {
+        if (o.isIntersecting) { setActive(o.target.id); }
+      });
+    }, { rootMargin: '-15% 0px -65% 0px', threshold: 0 });
+    entries.forEach(function (e) { spy.observe(e); });
+  }
+
+  /* Copy-to-clipboard with a fallback for file:// and older contexts. */
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise(function (resolve, reject) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        if (document.execCommand('copy')) { resolve(); } else { reject(new Error('copy failed')); }
+      } catch (err) {
+        reject(err);
+      }
+      document.body.removeChild(ta);
+    });
+  }
+
+  function flashCopied(btn) {
+    if (!btn.dataset.label) { btn.dataset.label = btn.textContent; }
+    btn.classList.add('is-copied');
+    btn.textContent = 'Copied ✓';
+    clearTimeout(btn._resetTimer);
+    btn._resetTimer = setTimeout(function () {
+      btn.classList.remove('is-copied');
+      btn.textContent = btn.dataset.label;
+    }, 1800);
+  }
+
+  function flashFailed(btn) {
+    if (!btn.dataset.label) { btn.dataset.label = btn.textContent; }
+    btn.textContent = 'Copy failed';
+    clearTimeout(btn._resetTimer);
+    btn._resetTimer = setTimeout(function () {
+      btn.textContent = btn.dataset.label;
+    }, 1800);
+  }
+
+  function bindCopy(btn, textFor) {
+    btn.addEventListener('click', function () {
+      copyText(textFor()).then(
+        function () { flashCopied(btn); },
+        function () { flashFailed(btn); }
+      );
+    });
+  }
+
+  var baseUrl = location.href.split('#')[0];
+
+  document.querySelectorAll('.copy-link').forEach(function (btn) {
+    var entry = btn.closest('.qa');
+    var id = entry ? entry.id : '';
+    bindCopy(btn, function () { return baseUrl + '#' + id; });
+  });
+
+  var pageLinkBtn = document.getElementById('copy-page-link');
+  if (pageLinkBtn) { bindCopy(pageLinkBtn, function () { return baseUrl; }); }
+
+  var printBtn = document.getElementById('print-page');
+  if (printBtn) {
+    printBtn.addEventListener('click', function () { window.print(); });
+  }
+})();
+</script>
+
+</body>
+</html>
