@@ -3866,6 +3866,78 @@
 
     <!-- Next Q&A entry goes here (newest last). -->
 
+    <article class="qa" id="q3-payment-failed-notice">
+      <header>
+        <p class="qa-meta">
+          <span class="qa-index">Question 3</span>
+          <span class="chip chip--cat">WooCommerce</span>
+          <time datetime="2026-11-19">19 November 2026</time>
+        </p>
+        <div class="qa-titlerow">
+          <h2 class="qa-title">Payment Cancelled or Failed Notice on the Product Page</h2>
+          <button class="copy-link" type="button" aria-label="Copy link to this question">Copy link</button>
+        </div>
+      </header>
+
+      <div class="qa-question">
+        <p class="qa-question-label">Client&rsquo;s original question</p>
+        <blockquote>&ldquo;Where can I change this error message? <span lang="fi">Maksu peruutettiin tai ep&auml;onnistui, joten tilausta ei ole kirjattu. Voit yritt&auml;&auml; uudelleen alla.</span>&rdquo;</blockquote>
+      </div>
+
+      <div class="qa-answer">
+        <h3>When is this message shown?</h3>
+        <p>The notice appears when a customer cancels the payment at the bank or payment window, or when the payment fails, and is returned to the online store.</p>
+        <p>The store then:</p>
+        <ul>
+          <li>Redirects the customer back to the course product page instead of the order-received page.</li>
+          <li>Shows this notice above the product, so trying again takes one click.</li>
+        </ul>
+        <p>No paid order is recorded, the course is not activated, and the customer is not charged.</p>
+
+        <h3>Can this text be edited in the WordPress dashboard?</h3>
+        <p>No. This exact notice is a fixed text in the course plugin&rsquo;s code, so it does not appear in any dashboard editor. Changing its wording requires a small code change, which we would then deploy to the live site.</p>
+
+        <h3>The similar text that IS editable</h3>
+        <p>The dashboard also contains a related text with similar wording: &ldquo;<span lang="fi">Maksua ei ole suoritettu</span>&rdquo;, whose body reads &ldquo;<span lang="fi">Maksu peruutettiin tai ep&auml;onnistui, joten tilausta ei ole kirjattu eik&auml; kurssimateriaalia ole l&auml;hetetty. Sinulta ei veloiteta mit&auml;&auml;n.</span>&rdquo;</p>
+        <p>That text belongs to the failed-order card shown in the order confirmation flow, and it can be edited without any code changes:</p>
+        <ul>
+          <li>Log in to the WordPress admin.</li>
+          <li>Open <strong>Messages &rarr; Purchase Messages</strong>.</li>
+          <li>Edit the <strong>&ldquo;Failed order &mdash; payment not received&rdquo;</strong> card.</li>
+        </ul>
+
+        <h3>Summary</h3>
+        <ul>
+          <li><strong>Notice above the product</strong> (this question): fixed in the plugin code &mdash; changing it needs a code update.</li>
+          <li><strong>Failed-order card</strong> after checkout: editable in the dashboard under Messages &rarr; Purchase Messages.</li>
+        </ul>
+        <p>If you would like different wording for the product-page notice, send us the preferred sentence and we will make the change and deploy it.</p>
+      </div>
+
+      <aside class="qa-callout" role="note">
+        <h3>Important clarification</h3>
+        <p>The two texts look alike but live in different places. Editing the dashboard card never changes the notice shown above the product, and vice versa.</p>
+      </aside>
+
+      <section class="qa-status">
+        <h3>Implementation status</h3>
+        <ul>
+          <li>
+            <span>Failed-order card text (dashboard)</span>
+            <span class="chip chip--done">Editable in the dashboard</span>
+          </li>
+          <li>
+            <span>Product-page notice text</span>
+            <span class="chip chip--neutral">Fixed in the plugin code &mdash; unchanged</span>
+          </li>
+          <li>
+            <span>Custom wording for the product-page notice</span>
+            <span class="chip chip--proposed">Proposed &mdash; on request</span>
+          </li>
+        </ul>
+      </section>
+    </article>
+
   </main>
 </div>
 
