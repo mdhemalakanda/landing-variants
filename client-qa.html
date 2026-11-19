@@ -766,6 +766,43 @@
           <li>The <strong>completed-order body is already customized in Finnish</strong> (the course-material instructions), set up in code earlier.</li>
           <li>The admin&rsquo;s new-order email also contains PixelYourSite tracking data below the order details.</li>
         </ul>
+
+        <h3>Do we have ALL messages, notifications and emails under Messages and WooCommerce?</h3>
+        <p>Yes for everything customers and admins receive about orders and the course. The site keeps customer-facing texts in two admin homes &mdash; the site&rsquo;s own <strong>Messages</strong> menu and <strong>WooCommerce &rarr; Settings &rarr; Emails</strong> &mdash; plus a short list of fixed interface strings.</p>
+
+        <h3>What is managed under Messages?</h3>
+        <ul>
+          <li><strong>Messages &rarr; Emails</strong> &mdash; all 14 course and admin emails: the welcome email with password setup (including the returning-customer variant), the continuation round invite, both expiry notices, the round 2/3/4 reminders, &ldquo;<span lang="fi">Harjoituksesi ovat valmiina</span>&rdquo;, and five admin notifications. It also holds the three text fields of the Epassi/Edenred on-hold email, even though WooCommerce sends that email.</li>
+          <li><strong>Messages &rarr; Notifications</strong> &mdash; the after-round notices shown in the tests area (one per round, following Test Management), the continuation-required message, and the all-tests-done messages.</li>
+          <li><strong>Messages &rarr; Purchase Messages</strong> &mdash; the four thank-you / payment-pending / payment-failed cards shown after checkout.</li>
+        </ul>
+
+        <h3>What is managed under WooCommerce?</h3>
+        <p>The 17 order emails published in the review list on this page. They are edited under <strong>WooCommerce &rarr; Settings &rarr; Emails</strong> and rendered in the site&rsquo;s brand by the Kadence email-designer plugin.</p>
+        <ul>
+          <li><strong>Admin receives:</strong> new order (to jani@selkakuntoutus.fi), order cancelled, payment failed.</li>
+          <li><strong>Switched off on purpose:</strong> the processing-order confirmation and the new-account email &mdash; the course&rsquo;s own welcome email replaces them.</li>
+          <li><strong>At WooCommerce defaults:</strong> completed order, invoice, on-hold, refunded, password reset.</li>
+        </ul>
+
+        <h3>What sits outside both?</h3>
+        <ul>
+          <li>The <strong>contact-form notification</strong> (the form on the <span lang="fi">Yhteys</span> page) &mdash; managed in Fluent Forms&rsquo; own settings; it goes to jani@selkakuntoutus.fi. The Messages &rarr; Emails page lists it with a direct link.</li>
+          <li>The <strong>password-reset email</strong> &mdash; standard WordPress text.</li>
+          <li><strong>System notices</strong> (password changed, payment gateway enabled) and security-log digest emails.</li>
+        </ul>
+        <p>None of these are order or course messages, so nothing the customer needs is missing from the two admin homes.</p>
+
+        <h3>Fixed interface texts (part of the code)</h3>
+        <p>A small set of on-screen strings are written in the site&rsquo;s code rather than in any admin page:</p>
+        <ul>
+          <li>the sidebar countdown, &ldquo;<span lang="fi">Kurssia on jäljellä X päivää</span>&rdquo;;</li>
+          <li>the continuation banner, &ldquo;<span lang="fi">Haluatko jatkaa verkkokurssia kuukauden ajan?</span>&rdquo;, with its <span lang="fi">Kyllä</span>/<span lang="fi">Ei</span> buttons and the <span lang="fi">Jatka kurssia</span> checkout button;</li>
+          <li>login-page error and 2FA labels, consent-modal texts, and form validation messages;</li>
+          <li>checkout strings, &ldquo;<span lang="fi">Siirry maksamaan</span>&rdquo; and <span lang="fi">Etukoodi</span> texts;</li>
+          <li>one English leftover, &ldquo;Please fill the question first!&rdquo;, shown in the tests area.</li>
+        </ul>
+        <p>Any of these can be reworded in code on request, or made editable in the Messages menu if wanted.</p>
       </div>
 
             <section class="email-review" aria-label="Current email texts for review">
@@ -3859,6 +3896,10 @@
           <li>
             <span>Applying improved texts (admin fields &amp; code)</span>
             <span class="chip chip--proposed">Proposed &mdash; waiting for the above</span>
+          </li>
+          <li>
+            <span>Every message location mapped (Messages menu, WooCommerce, code)</span>
+            <span class="chip chip--done">Done</span>
           </li>
         </ul>
       </section>
